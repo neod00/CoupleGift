@@ -18,20 +18,31 @@ function App() {
     setCurrentFormData(formData);
     
     try {
-      // 개발 환경에서는 더미 데이터 사용, 프로덕션에서는 실제 GPT API 사용
-      const isDevelopment = !process.env.REACT_APP_OPENAI_API_KEY;
+      // 항상 실제 API 호출을 시도하고, 실패 시에만 더미 데이터 사용
+      console.log('🚀 API 호출 시작...');
       
-      const response = isDevelopment 
-        ? await getDummyRecommendations(formData)
-        : await getGiftRecommendations(formData);
+      const response = await getGiftRecommendations(formData);
       
       if (response.success) {
         setRecommendations(response.recommendations);
+        console.log('✅ API 호출 성공:', response.recommendations.length, '개 추천');
       } else {
-        setError(response.error || '추천을 받아오는 중 오류가 발생했습니다.');
+        console.warn('⚠️ API 호출 실패, 더미 데이터 사용:', response.error);
+        // API 호출 실패 시 더미 데이터 사용
+        const dummyResponse = await getDummyRecommendations(formData);
+        setRecommendations(dummyResponse.recommendations);
+        setError('API 호출에 실패했습니다. 샘플 데이터를 표시합니다.');
       }
     } catch (err) {
-      setError('추천을 받아오는 중 오류가 발생했습니다. 다시 시도해주세요.');
+      console.error('💥 전체 호출 실패:', err);
+      try {
+        // 완전 실패 시 더미 데이터 사용
+        const dummyResponse = await getDummyRecommendations(formData);
+        setRecommendations(dummyResponse.recommendations);
+        setError('서버 연결에 문제가 있습니다. 샘플 데이터를 표시합니다.');
+      } catch (dummyErr) {
+        setError('추천을 받아오는 중 오류가 발생했습니다. 다시 시도해주세요.');
+      }
     } finally {
       setLoading(false);
     }
@@ -44,19 +55,28 @@ function App() {
     setError(null);
     
     try {
-      const isDevelopment = !process.env.REACT_APP_OPENAI_API_KEY;
+      console.log('🔄 재추천 시작...');
       
-      const response = isDevelopment 
-        ? await getDummyRecommendations(currentFormData)
-        : await getGiftRecommendations(currentFormData);
+      const response = await getGiftRecommendations(currentFormData);
       
       if (response.success) {
         setRecommendations(response.recommendations);
+        console.log('✅ 재추천 성공:', response.recommendations.length, '개 추천');
       } else {
-        setError(response.error || '추천을 받아오는 중 오류가 발생했습니다.');
+        console.warn('⚠️ 재추천 실패, 더미 데이터 사용:', response.error);
+        const dummyResponse = await getDummyRecommendations(currentFormData);
+        setRecommendations(dummyResponse.recommendations);
+        setError('API 호출에 실패했습니다. 샘플 데이터를 표시합니다.');
       }
     } catch (err) {
-      setError('추천을 받아오는 중 오류가 발생했습니다. 다시 시도해주세요.');
+      console.error('💥 재추천 실패:', err);
+      try {
+        const dummyResponse = await getDummyRecommendations(currentFormData);
+        setRecommendations(dummyResponse.recommendations);
+        setError('서버 연결에 문제가 있습니다. 샘플 데이터를 표시합니다.');
+      } catch (dummyErr) {
+        setError('추천을 받아오는 중 오류가 발생했습니다. 다시 시도해주세요.');
+      }
     } finally {
       setLoading(false);
     }
@@ -104,7 +124,7 @@ function App() {
         <div className="max-w-4xl mx-auto">
           {!loading && recommendations.length === 0 && (
             <div className="fade-in">
-              <GiftForm onSubmit={handleFormSubmit} />
+              <GiftForm onSubmit={handleFormSubmit} isLoading={loading} />
             </div>
           )}
           

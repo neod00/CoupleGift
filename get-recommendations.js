@@ -1,18 +1,44 @@
 // netlify/functions/get-recommendations.js
 
 exports.handler = async function (event, context) {
+  // CORS 헤더 설정
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+    'Access-Control-Max-Age': '86400'
+  };
+
+  // OPTIONS 요청 (프리플라이트) 처리
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: corsHeaders,
+      body: ''
+    };
+  }
+
   // POST 요청만 허용
   if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, body: 'Method Not Allowed' };
+    return { 
+      statusCode: 405, 
+      headers: corsHeaders,
+      body: JSON.stringify({ error: 'Method Not Allowed' })
+    };
   }
 
   try {
     const formData = JSON.parse(event.body);
-    const API_KEY = process.env.REACT_APP_OPENAI_API_KEY; // Netlify 환경변수에서 읽기
+    
+    // 서버 환경변수 우선, 클라이언트 환경변수 폴백
+    const API_KEY = process.env.OPENAI_API_KEY || process.env.REACT_APP_OPENAI_API_KEY;
 
     if (!API_KEY) {
+      console.error('❌ API Key not found. Checked: OPENAI_API_KEY, REACT_APP_OPENAI_API_KEY');
       throw new Error('OpenAI API 키가 서버에 설정되지 않았습니다.');
     }
+
+    console.log('✅ OpenAI API Key found:', API_KEY.substring(0, 10) + '...');
     
     const prompt = `
 당신은 커플 기념일 선물 추천 전문가입니다. 다음 정보를 바탕으로 3-4개의 선물을 추천해주세요.
@@ -48,6 +74,8 @@ exports.handler = async function (event, context) {
 - JSON 형식을 정확히 지켜주세요
 `;
 
+    console.log('🚀 OpenAI API 호출 시작...');
+    
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -73,12 +101,14 @@ exports.handler = async function (event, context) {
 
     if (!response.ok) {
       const errorData = await response.text();
-      console.error('OpenAI API Error:', errorData);
-      throw new Error(`OpenAI API 요청 실패: ${response.status}`);
+      console.error('❌ OpenAI API Error:', errorData);
+      throw new Error(`OpenAI API 요청 실패: ${response.status} - ${response.statusText}`);
     }
 
     const data = await response.json();
     const gptResponse = data.choices[0].message.content;
+    
+    console.log('✅ OpenAI API 응답 받음:', gptResponse.substring(0, 100) + '...');
 
     // OpenAI 응답을 JSON으로 파싱하여 검증
     try {
@@ -86,27 +116,36 @@ exports.handler = async function (event, context) {
       
       // 응답이 올바른 형식인지 확인
       if (parsedResponse.recommendations && Array.isArray(parsedResponse.recommendations)) {
+        console.log('✅ 응답 파싱 성공:', parsedResponse.recommendations.length, '개 추천');
         return {
           statusCode: 200,
           body: JSON.stringify(parsedResponse),
           headers: {
-            'Content-Type': 'application/json; charset=utf-8'
+            'Content-Type': 'application/json; charset=utf-8',
+            ...corsHeaders
           }
         };
       } else {
         throw new Error('OpenAI 응답 형식이 올바르지 않습니다.');
       }
     } catch (parseError) {
-      console.error('OpenAI 응답 파싱 오류:', parseError);
+      console.error('❌ OpenAI 응답 파싱 오류:', parseError);
       console.error('원본 응답:', gptResponse);
       throw new Error('OpenAI 응답을 파싱할 수 없습니다.');
     }
 
   } catch (error) {
-    console.error('Netlify Function Error:', error);
+    console.error('❌ Netlify Function Error:', error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: error.message })
+      body: JSON.stringify({ 
+        error: error.message,
+        details: 'Netlify 함수에서 오류가 발생했습니다.'
+      }),
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        ...corsHeaders
+      }
     };
   }
 }; 

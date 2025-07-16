@@ -3,9 +3,32 @@ import { GiftFormData } from '../types/gift';
 
 interface GiftFormProps {
   onSubmit: (formData: GiftFormData) => void;
+  isLoading?: boolean;
 }
 
-const GiftForm: React.FC<GiftFormProps> = ({ onSubmit }) => {
+const GiftForm: React.FC<GiftFormProps> = ({ onSubmit, isLoading }) => {
+  // 환경 변수 디버깅 정보 추가
+  React.useEffect(() => {
+    const hasOpenAIKey = !!process.env.REACT_APP_OPENAI_API_KEY;
+    const hasCoupangPartnerId = !!process.env.REACT_APP_COUPANG_PARTNER_ID;
+    const hasAdSenseId = !!process.env.REACT_APP_ADSENSE_PUBLISHER_ID;
+    
+    console.log('🔍 환경 변수 상태 확인:', {
+      openAIKey: hasOpenAIKey ? '✅ 설정됨' : '❌ 없음',
+      coupangPartnerId: hasCoupangPartnerId ? '✅ 설정됨' : '⚠️ 없음 (일반 링크 사용)',
+      adSenseId: hasAdSenseId ? '✅ 설정됨' : '⚠️ 없음 (광고 비활성화)',
+      nodeEnv: process.env.NODE_ENV || 'development'
+    });
+    
+    if (!hasOpenAIKey) {
+      console.warn('⚠️ OpenAI API 키가 설정되지 않았습니다. 더미 데이터가 표시될 수 있습니다.');
+    }
+    
+    if (!hasCoupangPartnerId) {
+      console.info('💡 쿠팡 파트너스 ID가 설정되지 않았습니다. 일반 쿠팡 검색 링크를 사용합니다.');
+    }
+  }, []);
+
   const [formData, setFormData] = useState<GiftFormData>({
     gender: 'female',
     age: 25,
