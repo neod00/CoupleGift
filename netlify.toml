@@ -5,33 +5,8 @@
 [build.environment]
   NODE_VERSION = "18"
 
-# 정적 파일들은 리디렉션하지 않음
-[[redirects]]
-  from = "/manifest.json"
-  to = "/manifest.json"
-  status = 200
-
-[[redirects]]
-  from = "/favicon.ico"
-  to = "/favicon.ico"
-  status = 200
-
-[[redirects]]
-  from = "/logo192.png"
-  to = "/logo192.png"
-  status = 200
-
-[[redirects]]
-  from = "/logo512.png"
-  to = "/logo512.png"
-  status = 200
-
-[[redirects]]
-  from = "/static/*"
-  to = "/static/:splat"
-  status = 200
-
-# SPA 라우팅을 위한 catch-all 리디렉션 (가장 마지막에 위치)
+# Single Page App(SPA)를 위한 리디렉션 규칙
+# 파일 시스템에 해당 경로의 파일이 없는 경우에만 /index.html로 리디렉션합니다.
 [[redirects]]
   from = "/*"
   to = "/index.html"
