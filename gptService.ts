@@ -1,115 +1,49 @@
 import { GiftFormData, GiftRecommendation, GPTResponse } from '../types/gift';
 
-const API_URL = 'https://api.openai.com/v1/chat/completions';
-const API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
+// API 호출을 Netlify Function으로 변경
+const API_FUNCTION_URL = '/.netlify/functions/get-recommendations';
 
 export const getGiftRecommendations = async (formData: GiftFormData): Promise<GPTResponse> => {
-  console.log('🚀 getGiftRecommendations 시작:', {
-    hasApiKey: !!API_KEY,
-    apiKeyPrefix: API_KEY ? API_KEY.substring(0, 10) + '...' : '없음',
+  console.log('🚀 Netlify Function 호출 시작:', {
+    url: API_FUNCTION_URL,
     environment: process.env.NODE_ENV
   });
 
-  if (!API_KEY) {
-    console.warn('⚠️ OpenAI API 키가 없습니다. 더미 데이터를 사용합니다.');
-    return getDummyRecommendations(formData);
-  }
-
-  const prompt = `
-당신은 커플 기념일 선물 추천 전문가입니다. 다음 정보를 바탕으로 3-4개의 선물을 추천해주세요.
-
-상대방 정보:
-- 성별: ${formData.gender === 'male' ? '남성' : '여성'}
-- 나이: ${formData.age}세
-- 성격/취향: ${formData.personality}
-- 기념일: ${formData.occasionType}
-- 예산: ${formData.minBudget.toLocaleString()}원 ~ ${formData.maxBudget.toLocaleString()}원
-- 선호 카테고리: ${formData.category || '전체'}
-- 추가 정보: ${formData.additionalInfo || '없음'}
-
-다음 JSON 형식으로 정확히 답변해주세요:
-{
-  "recommendations": [
-    {
-      "id": "1",
-      "title": "선물 이름",
-      "description": "선물에 대한 간단한 설명 (50자 이내)",
-      "price": "예상 가격 (예: 59,000원)",
-      "category": "카테고리",
-      "searchKeyword": "쿠팡 검색용 키워드 (구체적이고 간단하게)"
-    }
-  ]
-}
-
-주의사항:
-- 예산 범위 내의 현실적인 가격으로 추천
-- 성별, 나이, 성격을 고려한 맞춤형 추천
-- 기념일 특성에 맞는 의미있는 선물 제안
-- searchKeyword는 쿠팡에서 실제 검색 가능한 단순한 키워드로 작성 (예: "커플 목걸이", "무선 이어폰", "향수")
-- JSON 형식을 정확히 지켜주세요
-`;
-
   try {
-    console.log('🤖 GPT API 호출 시작...');
-
-    const response = await fetch(API_URL, {
+    const response = await fetch(API_FUNCTION_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${API_KEY}`
       },
-      body: JSON.stringify({
-        model: 'gpt-4o-mini',
-        messages: [
-          {
-            role: 'system',
-            content: '당신은 커플 기념일 선물 추천 전문가입니다. 사용자의 요구사항을 분석하여 최적의 선물을 JSON 형식으로 추천해주세요.'
-          },
-          {
-            role: 'user',
-            content: prompt
-          }
-        ],
-        max_tokens: 1000,
-        temperature: 0.7
-      })
+      body: JSON.stringify(formData)
     });
 
-    console.log('📡 GPT API 응답 상태:', {
+    console.log('📡 Netlify Function 응답 상태:', {
       status: response.status,
       statusText: response.statusText,
       ok: response.ok
     });
 
     if (!response.ok) {
-      const errorData = await response.text();
-      console.error('❌ GPT API 오류:', {
-        status: response.status,
-        statusText: response.statusText,
-        errorData: errorData
-      });
-      
-      // API 오류 시 더미 데이터 사용
-      console.log('🔄 API 오류로 인해 더미 데이터를 사용합니다.');
-      return getDummyRecommendations(formData);
+      const errorData = await response.json().catch(() => response.text());
+      console.error('❌ Netlify Function 오류:', errorData);
+      throw new Error('서버에서 추천을 받아오는 중 오류가 발생했습니다.');
     }
 
-    const data = await response.json();
-    console.log('✅ GPT API 성공적 응답 받음');
+    let parsedResponse;
+    try {
+      parsedResponse = await response.json();
+    } catch (error) {
+      console.error('❌ 응답 JSON 파싱 오류:', error);
+      throw new Error('서버 응답을 파싱할 수 없습니다.');
+    }
     
-    const gptResponse = data.choices[0].message.content;
-    console.log('📝 GPT 응답 내용:', gptResponse);
+    console.log('✅ 서버로부터 성공적인 응답 받음:', parsedResponse);
     
-    // JSON 파싱
-    const parsedResponse = JSON.parse(gptResponse);
-    console.log('🔄 파싱된 응답:', parsedResponse);
-    
-    // 각 추천 상품에 대해 쿠팡 검색 링크 생성
+    // 각 추천 상품에 대해 쿠팡 검색 링크 및 이미지 생성
     const recommendationsWithLinks = parsedResponse.recommendations.map((rec: any, index: number) => {
       const searchKeyword = rec.searchKeyword || rec.title;
       const coupangUrl = generateCoupangSearchLink(searchKeyword);
-      
-      // 더 안정적인 이미지 소스 사용
       const imageUrl = getStableImageUrl(rec.category);
       
       console.log(`🔍 추천 ${index + 1}:`, {
@@ -137,11 +71,14 @@ export const getGiftRecommendations = async (formData: GiftFormData): Promise<GP
       success: true
     };
   } catch (error) {
-    console.error('💥 GPT API 전체 오류:', error);
+    console.error('💥 전체 API 호출 오류:', error);
     
-    // 오류 발생 시 더미 데이터 사용
-    console.log('🔄 오류로 인해 더미 데이터를 사용합니다.');
-    return getDummyRecommendations(formData);
+    // 오류 발생 시 사용자에게 보여줄 메시지와 함께 실패 응답 반환
+    return {
+      recommendations: [],
+      success: false,
+      error: error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다.'
+    };
   }
 };
 
@@ -164,40 +101,28 @@ const getStableImageUrl = (category: string): string => {
 
 // 쿠팡 파트너스 검색 링크 생성 함수
 const generateCoupangSearchLink = (keyword: string): string => {
+  // 이제 이 함수는 서버가 아닌 클라이언트에서만 실행되므로, 
+  // COUPANG_PARTNER_ID도 REACT_APP_ 접두사를 사용해야 합니다.
   const partnerId = process.env.REACT_APP_COUPANG_PARTNER_ID || '';
   const encodedKeyword = encodeURIComponent(keyword);
   
-  console.log(`🔗 링크 생성:`, {
-    keyword: keyword,
-    partnerId: partnerId ? `${partnerId.substring(0, 10)}...` : '없음',
-    encodedKeyword: encodedKeyword
-  });
-  
   if (partnerId) {
-    // 파트너 ID가 있으면 파트너스 링크 생성
-    const partnerLink = `https://link.coupang.com/a/${partnerId}?url=https%3A%2F%2Fwww.coupang.com%2Fnp%2Fsearch%3Fq%3D${encodedKeyword}`;
-    console.log(`✅ 파트너스 링크:`, partnerLink);
-    return partnerLink;
+    return `https://link.coupang.com/a/${partnerId}?url=https%3A%2F%2Fwww.coupang.com%2Fnp%2Fsearch%3Fq%3D${encodedKeyword}`;
   } else {
-    // 파트너 ID가 없으면 일반 검색 링크 생성
-    const searchLink = `https://www.coupang.com/np/search?q=${encodedKeyword}`;
-    console.log(`✅ 일반 검색 링크:`, searchLink);
-    return searchLink;
+    return `https://www.coupang.com/np/search?q=${encodedKeyword}`;
   }
 };
 
-// 더미 데이터 생성 함수 (개발/테스트용)
+// 더미 데이터 생성 함수 (개발/테스트 및 폴백용)
 export const getDummyRecommendations = async (formData: GiftFormData): Promise<GPTResponse> => {
   console.log('🎭 더미 데이터 생성 중...');
-  
-  // 실제 개발 시에는 이 함수를 사용하여 API 호출 없이 테스트 가능
-  await new Promise(resolve => setTimeout(resolve, 2000)); // 2초 대기
+  await new Promise(resolve => setTimeout(resolve, 1500)); 
 
   const dummyRecommendations: GiftRecommendation[] = [
     {
       id: '1',
-      title: '커플 목걸이 세트',
-      description: '서로의 이름이 새겨진 특별한 커플 목걸이',
+      title: '커플 목걸이 세트 (더미)',
+      description: '이 데이터는 API 호출 실패 시 표시되는 예시입니다.',
       price: '59,000원',
       imageUrl: getStableImageUrl('액세서리'),
       coupangUrl: generateCoupangSearchLink('커플 목걸이'),
@@ -207,8 +132,8 @@ export const getDummyRecommendations = async (formData: GiftFormData): Promise<G
     },
     {
       id: '2',
-      title: '프리미엄 향수 선물세트',
-      description: '은은한 향이 매력적인 프리미엄 향수',
+      title: '프리미엄 향수 (더미)',
+      description: '서버에 API 키를 올바르게 설정했는지 확인해주세요.',
       price: '89,000원',
       imageUrl: getStableImageUrl('향수'),
       coupangUrl: generateCoupangSearchLink('향수 선물세트'),
@@ -216,20 +141,9 @@ export const getDummyRecommendations = async (formData: GiftFormData): Promise<G
       rating: 4.2,
       reviewCount: 89
     },
-    {
-      id: '3',
-      title: '무선 이어폰',
-      description: '음질이 뛰어난 프리미엄 무선 이어폰',
-      price: '79,000원',
-      imageUrl: getStableImageUrl('IT기기'),
-      coupangUrl: generateCoupangSearchLink('무선 이어폰'),
-      category: 'IT기기',
-      rating: 4.7,
-      reviewCount: 256
-    }
   ];
 
-  console.log('✅ 더미 데이터 생성 완료:', dummyRecommendations.length + '개');
+  console.log('✅ 더미 데이터 생성 완료');
 
   return {
     recommendations: dummyRecommendations,
