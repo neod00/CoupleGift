@@ -28,6 +28,11 @@ exports.handler = async function (event, context) {
   }
 
   try {
+    console.log('🔍 환경변수 디버깅 시작...');
+    console.log('- OPENAI_API_KEY 존재:', !!process.env.OPENAI_API_KEY);
+    console.log('- REACT_APP_OPENAI_API_KEY 존재:', !!process.env.REACT_APP_OPENAI_API_KEY);
+    console.log('- 전체 환경변수 키들:', Object.keys(process.env).filter(key => key.includes('OPENAI')));
+    
     const formData = JSON.parse(event.body);
     
     // 서버 환경변수 우선, 클라이언트 환경변수 폴백
@@ -35,10 +40,12 @@ exports.handler = async function (event, context) {
 
     if (!API_KEY) {
       console.error('❌ API Key not found. Checked: OPENAI_API_KEY, REACT_APP_OPENAI_API_KEY');
+      console.error('환경변수 전체 목록:', Object.keys(process.env));
       throw new Error('OpenAI API 키가 서버에 설정되지 않았습니다.');
     }
 
     console.log('✅ OpenAI API Key found:', API_KEY.substring(0, 10) + '...');
+    console.log('🔄 API 키 유효성 검사: 길이 =', API_KEY.length, 'sk-로 시작:', API_KEY.startsWith('sk-'));
     
     const prompt = `
 당신은 커플 기념일 선물 추천 전문가입니다. 다음 정보를 바탕으로 3-4개의 선물을 추천해주세요.
@@ -75,6 +82,31 @@ exports.handler = async function (event, context) {
 `;
 
     console.log('🚀 OpenAI API 호출 시작...');
+    console.log('📋 요청 데이터:', {
+      model: 'gpt-4o-mini',
+      max_tokens: 1000,
+      temperature: 0.7,
+      messages_count: 2
+    });
+    
+    const requestBody = {
+      model: 'gpt-4o-mini',
+      messages: [
+        {
+          role: 'system',
+          content: '당신은 커플 기념일 선물 추천 전문가입니다. 사용자의 요구사항을 분석하여 최적의 선물을 JSON 형식으로 추천해주세요.'
+        },
+        {
+          role: 'user',
+          content: prompt
+        }
+      ],
+      max_tokens: 1000,
+      temperature: 0.7
+    };
+    
+    console.log('📡 fetch 요청 시작...');
+    const startTime = Date.now();
     
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
@@ -82,27 +114,19 @@ exports.handler = async function (event, context) {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${API_KEY}`
       },
-      body: JSON.stringify({
-        model: 'gpt-4o-mini',
-        messages: [
-          {
-            role: 'system',
-            content: '당신은 커플 기념일 선물 추천 전문가입니다. 사용자의 요구사항을 분석하여 최적의 선물을 JSON 형식으로 추천해주세요.'
-          },
-          {
-            role: 'user',
-            content: prompt
-          }
-        ],
-        max_tokens: 1000,
-        temperature: 0.7
-      })
+      body: JSON.stringify(requestBody)
     });
+
+    const endTime = Date.now();
+    console.log(`⏱️ API 호출 소요 시간: ${endTime - startTime}ms`);
 
     if (!response.ok) {
       const errorData = await response.text();
-      console.error('❌ OpenAI API Error:', errorData);
-      throw new Error(`OpenAI API 요청 실패: ${response.status} - ${response.statusText}`);
+      console.error('❌ OpenAI API Error Status:', response.status);
+      console.error('❌ OpenAI API Error StatusText:', response.statusText);
+      console.error('❌ OpenAI API Error Headers:', Object.fromEntries(response.headers.entries()));
+      console.error('❌ OpenAI API Error Body:', errorData);
+      throw new Error(`OpenAI API 요청 실패: ${response.status} - ${response.statusText} - ${errorData}`);
     }
 
     const data = await response.json();
@@ -136,11 +160,27 @@ exports.handler = async function (event, context) {
 
   } catch (error) {
     console.error('❌ Netlify Function Error:', error);
+    console.error('❌ Error Type:', error.constructor.name);
+    console.error('❌ Error Message:', error.message);
+    console.error('❌ Error Stack:', error.stack);
+    
+    // 네트워크 오류인지 확인
+    if (error.message.includes('fetch')) {
+      console.error('🌐 네트워크 오류로 추정됩니다.');
+    }
+    
+    // API 키 오류인지 확인
+    if (error.message.includes('401') || error.message.includes('unauthorized')) {
+      console.error('🔑 API 키 인증 오류로 추정됩니다.');
+    }
+    
     return {
       statusCode: 500,
       body: JSON.stringify({ 
         error: error.message,
-        details: 'Netlify 함수에서 오류가 발생했습니다.'
+        details: 'Netlify 함수에서 오류가 발생했습니다.',
+        errorType: error.constructor.name,
+        timestamp: new Date().toISOString()
       }),
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
