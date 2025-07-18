@@ -18,20 +18,31 @@ function App() {
     setCurrentFormData(formData);
     
     try {
-      // 개발 환경에서는 더미 데이터 사용, 프로덕션에서는 실제 GPT API 사용
-      const isDevelopment = !process.env.REACT_APP_OPENAI_API_KEY;
+      // 항상 실제 API 호출을 시도하고, 실패 시에만 더미 데이터 사용
+      console.log('🚀 API 호출 시작...');
       
-      const response = isDevelopment 
-        ? await getDummyRecommendations(formData)
-        : await getGiftRecommendations(formData);
+      const response = await getGiftRecommendations(formData);
       
       if (response.success) {
         setRecommendations(response.recommendations);
+        console.log('✅ API 호출 성공:', response.recommendations.length, '개 추천');
       } else {
-        setError(response.error || '추천을 받아오는 중 오류가 발생했습니다.');
+        console.warn('⚠️ API 호출 실패, 더미 데이터 사용:', response.error);
+        // API 호출 실패 시 더미 데이터 사용
+        const dummyResponse = await getDummyRecommendations(formData);
+        setRecommendations(dummyResponse.recommendations);
+        setError('API 호출에 실패했습니다. 샘플 데이터를 표시합니다.');
       }
     } catch (err) {
-      setError('추천을 받아오는 중 오류가 발생했습니다. 다시 시도해주세요.');
+      console.error('💥 전체 호출 실패:', err);
+      try {
+        // 완전 실패 시 더미 데이터 사용
+        const dummyResponse = await getDummyRecommendations(formData);
+        setRecommendations(dummyResponse.recommendations);
+        setError('서버 연결에 문제가 있습니다. 샘플 데이터를 표시합니다.');
+      } catch (dummyErr) {
+        setError('추천을 받아오는 중 오류가 발생했습니다. 다시 시도해주세요.');
+      }
     } finally {
       setLoading(false);
     }
@@ -44,19 +55,28 @@ function App() {
     setError(null);
     
     try {
-      const isDevelopment = !process.env.REACT_APP_OPENAI_API_KEY;
+      console.log('🔄 재추천 시작...');
       
-      const response = isDevelopment 
-        ? await getDummyRecommendations(currentFormData)
-        : await getGiftRecommendations(currentFormData);
+      const response = await getGiftRecommendations(currentFormData);
       
       if (response.success) {
         setRecommendations(response.recommendations);
+        console.log('✅ 재추천 성공:', response.recommendations.length, '개 추천');
       } else {
-        setError(response.error || '추천을 받아오는 중 오류가 발생했습니다.');
+        console.warn('⚠️ 재추천 실패, 더미 데이터 사용:', response.error);
+        const dummyResponse = await getDummyRecommendations(currentFormData);
+        setRecommendations(dummyResponse.recommendations);
+        setError('API 호출에 실패했습니다. 샘플 데이터를 표시합니다.');
       }
     } catch (err) {
-      setError('추천을 받아오는 중 오류가 발생했습니다. 다시 시도해주세요.');
+      console.error('💥 재추천 실패:', err);
+      try {
+        const dummyResponse = await getDummyRecommendations(currentFormData);
+        setRecommendations(dummyResponse.recommendations);
+        setError('서버 연결에 문제가 있습니다. 샘플 데이터를 표시합니다.');
+      } catch (dummyErr) {
+        setError('추천을 받아오는 중 오류가 발생했습니다. 다시 시도해주세요.');
+      }
     } finally {
       setLoading(false);
     }
@@ -141,11 +161,20 @@ function App() {
         {/* 푸터 상단 AdSense 광고 */}
         <div className="mt-16 max-w-4xl mx-auto fade-in">
           <AdSense 
-            adSlot="FOOTER_TOP_AD_SLOT"
             adFormat="banner"
             className="mb-8"
           />
         </div>
+        
+        {/* 추가 콘텐츠 영역 AdSense 광고 */}
+        {recommendations.length > 0 && (
+          <div className="mt-12 max-w-4xl mx-auto fade-in">
+            <AdSense 
+              adFormat="auto"
+              className="mb-6"
+            />
+          </div>
+        )}
         
         <footer className="text-center mt-20 text-white/70 fade-in">
           <div className="glass-card max-w-2xl mx-auto mb-8">
@@ -170,9 +199,16 @@ function App() {
             </div>
           </div>
           <p className="mb-2">© 2024 선물지니 GiftGenie. AI 기반 맞춤형 선물 추천 서비스</p>
-          <p className="text-sm opacity-70">
+          <p className="text-sm opacity-70 mb-4">
             쿠팡 파트너스 활동을 통해 일정액의 수수료를 제공받을 수 있습니다.
           </p>
+          <div className="flex flex-wrap justify-center gap-4 text-xs text-white/60">
+            <a href="#privacy" className="hover:text-white/80 transition-colors">개인정보처리방침</a>
+            <span>|</span>
+            <a href="#terms" className="hover:text-white/80 transition-colors">이용약관</a>
+            <span>|</span>
+            <a href="#contact" className="hover:text-white/80 transition-colors">문의하기</a>
+          </div>
         </footer>
       </div>
     </div>

@@ -5,8 +5,13 @@
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#ef4444" />
-    <meta name="description" content="AI가 추천하는 커플 기념일 선물 추천 서비스" />
-    <meta name="keywords" content="커플선물, 기념일선물, 선물추천, AI추천, 쿠팡파트너스" />
+    <meta name="description" content="AI가 추천하는 커플 기념일 선물 추천 서비스 - 모든 연령대와 관계를 위한 맞춤형 선물을 찾아보세요" />
+    <meta name="keywords" content="커플선물, 기념일선물, 선물추천, AI추천, 쿠팡파트너스, 생일선물, 결혼기념일, 발렌타인데이, 화이트데이, 크리스마스선물" />
+    <meta name="author" content="선물지니 GiftGenie" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="ko" />
+    <meta name="revisit-after" content="1 days" />
+    <link rel="canonical" href="https://couplegift.netlify.app/" />
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -25,41 +30,41 @@
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5907754718994620"
-     crossorigin="anonymous"></script>
+    <!-- Google AdSense - 자동 광고 활성화 -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5907754718994620" crossorigin="anonymous"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5907754718994620",
+        enable_page_level_ads: true
+      });
+    </script>
+    
+    <!-- 구조화된 데이터 (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "선물지니 GiftGenie",
+      "description": "AI가 추천하는 커플 기념일 선물 추천 서비스 - 모든 연령대와 관계를 위한 맞춤형 선물을 찾아보세요",
+      "url": "https://couplegift.netlify.app/",
+      "applicationCategory": "LifestyleApplication",
+      "operatingSystem": "웹 브라우저",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "선물지니 GiftGenie"
+      }
+    }
+    </script>
     
     <title>💝 커플 기념일 선물 추천기 - AI가 추천하는 특별한 선물</title>
   </head>
   <body>
     <noscript>이 앱을 실행하려면 JavaScript가 필요합니다.</noscript>
     <div id="root"></div>
-    
-    <!-- AdSense 스크립트는 React 컴포넌트에서 동적으로 로드 -->
-    <script>
-      // AdSense 스크립트를 동적으로 로드하는 함수
-      function loadAdSenseScript() {
-        const publisherId = '%REACT_APP_ADSENSE_PUBLISHER_ID%';
-        
-        // 환경 변수가 실제로 설정되었는지 확인 (빌드 시 치환되지 않으면 %로 감싸진 문자열 그대로 남음)
-        if (publisherId && !publisherId.includes('%')) {
-          const script = document.createElement('script');
-          script.async = true;
-          script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${publisherId}`;
-          script.crossOrigin = 'anonymous';
-          document.head.appendChild(script);
-          console.log('✅ AdSense 스크립트가 로드되었습니다:', publisherId);
-        } else {
-          console.log('ℹ️ AdSense Publisher ID가 설정되지 않았습니다. 광고를 표시하지 않습니다.');
-        }
-      }
-      
-      // 페이지 로드 후 AdSense 스크립트 로드
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', loadAdSenseScript);
-      } else {
-        loadAdSenseScript();
-      }
-    </script>
   </body>
 </html> 
