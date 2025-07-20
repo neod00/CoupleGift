@@ -3,6 +3,7 @@ import GiftForm from './components/GiftForm';
 import GiftRecommendations from './components/GiftRecommendations';
 import LoadingSpinner from './components/LoadingSpinner';
 import AdSense from './components/AdSense';
+import GiftGuide from './components/GiftGuide';
 import { GiftFormData, GiftRecommendation } from './types/gift';
 import { getGiftRecommendations, getDummyRecommendations } from './services/gptService';
 
@@ -157,15 +158,39 @@ function App() {
             </div>
           )}
         </div>
+
+        {/* 홈페이지 콘텐츠 영역 - 구글 애드센스 승인을 위한 추가 콘텐츠 */}
+        {!loading && recommendations.length === 0 && (
+          <div className="mt-16 max-w-4xl mx-auto fade-in">
+            <GiftGuide />
+            
+            {/* AdSense 광고 영역 */}
+            <div className="mb-8">
+              <AdSense 
+                adFormat="banner"
+                className="mb-6"
+              />
+            </div>
+          </div>
+        )}
         
         {/* 푸터 상단 AdSense 광고 */}
         <div className="mt-16 max-w-4xl mx-auto fade-in">
           <AdSense 
-            adSlot="FOOTER_TOP_AD_SLOT"
             adFormat="banner"
             className="mb-8"
           />
         </div>
+        
+        {/* 추가 콘텐츠 영역 AdSense 광고 */}
+        {recommendations.length > 0 && (
+          <div className="mt-12 max-w-4xl mx-auto fade-in">
+            <AdSense 
+              adFormat="auto"
+              className="mb-6"
+            />
+          </div>
+        )}
         
         <footer className="text-center mt-20 text-white/70 fade-in">
           <div className="glass-card max-w-2xl mx-auto mb-8">
@@ -190,9 +215,16 @@ function App() {
             </div>
           </div>
           <p className="mb-2">© 2024 선물지니 GiftGenie. AI 기반 맞춤형 선물 추천 서비스</p>
-          <p className="text-sm opacity-70">
+          <p className="text-sm opacity-70 mb-4">
             쿠팡 파트너스 활동을 통해 일정액의 수수료를 제공받을 수 있습니다.
           </p>
+          <div className="flex flex-wrap justify-center gap-4 text-xs text-white/60">
+            <a href="#privacy" className="hover:text-white/80 transition-colors">개인정보처리방침</a>
+            <span>|</span>
+            <a href="#terms" className="hover:text-white/80 transition-colors">이용약관</a>
+            <span>|</span>
+            <a href="#contact" className="hover:text-white/80 transition-colors">문의하기</a>
+          </div>
         </footer>
       </div>
     </div>
