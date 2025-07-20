@@ -167,6 +167,7 @@ function App() {
             {/* AdSense 광고 영역 */}
             <div className="mb-8">
               <AdSense 
+                adSlot="1234567890"
                 adFormat="banner"
                 className="mb-6"
               />
@@ -177,6 +178,7 @@ function App() {
         {/* 푸터 상단 AdSense 광고 */}
         <div className="mt-16 max-w-4xl mx-auto fade-in">
           <AdSense 
+            adSlot="1234567891"
             adFormat="banner"
             className="mb-8"
           />
@@ -186,6 +188,7 @@ function App() {
         {recommendations.length > 0 && (
           <div className="mt-12 max-w-4xl mx-auto fade-in">
             <AdSense 
+              adSlot="1234567892"
               adFormat="auto"
               className="mb-6"
             />
