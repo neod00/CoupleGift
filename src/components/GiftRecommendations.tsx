@@ -1,6 +1,6 @@
 import React from 'react';
-import { GiftRecommendation } from '../types/gift';
-import AdSense from './AdSense';
+import { GiftRecommendation } from '../types/gift.ts';
+import AdSense from './AdSense.tsx';
 
 interface GiftRecommendationsProps {
   recommendations: GiftRecommendation[];

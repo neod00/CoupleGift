@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💝 커플 기념일 선물 추천기 - AI가 추천하는 특별한 선물</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Poppins', 'Inter', sans-serif;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .insta-gradient {
+            background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+        }
+        
+        .insta-gradient-soft {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        }
+        
+        .floating-animation {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .glow-effect {
+            box-shadow: 0 0 30px rgba(240, 148, 51, 0.3);
+        }
+        
+        .input-glass {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-instagram {
+            background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-instagram:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(240, 148, 51, 0.4);
+        }
+        
+        .btn-instagram::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-instagram:hover::before {
+            left: 100%;
+        }
+    </style>
+</head>
+<body class="min-h-screen insta-gradient-soft font-sans overflow-x-hidden">
+    <!-- Floating Background Elements -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-pink-300 to-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 floating-animation"></div>
+        <div class="absolute top-40 right-10 w-72 h-72 bg-gradient-to-r from-yellow-300 to-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 floating-animation" style="animation-delay: 2s;"></div>
+        <div class="absolute -bottom-32 left-20 w-72 h-72 bg-gradient-to-r from-blue-300 to-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 floating-animation" style="animation-delay: 4s;"></div>
+    </div>
+
+    <div class="relative z-10 container mx-auto px-4 py-12">
+        <!-- Header -->
+        <header class="text-center mb-16">
+            <div class="floating-animation">
+                <h1 class="text-6xl md:text-7xl font-extrabold mb-6 gradient-text leading-tight">
+                    💝 CoupleGift
+                </h1>
+                <div class="w-32 h-1 insta-gradient mx-auto rounded-full mb-6 glow-effect"></div>
+                <p class="text-2xl md:text-3xl font-medium text-white mb-4 drop-shadow-lg">
+                    AI가 추천하는 특별한 선물 ✨
+                </p>
+                <p class="text-lg text-white/80 max-w-2xl mx-auto leading-relaxed">
+                    당신의 특별한 사람을 위한 완벽한 선물을 AI가 찾아드려요
+                </p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="max-w-4xl mx-auto">
+            <div class="glass-card rounded-3xl p-8 md:p-12 max-w-2xl mx-auto floating-animation" style="animation-delay: 1s;">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 drop-shadow-lg">
+                        ✨ 선물 정보 입력
+                    </h2>
+                    <p class="text-white/80 text-lg">
+                        몇 가지 정보만 알려주시면 완벽한 선물을 찾아드릴게요!
+                    </p>
+                </div>
+                
+                <form class="space-y-8">
+                    <!-- 성별 -->
+                    <div class="space-y-4">
+                        <label class="block text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                            👤 성별
+                        </label>
+                        <div class="flex gap-4">
+                            <label class="flex items-center glass-card rounded-2xl p-4 cursor-pointer hover:bg-white/30 transition-all duration-300 flex-1">
+                                <input type="radio" name="gender" value="female" checked class="mr-3 scale-125">
+                                <span class="text-white font-medium">👩 여성</span>
+                            </label>
+                            <label class="flex items-center glass-card rounded-2xl p-4 cursor-pointer hover:bg-white/30 transition-all duration-300 flex-1">
+                                <input type="radio" name="gender" value="male" class="mr-3 scale-125">
+                                <span class="text-white font-medium">👨 남성</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 나이 -->
+                    <div class="space-y-4">
+                        <label class="block text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                            🎂 나이
+                        </label>
+                        <input type="number" value="25" min="10" max="100" 
+                               class="w-full p-4 input-glass rounded-2xl text-gray-800 font-medium placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-purple-300/50 transition-all duration-300" 
+                               required>
+                    </div>
+
+                    <!-- 성격/취향 -->
+                    <div class="space-y-4">
+                        <label class="block text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                            🎭 성격/취향
+                        </label>
+                        <input 
+                            type="text" 
+                            placeholder="예: ENFP, 활발한, 조용한, 패션 러버..." 
+                            class="w-full p-4 input-glass rounded-2xl text-gray-800 font-medium placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-purple-300/50 transition-all duration-300" 
+                            required
+                        >
+                    </div>
+
+                    <!-- 기념일 종류 -->
+                    <div class="space-y-4">
+                        <label class="block text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                            🎉 기념일 종류
+                        </label>
+                        <select class="w-full p-4 input-glass rounded-2xl text-gray-800 font-medium focus:outline-none focus:ring-4 focus:ring-purple-300/50 transition-all duration-300" 
+                                required>
+                            <option value="">💫 선택해주세요</option>
+                            <option value="생일">🎂 생일</option>
+                            <option value="사귄지 100일">💕 사귄지 100일</option>
+                            <option value="사귄지 1년">💖 사귄지 1년</option>
+                            <option value="밸런타인데이">💘 밸런타인데이</option>
+                            <option value="화이트데이">🤍 화이트데이</option>
+                            <option value="크리스마스">🎄 크리스마스</option>
+                            <option value="기타">✨ 기타</option>
+                        </select>
+                    </div>
+
+                    <!-- 예산 범위 -->
+                    <div class="space-y-4">
+                        <label class="block text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                            💰 예산 범위
+                        </label>
+                        <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-center">
+                            <input 
+                                type="number" 
+                                value="30000" 
+                                min="10000" 
+                                step="10000" 
+                                class="col-span-1 md:col-span-2 p-4 input-glass rounded-2xl text-gray-800 font-medium placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-purple-300/50 transition-all duration-300" 
+                                required
+                                placeholder="최소 금액"
+                            >
+                            <span class="text-white/80 text-center font-medium hidden md:block">원 ~</span>
+                            <input 
+                                type="number" 
+                                value="100000" 
+                                min="10000" 
+                                step="10000" 
+                                class="col-span-1 md:col-span-2 p-4 input-glass rounded-2xl text-gray-800 font-medium placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-purple-300/50 transition-all duration-300" 
+                                required
+                                placeholder="최대 금액"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- 카테고리 -->
+                    <div class="space-y-4">
+                        <label class="block text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                            🏷️ 선호 카테고리 <span class="text-sm text-white/60">(선택사항)</span>
+                        </label>
+                        <select class="w-full p-4 input-glass rounded-2xl text-gray-800 font-medium focus:outline-none focus:ring-4 focus:ring-purple-300/50 transition-all duration-300">
+                            <option value="">🌟 전체</option>
+                            <option value="패션">👗 패션</option>
+                            <option value="뷰티">💄 뷰티</option>
+                            <option value="향수">🌸 향수</option>
+                            <option value="IT기기">📱 IT기기</option>
+                            <option value="액세서리">💍 액세서리</option>
+                            <option value="음식">🍰 음식</option>
+                            <option value="기타">✨ 기타</option>
+                        </select>
+                    </div>
+
+                    <!-- 추가 정보 -->
+                    <div class="space-y-4">
+                        <label class="block text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                            💭 추가 정보 <span class="text-sm text-white/60">(선택사항)</span>
+                        </label>
+                        <textarea 
+                            placeholder="특별히 좋아하는 것이나 싫어하는 것이 있다면 알려주세요..."
+                            rows="4"
+                            class="w-full p-4 input-glass rounded-2xl text-gray-800 font-medium placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-purple-300/50 transition-all duration-300 resize-none"
+                        ></textarea>
+                    </div>
+
+                    <button 
+                        type="button" 
+                        class="w-full btn-instagram text-white font-bold py-5 px-8 rounded-2xl text-xl relative overflow-hidden"
+                        onclick="showRecommendations()"
+                    >
+                        <span class="relative z-10">🎁 AI가 선물 추천하기 ✨</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="text-center mt-20 mb-8">
+            <div class="glass-card rounded-3xl p-8 max-w-2xl mx-auto">
+                <div class="flex items-center justify-center gap-3 mb-4">
+                    <div class="w-8 h-8 insta-gradient rounded-full flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">CG</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">CoupleGift</h3>
+                </div>
+                <p class="text-white/90 font-medium mb-2">
+                    © 2024 CoupleGift. AI 기반 맞춤형 선물 추천 서비스
+                </p>
+                <p class="text-white/70 text-sm">
+                    쿠팡 파트너스 활동을 통해 일정액의 수수료를 제공받을 수 있습니다.
+                </p>
+                <div class="flex justify-center gap-4 mt-6">
+                    <div class="flex items-center gap-2 text-white/80">
+                        <span>✨</span>
+                        <span class="text-sm">AI 추천</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-white/80">
+                        <span>💝</span>
+                        <span class="text-sm">맞춤형 선물</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-white/80">
+                        <span>🛒</span>
+                        <span class="text-sm">간편 구매</span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function showRecommendations() {
+            // 버튼 애니메이션 효과
+            const button = event.target;
+            button.innerHTML = '<span class="relative z-10">🤖 AI가 분석 중... ✨</span>';
+            button.style.transform = 'scale(0.98)';
+            
+            setTimeout(() => {
+                button.innerHTML = '<span class="relative z-10">🎁 AI가 선물 추천하기 ✨</span>';
+                button.style.transform = 'scale(1)';
+                
+                // 인스타그램 스타일 알림
+                showCustomAlert();
+            }, 1500);
+        }
+        
+        function showCustomAlert() {
+            // 커스텀 알림 창 생성
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'fixed inset-0 z-50 flex items-center justify-center p-4';
+            alertDiv.style.background = 'rgba(0, 0, 0, 0.7)';
+            alertDiv.style.backdropFilter = 'blur(10px)';
+            
+            alertDiv.innerHTML = `
+                <div class="glass-card rounded-3xl p-8 max-w-md mx-auto text-center floating-animation">
+                    <div class="text-6xl mb-4">🎁</div>
+                    <h3 class="text-2xl font-bold text-white mb-4">곧 출시 예정!</h3>
+                    <p class="text-white/80 mb-6 leading-relaxed">
+                        실제 서비스에서는 여기서 GPT API를 호출하여<br>
+                        완벽한 맞춤형 선물을 추천해드립니다!
+                    </p>
+                    <button onclick="this.parentElement.parentElement.remove()" 
+                            class="btn-instagram px-8 py-3 rounded-2xl text-white font-semibold">
+                        ✨ 알겠어요!
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(alertDiv);
+            
+            // 3초 후 자동 제거
+            setTimeout(() => {
+                if (document.body.contains(alertDiv)) {
+                    alertDiv.remove();
+                }
+            }, 5000);
+        }
+        
+        // 입력 필드 포커스 애니메이션
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('input, select, textarea');
+            
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.style.transform = 'scale(1.02)';
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html> 
