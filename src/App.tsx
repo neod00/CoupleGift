@@ -26,7 +26,6 @@ function App() {
     setVisitorCount(newCount);
     localStorage.setItem('visitorCount', newCount.toString());
   }, []);
-
   return (
     <Router>
       <div className="min-h-screen instagram-gradient relative">
@@ -42,7 +41,6 @@ function App() {
         <div className="container mx-auto px-4 py-8 relative z-10">
           {/* 관리자용 방문수 카운터 */}
           <VisitorCounter visitorCount={visitorCount} />
-          
           <header className="text-center mb-12 fade-in">
             <div className="mb-6">
               <h1 className="text-5xl md:text-6xl font-bold gradient-text mb-4">

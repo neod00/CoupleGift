@@ -9,8 +9,11 @@ const Contact: React.FC = () => {
     message: ''
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+<<<<<<< HEAD
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string>('');
+=======
+>>>>>>> c0c2dd84e1dce698632259c22a4afd48b0185c91
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -20,6 +23,7 @@ const Contact: React.FC = () => {
     }));
   };
 
+<<<<<<< HEAD
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -43,6 +47,24 @@ const Contact: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
+=======
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // 실제 구현에서는 이메일 발송 로직을 추가
+    console.log('문의 내용:', formData);
+    setIsSubmitted(true);
+    
+    // 3초 후 폼 리셋
+    setTimeout(() => {
+      setIsSubmitted(false);
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
+    }, 3000);
+>>>>>>> c0c2dd84e1dce698632259c22a4afd48b0185c91
   };
 
   return (
@@ -73,6 +95,7 @@ const Contact: React.FC = () => {
                   소중한 의견 감사합니다. 빠른 시일 내에 답변드리겠습니다.
                 </p>
               </div>
+<<<<<<< HEAD
             ) : error ? (
               <div className="bg-red-500/20 border border-red-400/30 rounded-lg p-6 text-center">
                 <div className="text-4xl mb-4">❌</div>
@@ -81,6 +104,8 @@ const Contact: React.FC = () => {
                   {error}
                 </p>
               </div>
+=======
+>>>>>>> c0c2dd84e1dce698632259c22a4afd48b0185c91
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
@@ -154,10 +179,16 @@ const Contact: React.FC = () => {
 
                 <button
                   type="submit"
+<<<<<<< HEAD
                   disabled={isLoading}
                   className={`w-full btn-primary text-lg py-4 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
                   {isLoading ? '📤 전송 중...' : '📤 문의 보내기'}
+=======
+                  className="w-full btn-primary text-lg py-4"
+                >
+                  📤 문의 보내기
+>>>>>>> c0c2dd84e1dce698632259c22a4afd48b0185c91
                 </button>
               </form>
             )}
@@ -177,7 +208,11 @@ const Contact: React.FC = () => {
                   이메일
                 </h3>
                 <p className="text-white/90 text-lg">
+<<<<<<< HEAD
                   iamspace@kakao.com
+=======
+                  contact@giftgenie.co.kr
+>>>>>>> c0c2dd84e1dce698632259c22a4afd48b0185c91
                 </p>
                 <p className="text-white/70 text-sm mt-2">
                   평일 09:00 - 18:00 (주말 및 공휴일 제외)
