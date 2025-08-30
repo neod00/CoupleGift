@@ -41,7 +41,28 @@ exports.handler = async function (event, context) {
     if (!API_KEY) {
       console.error('❌ API Key not found. Checked: OPENAI_API_KEY, REACT_APP_OPENAI_API_KEY');
       console.error('환경변수 전체 목록:', Object.keys(process.env));
-      throw new Error('OpenAI API 키가 서버에 설정되지 않았습니다.');
+      
+      // API 키가 없을 때 테스트용 응답 반환 (디버깅용)
+      console.log('🧪 API 키 없음 - 테스트 응답 반환');
+      return {
+        statusCode: 200,
+        body: JSON.stringify({
+          recommendations: [
+            {
+              id: "test-1",
+              title: "테스트 선물 1",
+              description: "API 키가 없을 때의 테스트 응답입니다",
+              price: "테스트 가격",
+              category: "테스트",
+              searchKeyword: "테스트"
+            }
+          ]
+        }),
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          ...corsHeaders
+        }
+      };
     }
 
     console.log('✅ OpenAI API Key found:', API_KEY.substring(0, 10) + '...');

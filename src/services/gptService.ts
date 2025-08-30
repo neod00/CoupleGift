@@ -44,7 +44,7 @@ export const getGiftRecommendations = async (formData: GiftFormData): Promise<GP
     const recommendationsWithLinks = parsedResponse.recommendations.map((rec: any, index: number) => {
       const searchKeyword = rec.searchKeyword || rec.title;
       const coupangUrl = generateCoupangSearchLink(searchKeyword);
-      const imageUrl = getStableImageUrl(rec.category);
+      const imageUrl = getStableImageUrl(rec.category, rec.title);
       
       console.log(`🔍 추천 ${index + 1}:`, {
         title: rec.title,
@@ -82,22 +82,101 @@ export const getGiftRecommendations = async (formData: GiftFormData): Promise<GP
   }
 };
 
-// 더 안정적인 이미지 URL 생성 함수
-const getStableImageUrl = (category: string): string => {
-  const categoryImages: { [key: string]: string } = {
-    '액세서리': 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=300&fit=crop&auto=format&q=80',
-    '뷰티': 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=300&fit=crop&auto=format&q=80',
-    '향수': 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=300&fit=crop&auto=format&q=80',
-    'IT기기': 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop&auto=format&q=80',
-    '패션': 'https://images.unsplash.com/photo-1445205170230-053b83016050?w=400&h=300&fit=crop&auto=format&q=80',
-    '생활용품': 'https://images.unsplash.com/photo-1586880244386-8b3e34734ed8?w=400&h=300&fit=crop&auto=format&q=80',
-    '꽃': 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=400&h=300&fit=crop&auto=format&q=80',
-    '음식': 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=300&fit=crop&auto=format&q=80',
-    '전자제품': 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop&auto=format&q=80',
-    '책': 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop&auto=format&q=80',
-    '운동': 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop&auto=format&q=80',
-    '여행': 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&h=300&fit=crop&auto=format&q=80',
-    '기본': 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=300&fit=crop&auto=format&q=80'
+// 더 안정적이고 다양한 이미지 URL 생성 함수
+const getStableImageUrl = (category: string, productTitle?: string): string => {
+  // 카테고리별 다양한 이미지 풀
+  const categoryImagePools: { [key: string]: string[] } = {
+    '액세서리': [
+      'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=400&h=300&fit=crop&auto=format&q=80'
+    ],
+    '뷰티': [
+      'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&h=300&fit=crop&auto=format&q=80'
+    ],
+    '향수': [
+      'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1587017539504-64cf19f8f5df?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1592945403244-b3faa1b8d0b5?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1615529328331-f8917597711f?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1587017539504-64cf19f8f5df?w=400&h=300&fit=crop&auto=format&q=80'
+    ],
+    'IT기기': [
+      'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1541807084-5c3b00b11c2a?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop&auto=format&q=80'
+    ],
+    '패션': [
+      'https://images.unsplash.com/photo-1445205170230-053b83016050?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1523381210434-271e8be1f6b1?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1445205170230-053b83016050?w=400&h=300&fit=crop&auto=format&q=80'
+    ],
+    '생활용품': [
+      'https://images.unsplash.com/photo-1586880244386-8b3e34734ed8?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1586880244386-8b3e34734ed8?w=400&h=300&fit=crop&auto=format&q=80'
+    ],
+    '꽃': [
+      'https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1526047932273-341f2a7631f9?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop&auto=format&q=80'
+    ],
+    '음식': [
+      'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=300&fit=crop&auto=format&q=80'
+    ],
+    '전자제품': [
+      'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1541807084-5c3b00b11c2a?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop&auto=format&q=80'
+    ],
+    '책': [
+      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=300&fit=crop&auto=format&q=80'
+    ],
+    '운동': [
+      'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop&auto=format&q=80'
+    ],
+    '여행': [
+      'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop&auto=format&q=80'
+    ],
+    '기본': [
+      'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=300&fit=crop&auto=format&q=80',
+      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop&auto=format&q=80'
+    ]
   };
   
   // 카테고리 정규화 및 매칭
@@ -168,10 +247,39 @@ const getStableImageUrl = (category: string): string => {
   };
   
   const mappedCategory = categoryMappings[normalizedCategory] || '기본';
+  const images = categoryImagePools[mappedCategory] || categoryImagePools['기본'];
   
-  console.log(`🖼️ 이미지 매핑: "${category}" → "${mappedCategory}"`);
+  // 제품명 기반 스마트 이미지 선택
+  let selectedImageIndex = 0;
   
-  return categoryImages[mappedCategory] || categoryImages['기본'];
+  if (productTitle) {
+    const title = productTitle.toLowerCase();
+    
+    // 제품명에 포함된 키워드로 이미지 선택
+    if (title.includes('핸드백') || title.includes('가방') || title.includes('백') || title.includes('클러치')) {
+      selectedImageIndex = 0; // 첫 번째 이미지 (핸드백/가방 스타일)
+    } else if (title.includes('스카프') || title.includes('목도리') || title.includes('머플러')) {
+      selectedImageIndex = 1; // 두 번째 이미지 (스카프 스타일)
+    } else if (title.includes('귀걸이') || title.includes('목걸이') || title.includes('반지') || title.includes('팔찌')) {
+      selectedImageIndex = 2; // 세 번째 이미지 (주얼리 스타일)
+    } else if (title.includes('원피스') || title.includes('드레스') || title.includes('스커트')) {
+      selectedImageIndex = 3; // 네 번째 이미지 (의류 스타일)
+    } else if (title.includes('향수') || title.includes('퍼퓰')) {
+      selectedImageIndex = 4; // 다섯 번째 이미지 (향수 스타일)
+    } else {
+      // 랜덤 선택으로 다양성 확보
+      selectedImageIndex = Math.floor(Math.random() * images.length);
+    }
+  } else {
+    // 제품명이 없으면 랜덤 선택
+    selectedImageIndex = Math.floor(Math.random() * images.length);
+  }
+  
+  const selectedImage = images[selectedImageIndex];
+  
+  console.log(`🖼️ 스마트 이미지 선택: "${category}" → "${mappedCategory}" (${selectedImageIndex + 1}/${images.length})`);
+  
+  return selectedImage;
 };
 
 // 쿠팡 파트너스 검색 링크 생성 함수
