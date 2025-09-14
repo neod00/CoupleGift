@@ -15,16 +15,21 @@ function App() {
   const [visitorCount, setVisitorCount] = useState<number>(0);
 
   useEffect(() => {
-    // 방문수 로컬 스토리지에서 가져오기
+    const today = new Date().toDateString();
+    const lastVisitDate = localStorage.getItem('lastVisitDate');
     const storedCount = localStorage.getItem('visitorCount');
-    if (storedCount) {
-      setVisitorCount(parseInt(storedCount));
-    }
     
-    // 방문수 증가 및 저장
-    const newCount = (parseInt(storedCount || '0') + 1);
-    setVisitorCount(newCount);
-    localStorage.setItem('visitorCount', newCount.toString());
+    // 오늘 첫 방문인지 확인
+    if (lastVisitDate !== today) {
+      // 새로운 날이면 방문자수 리셋
+      localStorage.setItem('visitorCount', '1');
+      localStorage.setItem('lastVisitDate', today);
+      setVisitorCount(1);
+    } else {
+      // 같은 날이면 기존 방문자수 유지 (증가하지 않음)
+      const count = parseInt(storedCount || '1');
+      setVisitorCount(count);
+    }
   }, []);
   return (
     <Router>
