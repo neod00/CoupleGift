@@ -84,17 +84,17 @@ const GiftGuide: React.FC = () => {
       {/* 선물 가이드 헤더 */}
       <div className="text-center">
         <h2 className="text-3xl font-bold gradient-text mb-4">
-          🎁 선물 가이드
+          🎁 AI 맞춤형 선물 가이드
         </h2>
         <p className="text-lg text-white/80">
-          완벽한 선물 선택을 위한 가이드를 확인해보세요
+          커플 선물, 기념일 선물, 생일 선물 등 완벽한 맞춤형 선물 아이디어를 위한 가이드를 확인해보세요
         </p>
       </div>
 
       {/* 관계별 선물 가이드 */}
       <section>
         <h3 className="text-2xl font-semibold text-white mb-6 text-center">
-          관계별 선물 추천
+          관계별 맞춤형 선물 추천
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {giftCategories.map((category, index) => (
@@ -129,7 +129,7 @@ const GiftGuide: React.FC = () => {
       {/* 기념일별 선물 팁 */}
       <section>
         <h3 className="text-2xl font-semibold text-white mb-6 text-center">
-          기념일별 선물 팁
+          기념일별 선물 아이디어 팁
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {occasionGuide.map((guide, index) => (
@@ -147,7 +147,7 @@ const GiftGuide: React.FC = () => {
       {/* 예산별 선물 가이드 */}
       <section>
         <h3 className="text-2xl font-semibold text-white mb-6 text-center">
-          예산별 선물 가이드
+          예산별 선물 추천 가이드
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {budgetGuide.map((budget, index) => (
@@ -174,7 +174,7 @@ const GiftGuide: React.FC = () => {
       {/* 선물 선택 팁 */}
       <section className="glass-card">
         <h3 className="text-2xl font-semibold text-white mb-6 text-center">
-          💡 완벽한 선물 선택을 위한 팁
+          💡 AI 맞춤형 선물 아이디어 선택을 위한 팁
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-white/90">
           <div>

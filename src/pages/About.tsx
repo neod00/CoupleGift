@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AdSense from '../components/AdSense.tsx';
 
 const About: React.FC = () => {
+  useEffect(() => {
+    // 페이지별 메타 태그 업데이트
+    document.title = '선물지니 소개 - AI 맞춤형 커플 선물 추천 서비스';
+    
+    // 메타 설명 업데이트
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', '선물지니는 AI 맞춤형 커플 선물 추천 서비스입니다. 기념일 선물, 생일 선물, 연인 선물 아이디어를 예산별로 추천하고 쿠팡에서 바로 구매 가능합니다.');
+    }
+  }, []);
+
   return (
     <div className="max-w-4xl mx-auto">
       <div className="glass-card fade-in">
@@ -10,7 +21,7 @@ const About: React.FC = () => {
             ✨ 선물지니 소개
           </h1>
           <p className="text-xl text-white/90">
-            AI 기반 맞춤형 선물 추천 서비스
+            AI 맞춤형 커플 선물 추천 서비스 - 기념일 선물 아이디어 전문
           </p>
         </div>
 
@@ -21,12 +32,12 @@ const About: React.FC = () => {
               서비스 소개
             </h2>
             <p className="text-lg leading-relaxed mb-4">
-              선물지니(GiftGenie)는 인공지능 기술을 활용하여 특별한 날을 위한 완벽한 선물을 추천해드리는 서비스입니다. 
+              선물지니(GiftGenie)는 AI 맞춤형 커플 선물 추천 서비스로, 특별한 기념일을 위한 완벽한 선물 아이디어를 제공합니다. 
               복잡하고 어려운 선물 고르기를 간단하고 재미있게 만들어드립니다.
             </p>
             <p className="text-lg leading-relaxed">
               몇 가지 간단한 질문에 답하시면, AI가 받는 분의 성향과 관계, 예산, 기념일의 특성을 종합적으로 분석하여 
-              가장 적합한 선물을 추천해드립니다.
+              가장 적합한 맞춤형 선물을 추천해드립니다. 생일 선물부터 연인 선물까지 모든 상황에 맞는 선물 아이디어를 제공합니다.
             </p>
           </section>
 
@@ -39,10 +50,10 @@ const About: React.FC = () => {
               <div className="bg-white/10 rounded-lg p-6">
                 <h3 className="text-xl font-semibold mb-3 flex items-center gap-2">
                   <span className="text-2xl">🤖</span>
-                  AI 맞춤 추천
+                  AI 맞춤형 선물 추천
                 </h3>
                 <p className="text-white/80">
-                  최신 인공지능 기술을 활용하여 개인의 취향과 상황에 맞는 선물을 정확하게 추천합니다.
+                  최신 인공지능 기술을 활용하여 커플 선물, 기념일 선물, 생일 선물 등 개인의 취향과 상황에 맞는 맞춤형 선물 아이디어를 정확하게 추천합니다.
                 </p>
               </div>
               <div className="bg-white/10 rounded-lg p-6">
@@ -57,19 +68,19 @@ const About: React.FC = () => {
               <div className="bg-white/10 rounded-lg p-6">
                 <h3 className="text-xl font-semibold mb-3 flex items-center gap-2">
                   <span className="text-2xl">💰</span>
-                  예산별 추천
+                  예산별 선물 추천
                 </h3>
                 <p className="text-white/80">
-                  1만원대부터 고가의 선물까지, 설정하신 예산 범위 내에서 최적의 선물을 찾아드립니다.
+                  1만원대부터 고가의 선물까지, 설정하신 예산 범위 내에서 최적의 맞춤형 선물 아이디어를 찾아드립니다.
                 </p>
               </div>
               <div className="bg-white/10 rounded-lg p-6">
                 <h3 className="text-xl font-semibold mb-3 flex items-center gap-2">
                   <span className="text-2xl">🛍️</span>
-                  쿠팡 연동
+                  쿠팡 선물 구매
                 </h3>
                 <p className="text-white/80">
-                  추천받은 선물을 쿠팡에서 바로 구매할 수 있도록 직접 링크를 제공합니다.
+                  추천받은 맞춤형 선물 아이디어를 쿠팡에서 바로 구매할 수 있도록 직접 링크를 제공합니다.
                 </p>
               </div>
             </div>
@@ -78,7 +89,7 @@ const About: React.FC = () => {
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white flex items-center gap-2">
               <span className="text-3xl">🎉</span>
-              지원하는 기념일
+              지원하는 기념일 선물
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
@@ -101,11 +112,11 @@ const About: React.FC = () => {
             </h2>
             <p className="text-lg leading-relaxed mb-4">
               선물은 단순한 물건이 아닌, 마음을 전하는 특별한 매개체라고 생각합니다. 
-              선물지니는 여러분의 소중한 마음이 완벽하게 전달될 수 있도록 도와드리고자 합니다.
+              선물지니는 여러분의 소중한 마음이 완벽하게 전달될 수 있도록 AI 맞춤형 커플 선물 추천 서비스로 도와드리고자 합니다.
             </p>
             <p className="text-lg leading-relaxed">
               기술의 발전이 인간의 감정과 관계를 더욱 풍요롭게 만들 수 있다는 믿음으로, 
-              지속적으로 서비스를 개선하고 발전시켜 나가겠습니다.
+              기념일 선물, 생일 선물, 연인 선물 등 모든 상황에 맞는 맞춤형 선물 아이디어를 제공하는 서비스를 지속적으로 개선하고 발전시켜 나가겠습니다.
             </p>
           </section>
 

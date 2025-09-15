@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AdSense from '../components/AdSense.tsx';
 
 const Contact: React.FC = () => {
@@ -9,6 +9,17 @@ const Contact: React.FC = () => {
     message: ''
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  useEffect(() => {
+    // 페이지별 메타 태그 업데이트
+    document.title = '문의하기 - 선물지니 AI 맞춤형 선물 추천 서비스';
+    
+    // 메타 설명 업데이트
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', '선물지니 AI 맞춤형 커플 선물 추천 서비스 문의하기. 기념일 선물, 생일 선물 아이디어 관련 문의사항을 남겨주세요.');
+    }
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;

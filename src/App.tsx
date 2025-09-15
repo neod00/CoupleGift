@@ -56,13 +56,13 @@ function App() {
               </div>
             </div>
             <p className="text-xl md:text-2xl text-white/90 font-medium mb-4">
-              AI가 추천하는 특별한 선물을 찾아보세요
+              AI 맞춤형 커플 선물 추천 - 특별한 기념일을 위한 완벽한 선물 아이디어
             </p>
             <div className="max-w-3xl mx-auto">
               <p className="text-lg text-white/80 leading-relaxed">
-                💑 커플 • 👨‍👩‍👧‍👦 부부 • 👶 청소년 • 🧑‍💼 20-30대 • 👨‍💼 40-50대 중년층 • 👨‍🦳 60-70대 장년층
+                💑 커플 선물 • 🎂 생일 선물 • 💒 기념일 선물 • 👶 청소년 • 🧑‍💼 20-30대 • 👨‍💼 40-50대 중년층 • 👨‍🦳 60-70대 장년층
                 <br />
-                <span className="text-base">모든 연령대와 관계를 위한 맞춤형 선물 추천 서비스</span>
+                <span className="text-base">모든 연령대와 관계를 위한 AI 맞춤형 선물 추천 서비스 - 예산별 추천으로 쿠팡에서 바로 구매 가능</span>
               </p>
             </div>
           </header>
@@ -111,16 +111,18 @@ function App() {
                 </div>
               </div>
             </div>
-            <p className="mb-2">© 2024 선물지니 GiftGenie. AI 기반 맞춤형 선물 추천 서비스</p>
+            <p className="mb-2">© 2024 선물지니 GiftGenie. AI 맞춤형 커플 선물 추천 서비스 - 기념일 선물 아이디어 전문</p>
             <p className="text-sm opacity-70 mb-4">
               쿠팡 파트너스 활동을 통해 일정액의 수수료를 제공받을 수 있습니다.
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-xs text-white/60">
-              <a href="/privacy" className="hover:text-white/80 transition-colors">개인정보처리방침</a>
+              <a href="/privacy" className="hover:text-white/80 transition-colors" title="개인정보처리방침">개인정보처리방침</a>
               <span>|</span>
-              <a href="/about" className="hover:text-white/80 transition-colors">서비스 소개</a>
+              <a href="/about" className="hover:text-white/80 transition-colors" title="AI 맞춤형 선물 추천 서비스 소개">서비스 소개</a>
               <span>|</span>
-              <a href="/contact" className="hover:text-white/80 transition-colors">문의하기</a>
+              <a href="/contact" className="hover:text-white/80 transition-colors" title="선물 추천 서비스 문의">문의하기</a>
+              <span>|</span>
+              <a href="/blog" className="hover:text-white/80 transition-colors" title="기념일 선물 아이디어 블로그">선물 아이디어</a>
               <span>|</span>
               <span className="text-white/40">
                 👥 <span className="font-mono text-xs">{visitorCount}</span>

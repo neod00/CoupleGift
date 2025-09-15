@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AdSense from '../components/AdSense.tsx';
 
@@ -13,6 +13,17 @@ interface BlogPost {
 }
 
 const Blog: React.FC = () => {
+  useEffect(() => {
+    // 페이지별 메타 태그 업데이트
+    document.title = '선물 아이디어 블로그 - 선물지니 AI 맞춤형 선물 추천';
+    
+    // 메타 설명 업데이트
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', '선물지니 블로그에서 기념일 선물, 생일 선물, 커플 선물 아이디어와 선물 고르기 팁을 확인하세요. AI 맞춤형 선물 추천 서비스.');
+    }
+  }, []);
+
   const blogPosts: BlogPost[] = [
     {
       id: 'valentine-day-guide',
@@ -76,10 +87,10 @@ const Blog: React.FC = () => {
     <div className="max-w-6xl mx-auto">
       <div className="text-center mb-12 fade-in">
         <h1 className="text-4xl font-bold gradient-text mb-4">
-          📝 선물 블로그
+          📝 선물 아이디어 블로그
         </h1>
         <p className="text-xl text-white/90">
-          선물 고르기에 도움이 되는 유용한 정보와 팁
+          AI 맞춤형 선물 추천과 기념일 선물, 생일 선물 아이디어를 위한 유용한 정보와 팁
         </p>
       </div>
 

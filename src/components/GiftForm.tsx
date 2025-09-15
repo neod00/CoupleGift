@@ -123,10 +123,10 @@ const GiftForm: React.FC<GiftFormProps> = ({ onSubmit, isLoading }) => {
     <div className="card max-w-2xl mx-auto">
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold gradient-text mb-4">
-          선물 받을 분의 정보를 입력해주세요
+          AI 맞춤형 선물 추천을 위한 정보 입력
         </h2>
         <p className="text-gray-600 text-lg">
-          자세한 정보를 제공할수록 더 정확한 추천을 받을 수 있어요! ✨
+          커플 선물, 기념일 선물, 생일 선물 등 자세한 정보를 제공할수록 더 정확한 맞춤형 선물 아이디어를 받을 수 있어요! ✨
         </p>
       </div>
       
@@ -355,7 +355,7 @@ const GiftForm: React.FC<GiftFormProps> = ({ onSubmit, isLoading }) => {
           className="btn-primary w-full text-lg py-4 font-semibold"
         >
           <span className="text-xl mr-2">🎁</span>
-          AI 선물 추천받기
+          AI 맞춤형 선물 추천받기
           <span className="text-xl ml-2">✨</span>
         </button>
       </form>

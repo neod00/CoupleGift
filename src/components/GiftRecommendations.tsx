@@ -41,8 +41,10 @@ const GiftRecommendations: React.FC<GiftRecommendationsProps> = ({
             <div className="relative mb-6 overflow-hidden rounded-xl">
               <img 
                 src={gift.imageUrl} 
-                alt={gift.title}
+                alt={`${gift.category} 카테고리 ${gift.title} - AI 맞춤형 선물 추천`}
+                title={`${gift.title} - ${gift.price} 예산별 선물 추천`}
                 className="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-500"
+                loading="lazy"
               />
               <div className="absolute top-4 right-4">
                 <span className="glass-card px-3 py-1 text-sm font-semibold text-white bg-white/20">
