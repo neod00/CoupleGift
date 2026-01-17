@@ -9,6 +9,7 @@ import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
+    metadataBase: new URL('https://couplegift.netlify.app'),
     title: '선물지니 - AI 맞춤형 커플 선물 추천 | 기념일 선물 아이디어',
     description: 'AI 선물 추천 서비스 선물지니 - 커플 선물, 기념일 선물, 맞춤형 선물 아이디어를 예산별로 추천해드립니다. 연인 선물부터 생일 선물까지 쿠팡에서 바로 구매 가능!',
     keywords: '커플 선물 추천, AI 선물 추천, 기념일 선물, 맞춤형 선물, 선물지니, 생일 선물, 연인 선물, 선물 아이디어, 예산별 선물, 쿠팡 선물, 선물 추천 서비스, 커플 기념일, 결혼기념일, 밸런타인데이, 화이트데이, 크리스마스선물',
