@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
                 />
             </div>
 
-            <p className="mb-2">© 2024 선물지니 GiftGenie. AI 맞춤형 커플 선물 추천 서비스 - 기념일 선물 아이디어 전문</p>
+            <p className="mb-2">© 2026 선물지니 GiftGenie. AI 맞춤형 커플 선물 추천 서비스 - 기념일 선물 아이디어 전문</p>
             <p className="text-sm opacity-70 mb-4">
                 쿠팡 파트너스 활동을 통해 일정액의 수수료를 제공받을 수 있습니다.
             </p>

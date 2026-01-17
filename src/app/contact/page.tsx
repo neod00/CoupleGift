@@ -47,7 +47,7 @@ export default function Contact() {
                             </div>
                             <div>
                                 <h4 className="text-lg font-bold text-gray-800">이메일 문의</h4>
-                                <p className="text-gray-600">contact@giftgenie.com</p>
+                                <p className="text-gray-600">openbrain_main@gmail.com</p>
                                 <p className="text-sm text-gray-500 mt-1">24시간 이내에 답변해 드립니다.</p>
                             </div>
                         </div>
@@ -58,7 +58,7 @@ export default function Contact() {
                             </div>
                             <div>
                                 <h4 className="text-lg font-bold text-gray-800">제휴 제안</h4>
-                                <p className="text-gray-600">biz@giftgenie.com</p>
+                                <p className="text-gray-600">openbrain_main@gmail.com</p>
                                 <p className="text-sm text-gray-500 mt-1">기업 및 광고 제휴 문의 환영합니다.</p>
                             </div>
                         </div>
