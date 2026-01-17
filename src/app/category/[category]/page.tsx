@@ -104,8 +104,9 @@ export async function generateStaticParams() {
     }));
 }
 
-export async function generateMetadata({ params }: { params: { category: string } }): Promise<Metadata> {
-    const category = categoriesData[params.category];
+export async function generateMetadata({ params }: { params: Promise<{ category: string }> }): Promise<Metadata> {
+    const { category: categoryParam } = await params;
+    const category = categoriesData[categoryParam];
     if (!category) return {};
 
     return {
@@ -135,8 +136,9 @@ const renderStars = (rating: number) => {
     return stars;
 };
 
-export default function GiftCategory({ params }: { params: { category: string } }) {
-    const categoryData = categoriesData[params.category];
+export default async function GiftCategory({ params }: { params: Promise<{ category: string }> }) {
+    const { category: categoryParam } = await params;
+    const categoryData = categoriesData[categoryParam];
 
     if (!categoryData) {
         notFound();
