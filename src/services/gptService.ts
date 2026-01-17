@@ -1,7 +1,7 @@
 import { GiftFormData, GiftRecommendation, GPTResponse } from '../types/gift';
 
-// API 호출을 Netlify Function으로 변경
-const API_FUNCTION_URL = '/.netlify/functions/get-recommendations';
+// API 호출을 Next.js API Route로 변경
+const API_FUNCTION_URL = '/api/recommendations';
 
 export const getGiftRecommendations = async (formData: GiftFormData): Promise<GPTResponse> => {
   console.log('🚀 Netlify Function 호출 시작:', {
@@ -220,7 +220,7 @@ const getStableImageUrl = (category: string, productTitle?: string): string => {
 
 // 쿠팡 파트너스 검색 링크 생성 함수
 const generateCoupangSearchLink = (keyword: string): string => {
-  const partnerId = process.env.REACT_APP_COUPANG_PARTNER_ID;
+  const partnerId = process.env.NEXT_PUBLIC_COUPANG_PARTNER_ID || process.env.REACT_APP_COUPANG_PARTNER_ID;
   const encodedKeyword = encodeURIComponent(keyword);
 
   console.log(`🔗 쿠팡 링크 생성: "${keyword}", 파트너ID: ${partnerId ? '설정됨' : '없음'}`);

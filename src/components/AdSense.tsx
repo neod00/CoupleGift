@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useRef } from 'react';
 
 // Window 객체에 adsbygoogle 속성 타입 정의
@@ -15,9 +17,9 @@ interface AdSenseProps {
   displayAd?: boolean;
 }
 
-const AdSense: React.FC<AdSenseProps> = ({ 
+const AdSense: React.FC<AdSenseProps> = ({
   adSlot = '1234567890', // 기본 슬롯 ID (실제 사용 시 애드센스에서 발급받은 슬롯 ID로 변경)
-  adFormat = 'auto', 
+  adFormat = 'auto',
   adStyle,
   className = '',
   displayAd = true

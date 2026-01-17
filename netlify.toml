@@ -1,16 +1,9 @@
 [build]
-  publish = "build"
   command = "npm run build"
+  publish = ".next"
 
-[build.environment]
-  NODE_VERSION = "18"
-
-# Single Page App(SPA)를 위한 리디렉션 규칙
-# 파일 시스템에 해당 경로의 파일이 없는 경우에만 /index.html로 리디렉션합니다.
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
 
 [[headers]]
   for = "/*"
@@ -19,8 +12,3 @@
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
-
-[[headers]]
-  for = "/static/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable" 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 const GiftGuide: React.FC = () => {
   const giftCategories = [
@@ -98,9 +98,9 @@ const GiftGuide: React.FC = () => {
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {giftCategories.map((category, index) => (
-            <Link 
-              key={index} 
-              to={`/category/${category.id}`}
+            <Link
+              key={index}
+              href={`/category/${category.id}`}
               className="glass-card hover:scale-105 transition-transform duration-300 block"
             >
               <div className="flex items-center gap-3 mb-4">
@@ -110,7 +110,7 @@ const GiftGuide: React.FC = () => {
               <p className="text-white/80 mb-4">{category.description}</p>
               <div className="flex flex-wrap gap-2 mb-3">
                 {category.examples.map((example, idx) => (
-                  <span 
+                  <span
                     key={idx}
                     className="bg-white/10 text-white/90 px-3 py-1 rounded-full text-sm"
                   >
@@ -158,7 +158,7 @@ const GiftGuide: React.FC = () => {
               </div>
               <div className="flex flex-wrap gap-2">
                 {budget.suggestions.map((suggestion, idx) => (
-                  <span 
+                  <span
                     key={idx}
                     className="bg-white/10 text-white/90 px-3 py-1 rounded-full text-sm"
                   >

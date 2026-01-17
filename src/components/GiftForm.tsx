@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+'use client';
+
+import React, { useState, useEffect } from 'react';
 import { GiftFormData } from '../types/gift';
 
 interface GiftFormProps {
@@ -8,22 +10,22 @@ interface GiftFormProps {
 
 const GiftForm: React.FC<GiftFormProps> = ({ onSubmit, isLoading }) => {
   // 환경 변수 디버깅 정보 추가
-  React.useEffect(() => {
-    const hasOpenAIKey = !!process.env.REACT_APP_OPENAI_API_KEY;
+  useEffect(() => {
+    const hasOpenAIKey = !!process.env.NEXT_PUBLIC_OPENAI_API_KEY || !!process.env.REACT_APP_OPENAI_API_KEY;
     const hasCoupangPartnerId = !!process.env.REACT_APP_COUPANG_PARTNER_ID;
     const hasAdSenseId = !!process.env.REACT_APP_ADSENSE_PUBLISHER_ID;
-    
+
     console.log('🔍 환경 변수 상태 확인:', {
       openAIKey: hasOpenAIKey ? '✅ 설정됨' : '❌ 없음',
       coupangPartnerId: hasCoupangPartnerId ? '✅ 설정됨' : '⚠️ 없음 (일반 링크 사용)',
       adSenseId: hasAdSenseId ? '✅ 설정됨' : '⚠️ 없음 (광고 비활성화)',
       nodeEnv: process.env.NODE_ENV || 'development'
     });
-    
+
     if (!hasOpenAIKey) {
       console.warn('⚠️ OpenAI API 키가 설정되지 않았습니다. 더미 데이터가 표시될 수 있습니다.');
     }
-    
+
     if (!hasCoupangPartnerId) {
       console.info('💡 쿠팡 파트너스 ID가 설정되지 않았습니다. 일반 쿠팡 검색 링크를 사용합니다.');
     }
@@ -49,8 +51,8 @@ const GiftForm: React.FC<GiftFormProps> = ({ onSubmit, isLoading }) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: name === 'age' || name === 'minBudget' || name === 'maxBudget' 
-        ? Number(value) 
+      [name]: name === 'age' || name === 'minBudget' || name === 'maxBudget'
+        ? Number(value)
         : value
     }));
   };
@@ -58,45 +60,45 @@ const GiftForm: React.FC<GiftFormProps> = ({ onSubmit, isLoading }) => {
   // 나이 옵션 생성 함수
   const generateAgeOptions = () => {
     // 어린이 (10-12세)
-    const childrenOptions = [];
+    const childrenOptions: React.ReactNode[] = [];
     for (let age = 10; age <= 12; age++) {
       childrenOptions.push(
         <option key={age} value={age}>{age}세</option>
       );
     }
-    
+
     // 청소년 (13-19세)
-    const teenOptions = [];
+    const teenOptions: React.ReactNode[] = [];
     for (let age = 13; age <= 19; age++) {
       teenOptions.push(
         <option key={age} value={age}>{age}세</option>
       );
     }
-    
+
     // 청년층 (20-39세)
-    const youngAdultOptions = [];
+    const youngAdultOptions: React.ReactNode[] = [];
     for (let age = 20; age <= 39; age++) {
       youngAdultOptions.push(
         <option key={age} value={age}>{age}세</option>
       );
     }
-    
+
     // 중년층 (40-59세)
-    const middleAgedOptions = [];
+    const middleAgedOptions: React.ReactNode[] = [];
     for (let age = 40; age <= 59; age++) {
       middleAgedOptions.push(
         <option key={age} value={age}>{age}세</option>
       );
     }
-    
+
     // 장년층 (60-70세)
-    const elderlyOptions = [];
+    const elderlyOptions: React.ReactNode[] = [];
     for (let age = 60; age <= 70; age++) {
       elderlyOptions.push(
         <option key={age} value={age}>{age}세</option>
       );
     }
-    
+
     return (
       <>
         <option value="">나이를 선택해주세요</option>
@@ -129,7 +131,7 @@ const GiftForm: React.FC<GiftFormProps> = ({ onSubmit, isLoading }) => {
           커플 선물, 기념일 선물, 생일 선물 등 자세한 정보를 제공할수록 더 정확한 맞춤형 선물 아이디어를 받을 수 있어요! ✨
         </p>
       </div>
-      
+
       <form onSubmit={handleSubmit} className="space-y-8">
         {/* 성별 */}
         <div>

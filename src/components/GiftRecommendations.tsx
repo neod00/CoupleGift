@@ -1,6 +1,8 @@
+'use client';
+
 import React from 'react';
-import { GiftRecommendation } from '../types/gift.ts';
-import AdSense from './AdSense.tsx';
+import { GiftRecommendation } from '../types/gift';
+import AdSense from './AdSense';
 
 interface GiftRecommendationsProps {
   recommendations: GiftRecommendation[];
@@ -8,8 +10,8 @@ interface GiftRecommendationsProps {
   onBackToForm: () => void;
 }
 
-const GiftRecommendations: React.FC<GiftRecommendationsProps> = ({ 
-  recommendations, 
+const GiftRecommendations: React.FC<GiftRecommendationsProps> = ({
+  recommendations,
   onRegenerate,
   onBackToForm
 }) => {
@@ -33,14 +35,14 @@ const GiftRecommendations: React.FC<GiftRecommendationsProps> = ({
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {recommendations.map((gift, index) => (
-          <div 
-            key={gift.id} 
+          <div
+            key={gift.id}
             className="card group hover:scale-105 transition-all duration-300"
-            style={{animationDelay: `${index * 0.1}s`}}
+            style={{ animationDelay: `${index * 0.1}s` }}
           >
             <div className="relative mb-6 overflow-hidden rounded-xl">
-              <img 
-                src={gift.imageUrl} 
+              <img
+                src={gift.imageUrl}
                 alt={`${gift.category} 카테고리 ${gift.title} - AI 맞춤형 선물 추천`}
                 title={`${gift.title} - ${gift.price} 예산별 선물 추천`}
                 className="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-500"
@@ -53,7 +55,7 @@ const GiftRecommendations: React.FC<GiftRecommendationsProps> = ({
                 </span>
               </div>
             </div>
-            
+
             <div className="space-y-4">
               <div>
                 <h3 className="text-xl font-bold text-gray-800 mb-2 group-hover:text-purple-600 transition-colors">
@@ -61,7 +63,7 @@ const GiftRecommendations: React.FC<GiftRecommendationsProps> = ({
                 </h3>
                 <p className="text-gray-600 leading-relaxed">{gift.description}</p>
               </div>
-              
+
               <div className="flex justify-between items-center">
                 <div className="text-2xl font-bold gradient-text">
                   {gift.price}
@@ -78,7 +80,7 @@ const GiftRecommendations: React.FC<GiftRecommendationsProps> = ({
                   </div>
                 )}
               </div>
-              
+
               <button
                 onClick={() => window.open(gift.coupangUrl, '_blank')}
                 className="btn-primary w-full text-base py-3 group-hover:shadow-2xl transition-all duration-300"
@@ -106,7 +108,7 @@ const GiftRecommendations: React.FC<GiftRecommendationsProps> = ({
               <span className="text-lg mr-2">🔄</span>
               다시 추천받기
             </button>
-            
+
             <button
               onClick={onBackToForm}
               className="btn-primary px-6 py-3 text-base font-semibold"
@@ -116,7 +118,7 @@ const GiftRecommendations: React.FC<GiftRecommendationsProps> = ({
             </button>
           </div>
         </div>
-        
+
         <div className="text-sm text-white/60 flex items-center justify-center gap-2">
           <span className="text-base">💡</span>
           <span>더 정확한 추천을 위해 추가 정보를 입력해보세요!</span>
@@ -125,7 +127,7 @@ const GiftRecommendations: React.FC<GiftRecommendationsProps> = ({
 
       {/* 추천결과 페이지 하단 AdSense 광고 */}
       <div className="mt-12">
-        <AdSense 
+        <AdSense
           adSlot="RECOMMENDATIONS_BOTTOM_AD_SLOT"
           adFormat="rectangle"
           className="mb-6"
