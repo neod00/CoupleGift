@@ -34,7 +34,7 @@ export default function Contact() {
                     <h2 className="text-4xl md:text-5xl font-bold gradient-text mb-4">
                         문의하기
                     </h2>
-                    <p className="text-xl text-gray-700">
+                    <p className="text-xl text-[var(--text-main-90)]">
                         서비스 이용 중 궁금한 점이나 제안하고 싶은 내용이 있으신가요?
                     </p>
                 </div>
@@ -46,9 +46,9 @@ export default function Contact() {
                                 ✉️
                             </div>
                             <div>
-                                <h4 className="text-lg font-bold text-gray-800">이메일 문의</h4>
-                                <p className="text-gray-600">openbrain_main@gmail.com</p>
-                                <p className="text-sm text-gray-500 mt-1">24시간 이내에 답변해 드립니다.</p>
+                                <h4 className="text-lg font-bold text-[var(--text-main)]">이메일 문의</h4>
+                                <p className="text-[var(--text-main-70)]">openbrain_main@gmail.com</p>
+                                <p className="text-sm text-[var(--text-main-70)] mt-1">24시간 이내에 답변해 드립니다.</p>
                             </div>
                         </div>
 
@@ -57,14 +57,14 @@ export default function Contact() {
                                 💬
                             </div>
                             <div>
-                                <h4 className="text-lg font-bold text-gray-800">제휴 제안</h4>
-                                <p className="text-gray-600">openbrain_main@gmail.com</p>
-                                <p className="text-sm text-gray-500 mt-1">기업 및 광고 제휴 문의 환영합니다.</p>
+                                <h4 className="text-lg font-bold text-[var(--text-main)]">제휴 제안</h4>
+                                <p className="text-[var(--text-main-70)]">openbrain_main@gmail.com</p>
+                                <p className="text-sm text-[var(--text-main-70)] mt-1">기업 및 광고 제휴 문의 환영합니다.</p>
                             </div>
                         </div>
 
                         <div className="p-6 bg-gradient-to-br from-gray-50 to-white rounded-2xl border border-gray-100">
-                            <p className="text-sm text-gray-500 leading-relaxed">
+                            <p className="text-sm text-[var(--text-main-70)] leading-relaxed">
                                 💡 자주 묻는 질문이나 긴급한 오류 제보는 블로그 댓글이나 이메일을 통해
                                 전달해주시면 더 빠르게 확인 가능합니다.
                             </p>
@@ -73,7 +73,7 @@ export default function Contact() {
 
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div>
-                            <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-1">성함</label>
+                            <label htmlFor="name" className="block text-sm font-semibold text-[var(--text-main)] mb-1">성함</label>
                             <input
                                 type="text"
                                 id="name"
@@ -86,7 +86,7 @@ export default function Contact() {
                             />
                         </div>
                         <div>
-                            <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-1">이메일 주소</label>
+                            <label htmlFor="email" className="block text-sm font-semibold text-[var(--text-main)] mb-1">이메일 주소</label>
                             <input
                                 type="email"
                                 id="email"
@@ -99,7 +99,7 @@ export default function Contact() {
                             />
                         </div>
                         <div>
-                            <label htmlFor="subject" className="block text-sm font-semibold text-gray-700 mb-1">내용</label>
+                            <label htmlFor="subject" className="block text-sm font-semibold text-[var(--text-main)] mb-1">내용</label>
                             <textarea
                                 id="message"
                                 name="message"

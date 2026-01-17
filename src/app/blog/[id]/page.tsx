@@ -669,15 +669,15 @@ export default async function BlogPost({ params }: { params: Promise<{ id: strin
     const renderContent = (content: string) => {
         return content.split('\n').map((line, index) => {
             if (line.startsWith('# ')) {
-                return <h1 key={index} className="text-3xl font-bold text-white mt-8 mb-4">{line.substring(2)}</h1>;
+                return <h1 key={index} className="text-3xl font-bold text-[var(--text-main)] mt-8 mb-4">{line.substring(2)}</h1>;
             } else if (line.startsWith('## ')) {
-                return <h2 key={index} className="text-2xl font-semibold text-white mt-6 mb-3">{line.substring(3)}</h2>;
+                return <h2 key={index} className="text-2xl font-semibold text-[var(--text-main)] mt-6 mb-3">{line.substring(3)}</h2>;
             } else if (line.startsWith('### ')) {
-                return <h3 key={index} className="text-xl font-semibold text-white mt-4 mb-2">{line.substring(4)}</h3>;
+                return <h3 key={index} className="text-xl font-semibold text-[var(--text-main)] mt-4 mb-2">{line.substring(4)}</h3>;
             } else if (line.startsWith('- **')) {
                 const match = line.match(/- \*\*(.*?)\*\*: (.*)/);
                 if (match) {
-                    return <li key={index} className="mb-2 list-none"><strong className="text-white">{match[1]}</strong>: {match[2]}</li>;
+                    return <li key={index} className="mb-2 list-none"><strong className="text-[var(--text-main)]">{match[1]}</strong>: {match[2]}</li>;
                 }
                 return <li key={index} className="mb-1 list-none ml-4">{line.substring(2)}</li>;
             } else if (line.startsWith('- ')) {
@@ -688,7 +688,7 @@ export default async function BlogPost({ params }: { params: Promise<{ id: strin
                 // Simple HTML elements in content
                 return <div key={index} dangerouslySetInnerHTML={{ __html: line }} />;
             } else {
-                return <p key={index} className="mb-4 text-white/90 leading-relaxed">{line}</p>;
+                return <p key={index} className="mb-4 text-[var(--text-main-90)] leading-relaxed">{line}</p>;
             }
         });
     };
@@ -696,7 +696,7 @@ export default async function BlogPost({ params }: { params: Promise<{ id: strin
     return (
         <div className="max-w-4xl mx-auto py-8 px-4">
             <div className="mb-6 fade-in">
-                <Link href="/blog" className="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors">
+                <Link href="/blog" className="inline-flex items-center gap-2 text-[var(--text-main-70)] hover:text-[var(--text-main)] transition-colors">
                     ← 블로그 목록으로 돌아가기
                 </Link>
             </div>
@@ -704,13 +704,13 @@ export default async function BlogPost({ params }: { params: Promise<{ id: strin
             <article className="glass-card mb-8 fade-in p-6 md:p-10">
                 <header className="text-center mb-10 border-b border-white/10 pb-10">
                     <span className="text-8xl mb-6 block">{post.image}</span>
-                    <div className="flex items-center justify-center gap-4 mb-4 text-sm text-white/60">
-                        <span className="bg-white/10 px-3 py-1 rounded-full">{post.category}</span>
+                    <div className="flex items-center justify-center gap-4 mb-4 text-sm text-[var(--text-main-70)]">
+                        <span className="bg-white/20 px-3 py-1 rounded-full text-[var(--text-main)]">{post.category}</span>
                         <span>{post.date}</span>
                         <span>•</span>
                         <span>{post.readTime} 읽기</span>
                     </div>
-                    <h1 className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
+                    <h1 className="text-3xl md:text-5xl font-bold text-[var(--text-main)] mb-4 leading-tight">
                         {post.title}
                     </h1>
                 </header>
@@ -720,12 +720,12 @@ export default async function BlogPost({ params }: { params: Promise<{ id: strin
                 </div>
 
                 <div className="mt-12 pt-8 border-t border-white/10">
-                    <h4 className="text-lg font-semibold text-white mb-4">태그</h4>
+                    <h4 className="text-lg font-semibold text-[var(--text-main)] mb-4">태그</h4>
                     <div className="flex flex-wrap gap-2">
                         {post.tags.map((tag) => (
                             <span
                                 key={tag}
-                                className="bg-white/10 text-white/80 px-4 py-1.5 rounded-full text-sm hover:bg-white/20 hover:text-white transition-all cursor-pointer"
+                                className="bg-white/20 text-[var(--text-main-90)] px-4 py-1.5 rounded-full text-sm hover:bg-white/30 hover:text-[var(--text-main)] transition-all cursor-pointer font-medium"
                             >
                                 #{tag}
                             </span>

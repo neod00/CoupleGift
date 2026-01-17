@@ -207,7 +207,7 @@ export default async function GiftCategory({ params }: { params: Promise<{ categ
     return (
         <div className="max-w-6xl mx-auto py-8 px-4">
             <div className="mb-6 fade-in">
-                <Link href="/" className="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors">
+                <Link href="/" className="inline-flex items-center gap-2 text-[var(--text-main-70)] hover:text-[var(--text-main)] transition-colors">
                     ← 홈으로 돌아가기
                 </Link>
             </div>
@@ -217,7 +217,7 @@ export default async function GiftCategory({ params }: { params: Promise<{ categ
                 <h1 className="text-4xl md:text-5xl font-bold gradient-text mb-4">
                     {categoryData.title}
                 </h1>
-                <p className="text-xl text-white/90 max-w-2xl mx-auto">
+                <p className="text-xl text-[var(--text-main-90)] max-w-2xl mx-auto">
                     {categoryData.description}
                 </p>
             </div>
@@ -228,11 +228,11 @@ export default async function GiftCategory({ params }: { params: Promise<{ categ
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                             <div className="text-center">
                                 <span className="text-8xl mb-6 block">{item.image}</span>
-                                <h3 className="text-2xl font-bold text-white mb-2">{item.name}</h3>
+                                <h3 className="text-2xl font-bold text-[var(--text-main)] mb-2">{item.name}</h3>
                                 <div className="text-3xl font-bold gradient-text mb-6">{item.price}</div>
                                 <div className="flex justify-center items-center gap-2 mb-8 bg-white/5 py-2 rounded-full">
                                     {renderStars(item.rating)}
-                                    <span className="text-white/80 font-semibold">{item.rating}</span>
+                                    <span className="text-[var(--text-main-90)] font-semibold">{item.rating}</span>
                                 </div>
                                 <Link
                                     href={item.coupangUrl}
@@ -245,10 +245,10 @@ export default async function GiftCategory({ params }: { params: Promise<{ categ
 
                             <div className="lg:col-span-2 space-y-8">
                                 <div>
-                                    <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                                    <h4 className="text-xl font-bold text-[var(--text-main)] mb-4 flex items-center gap-2">
                                         <span className="text-pink-400">📋</span> 상품 설명
                                     </h4>
-                                    <p className="text-white/80 leading-relaxed text-lg">
+                                    <p className="text-[var(--text-main-70)] leading-relaxed text-lg">
                                         {item.description}
                                     </p>
                                 </div>
@@ -260,7 +260,7 @@ export default async function GiftCategory({ params }: { params: Promise<{ categ
                                         </h5>
                                         <ul className="space-y-3">
                                             {item.pros.map((pro, idx) => (
-                                                <li key={idx} className="text-white/80 text-sm flex items-start gap-2">
+                                                <li key={idx} className="text-[var(--text-main-90)] text-sm flex items-start gap-2">
                                                     <span className="text-green-500 mt-1">•</span>
                                                     {pro}
                                                 </li>
@@ -274,7 +274,7 @@ export default async function GiftCategory({ params }: { params: Promise<{ categ
                                         </h5>
                                         <ul className="space-y-3">
                                             {item.cons.map((con, idx) => (
-                                                <li key={idx} className="text-white/80 text-sm flex items-start gap-2">
+                                                <li key={idx} className="text-[var(--text-main-90)] text-sm flex items-start gap-2">
                                                     <span className="text-orange-500 mt-1">•</span>
                                                     {con}
                                                 </li>
@@ -289,7 +289,7 @@ export default async function GiftCategory({ params }: { params: Promise<{ categ
             </div>
 
             <div className="glass-card mt-12 fade-in p-8">
-                <h3 className="text-2xl font-bold text-white mb-8 text-center">
+                <h3 className="text-2xl font-bold text-[var(--text-main)] mb-8 text-center">
                     🎁 다른 카테고리도 둘러보세요
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -302,7 +302,7 @@ export default async function GiftCategory({ params }: { params: Promise<{ categ
                                 className="block bg-white/5 rounded-2xl p-6 text-center hover:bg-white/10 transition-all border border-white/10 hover:border-white/20"
                             >
                                 <span className="text-4xl mb-3 block">{cat.icon}</span>
-                                <h4 className="text-white font-bold text-sm">{cat.title}</h4>
+                                <h4 className="text-[var(--text-main)] font-bold text-sm">{cat.title}</h4>
                             </Link>
                         ))}
                 </div>

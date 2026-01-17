@@ -88,7 +88,7 @@ export default function Blog() {
                 <h1 className="text-4xl font-bold gradient-text mb-4">
                     📝 선물 아이디어 블로그
                 </h1>
-                <p className="text-xl text-white/90">
+                <p className="text-xl text-[var(--text-main-90)]">
                     AI 맞춤형 선물 추천과 기념일 선물, 생일 선물 아이디어를 위한 유용한 정보와 팁
                 </p>
             </div>
@@ -98,7 +98,7 @@ export default function Blog() {
                     {categories.map((category) => (
                         <button
                             key={category}
-                            className="px-4 py-2 rounded-lg bg-white/10 text-white/80 hover:bg-white/20 hover:text-white transition-all duration-300"
+                            className="px-4 py-2 rounded-lg bg-white/20 text-[var(--text-main)] hover:bg-white/30 transition-all duration-300"
                         >
                             {category}
                         </button>
@@ -114,8 +114,8 @@ export default function Blog() {
                                 <span className="text-6xl">{post.image}</span>
                             </div>
 
-                            <div className="flex items-center justify-between mb-3 text-sm text-white/60">
-                                <span className="bg-white/10 px-2 py-1 rounded-full">{post.category}</span>
+                            <div className="flex items-center justify-between mb-3 text-sm text-[var(--text-main-70)]">
+                                <span className="bg-white/20 px-2 py-1 rounded-full text-[var(--text-main)]">{post.category}</span>
                                 <div className="flex items-center gap-2">
                                     <span>{post.date}</span>
                                     <span>•</span>
@@ -123,16 +123,16 @@ export default function Blog() {
                                 </div>
                             </div>
 
-                            <h2 className="text-xl font-semibold text-white mb-3 line-clamp-2 hover:text-white/80 transition-colors">
+                            <h2 className="text-xl font-semibold text-[var(--text-main)] mb-3 line-clamp-2 hover:text-[var(--text-main-70)] transition-colors">
                                 {post.title}
                             </h2>
 
-                            <p className="text-white/70 text-sm leading-relaxed line-clamp-3">
+                            <p className="text-[var(--text-main-70)] text-sm leading-relaxed line-clamp-3">
                                 {post.excerpt}
                             </p>
 
                             <div className="mt-4 pt-4 border-t border-white/10">
-                                <span className="text-white/60 text-sm hover:text-white transition-colors">
+                                <span className="text-[var(--text-main-70)] text-sm hover:text-[var(--text-main)] transition-colors">
                                     자세히 읽기 →
                                 </span>
                             </div>
@@ -142,7 +142,7 @@ export default function Blog() {
             </div>
 
             <div className="glass-card mb-8 fade-in">
-                <h3 className="text-xl font-semibold text-white mb-4 text-center">
+                <h3 className="text-xl font-semibold text-[var(--text-main)] mb-4 text-center">
                     🏷️ 인기 태그
                 </h3>
                 <div className="flex flex-wrap justify-center gap-3">
@@ -153,7 +153,7 @@ export default function Blog() {
                     ].map((tag) => (
                         <span
                             key={tag}
-                            className="bg-white/10 text-white/80 px-3 py-1 rounded-full text-sm hover:bg-white/20 hover:text-white transition-all cursor-pointer"
+                            className="bg-white/20 text-[var(--text-main-90)] px-3 py-1 rounded-full text-sm hover:bg-white/30 hover:text-[var(--text-main)] transition-all cursor-pointer font-medium"
                         >
                             #{tag}
                         </span>
@@ -162,17 +162,17 @@ export default function Blog() {
             </div>
 
             <div className="glass-card text-center mb-8 fade-in">
-                <h3 className="text-2xl font-semibold text-white mb-4">
+                <h3 className="text-2xl font-semibold text-[var(--text-main)] mb-4">
                     📬 새로운 선물 아이디어를 받아보세요
                 </h3>
-                <p className="text-white/80 mb-6">
+                <p className="text-[var(--text-main-90)] mb-6">
                     매주 새로운 선물 아이디어와 팁을 이메일로 받아보세요
                 </p>
                 <div className="max-w-md mx-auto flex gap-3">
                     <input
                         type="email"
                         placeholder="이메일 주소를 입력하세요"
-                        className="flex-1 px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-white/40 focus:bg-white/15 transition-all"
+                        className="flex-1 px-4 py-3 bg-white/20 border border-white/20 rounded-lg text-[var(--text-main)] placeholder-white/50 focus:outline-none focus:border-white/40 focus:bg-white/30 transition-all font-medium"
                     />
                     <button className="btn-primary px-6">
                         구독하기
