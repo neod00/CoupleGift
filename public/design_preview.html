@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Concepts Preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Annie+Use+Your+Telescope&family=Inter:wght@400;700;900&family=Noto+Sans+KR:wght@400;700;900&family=Silkscreen&display=swap');
+        
+        /* Custom Animations */
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        @keyframes glitch { 0% { transform: translate(0); } 20% { transform: translate(-2px, 2px); } 40% { transform: translate(-2px, -2px); } 60% { transform: translate(2px, 2px); } 80% { transform: translate(2px, -2px); } 100% { transform: translate(0); } }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        .animate-marquee { animation: marquee 10s linear infinite; }
+        .hover-glitch:hover { animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite; }
+        
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-gray-100 font-['Noto_Sans_KR']">
+
+    <!-- Header -->
+    <div class="fixed top-0 w-full bg-white/80 backdrop-blur z-50 p-4 border-b">
+        <h1 class="text-xl font-bold text-center">Gift Genie - 1020 Design Concepts View</h1>
+        <p class="text-xs text-center text-gray-500">Scroll down to see 5 different styles</p>
+    </div>
+
+    <!-- Concept 1: MZ Newtro -->
+    <section class="min-h-screen flex flex-col items-center justify-center relative overflow-hidden border-b-8 border-black" style="background-color: #FF00FF;">
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 20px 20px;"></div>
+        
+        <div class="bg-white border-4 border-black p-1 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] max-w-md w-full m-4">
+            <div class="bg-blue-600 text-white p-2 font-['Silkscreen'] flex justify-between items-center border-b-4 border-black">
+                <span>GIFT_GENIE.EXE</span>
+                <div class="flex gap-1"><span class="w-4 h-4 bg-white border border-black"></span><span class="w-4 h-4 bg-white border border-black"></span></div>
+            </div>
+            <div class="p-6 flex flex-col items-center gap-6 bg-yellow-300">
+                <h2 class="text-4xl font-black text-center leading-none tracking-tighter" style="text-shadow: 2px 2px 0px #fff, 4px 4px 0px #000;">
+                    FIND YOUR<br><span class="text-blue-600">VIBE!</span>
+                </h2>
+                <div class="flex gap-2 w-full overflow-hidden whitespace-nowrap bg-black text-lime-400 py-1 font-mono text-sm">
+                    <div class="animate-marquee inline-block">🎁 BEST GIFT 4 U • MZ TREND • 🎁 BEST GIFT 4 U • MZ TREND • </div>
+                </div>
+                <button class="w-full bg-lime-400 border-4 border-black py-3 font-bold text-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all">
+                    START_NOW >
+                </button>
+            </div>
+        </div>
+        <div class="absolute bottom-10 right-10 font-['Silkscreen'] text-white text-xl rotate-12">#01. NEWTRO PIXEL</div>
+    </section>
+
+    <!-- Concept 2: Dreamy Aura -->
+    <section class="min-h-screen flex flex-col items-center justify-center relative overflow-hidden bg-white">
+        <!-- Aura background -->
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100"></div>
+        <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-float"></div>
+        <div class="absolute top-1/3 right-1/4 w-64 h-64 bg-yellow-200 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-float" style="animation-delay: 2s;"></div>
+        <div class="absolute bottom-1/4 right-1/2 w-64 h-64 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-float" style="animation-delay: 4s;"></div>
+
+        <div class="relative z-10 glass-card bg-white/40 backdrop-blur-md border border-white/50 p-8 rounded-[40px] shadow-xl max-w-sm w-full mx-4 text-center">
+            <p class="text-sm font-medium text-gray-500 mb-2 tracking-widest">FOR YOUR SPECIAL DAY</p>
+            <h2 class="text-3xl font-bold text-gray-800 mb-8 font-['Inter']">Gift Genie ✨</h2>
+            
+            <div class="space-y-4">
+                <div class="bg-white/60 p-4 rounded-2xl flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center text-xl">🕯️</div>
+                    <div class="text-left">
+                        <div class="font-bold text-gray-700">For Wellness</div>
+                        <div class="text-xs text-gray-500">Scented candles & more</div>
+                    </div>
+                </div>
+                <div class="bg-white/60 p-4 rounded-2xl flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-xl">🎧</div>
+                    <div class="text-left">
+                        <div class="font-bold text-gray-700">Tech Gadgets</div>
+                        <div class="text-xs text-gray-500">Trendy & Useful</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-10 right-10 font-serif text-gray-400 italic">#02. Dreamy Aura</div>
+    </section>
+
+    <!-- Concept 3: Dark Acid -->
+    <section class="min-h-screen flex flex-col items-center justify-center bg-black relative">
+        <div class="absolute top-0 w-full border-t border-b border-white/20 py-2 overflow-hidden">
+             <div class="animate-marquee whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-lime-400 to-green-600 font-bold text-xs uppercase tracking-[0.5em]">
+                System Ready • Initialize Gift Protocol • Analysis Complete • 
+            </div>
+        </div>
+
+        <div class="w-full max-w-md p-6">
+            <h1 class="text-6xl font-black text-white mb-2 tracking-tighter hover-glitch cursor-default">GIFT<br><span class="text-lime-400">GENIE</span></h1>
+            <p class="text-gray-400 text-sm mb-8 font-mono border-l-2 border-lime-400 pl-4 py-1">
+                AI Powered Recommendation Engine<br>
+                v.2026.1.0 [BETA]
+            </p>
+
+            <div class="grid grid-cols-2 gap-4">
+                <button class="aspect-square border border-white/30 hover:bg-lime-400 hover:text-black hover:border-lime-400 transition-colors flex flex-col items-center justify-center text-white group">
+                    <span class="text-2xl mb-2 group-hover:scale-110 transition-transform">🔥</span>
+                    <span class="font-bold text-xs">TRENDING</span>
+                </button>
+                <button class="aspect-square border border-white/30 hover:bg-purple-600 hover:text-black hover:border-purple-600 transition-colors flex flex-col items-center justify-center text-white group">
+                    <span class="text-2xl mb-2 group-hover:scale-110 transition-transform">💎</span>
+                    <span class="font-bold text-xs">LUXURY</span>
+                </button>
+            </div>
+            
+            <button class="w-full mt-4 bg-white text-black font-black italic py-4 text-xl hover:bg-gray-200 uppercase tracking-widest">
+                Execute ///
+            </button>
+        </div>
+        <div class="absolute bottom-10 right-10 font-mono text-lime-400 text-xs">#03. DARK ACID</div>
+    </section>
+
+    <!-- Concept 4: Soft Pop 3D -->
+    <section class="min-h-screen flex flex-col items-center justify-center bg-[#FFF8E1]">
+        <div class="w-full max-w-md p-6">
+            <div class="bg-white rounded-[40px] p-8 shadow-[0_20px_40px_-15px_rgba(255,193,7,0.3)] border-2 border-[#FFE082]">
+                <div class="text-center mb-8">
+                    <span class="inline-block bg-[#FFECB3] text-[#FF8F00] px-4 py-1 rounded-full text-xs font-bold mb-4">AI Assistant</span>
+                    <h2 class="text-3xl font-black text-slate-800 mb-2">Hello, Friend! 👋</h2>
+                    <p class="text-slate-500 text-sm">Who are you looking for today?</p>
+                </div>
+
+                <div class="space-y-4">
+                    <button class="w-full bg-[#E3F2FD] hover:bg-[#BBDEFB] text-[#1976D2] p-4 rounded-3xl font-bold flex items-center justify-between transition-colors shadow-sm">
+                        <span>For Boyfriend ❤️</span>
+                        <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-sm shadow-sm">➜</div>
+                    </button>
+                    <button class="w-full bg-[#FCE4EC] hover:bg-[#F8BBD0] text-[#C2185B] p-4 rounded-3xl font-bold flex items-center justify-between transition-colors shadow-sm">
+                        <span>For Girlfriend 💖</span>
+                        <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-sm shadow-sm">➜</div>
+                    </button>
+                    <button class="w-full bg-[#E8F5E9] hover:bg-[#C8E6C9] text-[#388E3C] p-4 rounded-3xl font-bold flex items-center justify-between transition-colors shadow-sm">
+                        <span>For Parents 👨‍👩‍👧</span>
+                        <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-sm shadow-sm">➜</div>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-10 right-10 font-bold text-[#FFB300]">#04. SOFT POP 3D</div>
+    </section>
+
+    <!-- Concept 5: High-Teen Collage -->
+    <section class="min-h-screen flex flex-col items-center justify-center bg-[url('https://www.transparenttextures.com/patterns/crumpled-paper.png')] bg-[#f8f8f8]" style="font-family: 'Annie Use Your Telescope', cursive;">
+        <div class="relative w-full max-w-md h-[600px] p-4">
+            
+            <!-- Title Sticker -->
+            <div class="absolute top-10 left-4 bg-black text-white px-4 py-2 rotate-[-5deg] z-20">
+                <h1 class="text-4xl">GIFT DIARY</h1>
+            </div>
+
+            <!-- Photo 1 -->
+            <div class="absolute top-32 right-4 bg-white p-2 pb-8 shadow-lg rotate-[5deg] w-48 z-10 transform transition-transform hover:scale-105 hover:rotate-0 duration-300">
+                <div class="bg-gray-200 h-32 w-full flex items-center justify-center text-gray-400 overflow-hidden">
+                    <div class="w-full h-full bg-gradient-to-br from-pink-200 to-purple-200"></div>
+                </div>
+                <p class="text-center mt-2 text-xl font-bold text-gray-800">#Couple</p>
+                <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-8 h-24 bg-red-400/50 rotate-90"></div> <!-- Tape -->
+            </div>
+
+            <!-- Photo 2 -->
+            <div class="absolute bottom-32 left-8 bg-white p-2 pb-8 shadow-lg rotate-[-8deg] w-44 z-10 transform transition-transform hover:scale-105 hover:rotate-0 duration-300">
+                <div class="bg-gray-200 h-28 w-full flex items-center justify-center text-gray-400 overflow-hidden">
+                    <div class="w-full h-full bg-gradient-to-br from-blue-200 to-green-200"></div>
+                </div>
+                <p class="text-center mt-2 text-xl font-bold text-gray-800">#Birthday</p>
+                <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-8 h-24 bg-yellow-400/50 rotate-90"></div> <!-- Tape -->
+            </div>
+
+            <!-- Doodles -->
+            <div class="absolute top-1/2 left-1/2 text-pink-500 text-6xl z-0 font-bold opacity-20 rotate-45">LOVE</div>
+            <div class="absolute bottom-10 right-10 text-blue-500 text-5xl z-30 animate-pulse">Click Me!</div>
+
+        </div>
+        <div class="absolute bottom-10 right-10 text-2xl rotate-[-10deg]">#05. HIGHTEEN COLLAGE</div>
+    </section>
+
+</body>
+</html>

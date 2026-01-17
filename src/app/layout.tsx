@@ -4,6 +4,9 @@ import Navigation from '../components/Navigation'
 import AdSense from '../components/AdSense'
 import Footer from '../components/Footer'
 import VisitorCounter from '../components/VisitorCounter'
+import { ThemeProvider } from '../context/ThemeContext'
+import ThemeWrapper from '../components/ThemeWrapper'
+import ThemeSwitcher from '../components/ThemeSwitcher'
 import { Inter } from 'next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -94,46 +97,40 @@ export default function RootLayout({
                 />
             </head>
             <body className={inter.className}>
-                <VisitorCounter />
-                <div className="min-h-screen instagram-gradient relative">
-                    {/* 플로팅 배경 요소들 */}
-                    <div className="floating-bg">
-                        <div className="floating-element"></div>
-                        <div className="floating-element"></div>
-                        <div className="floating-element"></div>
-                        <div className="floating-element"></div>
-                        <div className="floating-element"></div>
-                    </div>
-
-                    <div className="container mx-auto px-4 py-8 relative z-10">
-                        <header className="text-center mb-12 fade-in">
-                            <div className="mb-6">
-                                <h1 className="text-5xl md:text-6xl font-bold gradient-text mb-4">
-                                    ✨ 선물지니
-                                </h1>
-                                <div className="text-2xl md:text-3xl font-semibold text-white mb-2">
-                                    GiftGenie
+                <ThemeProvider>
+                    <ThemeWrapper>
+                        <VisitorCounter />
+                        <div className="container mx-auto px-4 py-8 relative z-10">
+                            <header className="text-center mb-12 fade-in">
+                                <div className="mb-6">
+                                    <h1 className="text-5xl md:text-6xl font-bold gradient-text mb-4">
+                                        ✨ 선물지니
+                                    </h1>
+                                    <div className="text-2xl md:text-3xl font-semibold text-[var(--text-main)] mb-2" style={{ textShadow: "0 2px 4px rgba(0,0,0,0.1)" }}>
+                                        GiftGenie
+                                    </div>
                                 </div>
-                            </div>
-                            <p className="text-xl md:text-2xl text-white/90 font-medium mb-4">
-                                AI 맞춤형 커플 선물 추천 - 특별한 기념일을 위한 완벽한 선물 아이디어
-                            </p>
-                            <div className="max-w-3xl mx-auto">
-                                <p className="text-lg text-white/80 leading-relaxed">
-                                    💑 커플 선물 • 🎂 생일 선물 • 💒 기념일 선물 • 👶 청소년 • 🧑‍💼 20-30대 • 👨‍💼 40-50대 중년층 • 👨‍🦳 60-70대 장년층
-                                    <br />
-                                    <span className="text-base">모든 연령대와 관계를 위한 AI 맞춤형 선물 추천 서비스 - 예산별 추천으로 쿠팡에서 바로 구매 가능</span>
+                                <p className="text-xl md:text-2xl text-[var(--text-main-90)] font-medium mb-4" style={{ textShadow: "0 1px 2px rgba(0,0,0,0.1)" }}>
+                                    AI 맞춤형 커플 선물 추천 - 특별한 기념일을 위한 완벽한 선물 아이디어
                                 </p>
-                            </div>
-                        </header>
+                                <div className="max-w-3xl mx-auto">
+                                    <p className="text-lg text-[var(--text-main-70)] leading-relaxed">
+                                        💑 커플 선물 • 🎂 생일 선물 • 💒 기념일 선물 • 👶 청소년 • 🧑‍💼 20-30대 • 👨‍💼 40-50대 중년층 • 👨‍🦳 60-70대 장년층
+                                        <br />
+                                        <span className="text-base">모든 연령대와 관계를 위한 AI 맞춤형 선물 추천 서비스 - 예산별 추천으로 쿠팡에서 바로 구매 가능</span>
+                                    </p>
+                                </div>
+                            </header>
 
-                        <Navigation />
+                            <Navigation />
 
-                        <main>{children}</main>
+                            <main>{children}</main>
 
-                        <Footer />
-                    </div>
-                </div>
+                            <Footer />
+                        </div>
+                        <ThemeSwitcher />
+                    </ThemeWrapper>
+                </ThemeProvider>
             </body>
         </html>
     )

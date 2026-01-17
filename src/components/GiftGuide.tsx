@@ -86,14 +86,14 @@ const GiftGuide: React.FC = () => {
         <h2 className="text-3xl font-bold gradient-text mb-4">
           🎁 AI 맞춤형 선물 가이드
         </h2>
-        <p className="text-lg text-white/80">
+        <p className="text-lg text-[var(--text-main-70)]">
           커플 선물, 기념일 선물, 생일 선물 등 완벽한 맞춤형 선물 아이디어를 위한 가이드를 확인해보세요
         </p>
       </div>
 
       {/* 관계별 선물 가이드 */}
       <section>
-        <h3 className="text-2xl font-semibold text-white mb-6 text-center">
+        <h3 className="text-2xl font-semibold text-[var(--text-main)] mb-6 text-center">
           관계별 맞춤형 선물 추천
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -105,20 +105,20 @@ const GiftGuide: React.FC = () => {
             >
               <div className="flex items-center gap-3 mb-4">
                 <span className="text-3xl">{category.icon}</span>
-                <h4 className="text-xl font-semibold text-white">{category.title}</h4>
+                <h4 className="text-xl font-semibold text-[var(--text-main)]">{category.title}</h4>
               </div>
-              <p className="text-white/80 mb-4">{category.description}</p>
+              <p className="text-[var(--text-main-90)] mb-4">{category.description}</p>
               <div className="flex flex-wrap gap-2 mb-3">
                 {category.examples.map((example, idx) => (
                   <span
                     key={idx}
-                    className="bg-white/10 text-white/90 px-3 py-1 rounded-full text-sm"
+                    className="bg-white/20 text-[var(--text-main)] px-3 py-1 rounded-full text-sm font-medium"
                   >
                     {example}
                   </span>
                 ))}
               </div>
-              <div className="text-white/60 text-sm">
+              <div className="text-[var(--text-main-70)] text-sm">
                 자세히 보기 →
               </div>
             </Link>
@@ -128,7 +128,7 @@ const GiftGuide: React.FC = () => {
 
       {/* 기념일별 선물 팁 */}
       <section>
-        <h3 className="text-2xl font-semibold text-white mb-6 text-center">
+        <h3 className="text-2xl font-semibold text-[var(--text-main)] mb-6 text-center">
           기념일별 선물 아이디어 팁
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -136,9 +136,9 @@ const GiftGuide: React.FC = () => {
             <div key={index} className="glass-card">
               <div className="flex items-center gap-3 mb-3">
                 <span className="text-2xl">{guide.icon}</span>
-                <h4 className="text-lg font-semibold text-white">{guide.occasion}</h4>
+                <h4 className="text-lg font-semibold text-[var(--text-main)]">{guide.occasion}</h4>
               </div>
-              <p className="text-white/80">{guide.tips}</p>
+              <p className="text-[var(--text-main-90)]">{guide.tips}</p>
             </div>
           ))}
         </div>
@@ -146,7 +146,7 @@ const GiftGuide: React.FC = () => {
 
       {/* 예산별 선물 가이드 */}
       <section>
-        <h3 className="text-2xl font-semibold text-white mb-6 text-center">
+        <h3 className="text-2xl font-semibold text-[var(--text-main)] mb-6 text-center">
           예산별 선물 추천 가이드
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -154,13 +154,13 @@ const GiftGuide: React.FC = () => {
             <div key={index} className="glass-card">
               <div className="flex items-center gap-3 mb-4">
                 <span className="text-2xl">{budget.icon}</span>
-                <h4 className="text-lg font-semibold text-white">{budget.range}</h4>
+                <h4 className="text-lg font-semibold text-[var(--text-main)]">{budget.range}</h4>
               </div>
               <div className="flex flex-wrap gap-2">
                 {budget.suggestions.map((suggestion, idx) => (
                   <span
                     key={idx}
-                    className="bg-white/10 text-white/90 px-3 py-1 rounded-full text-sm"
+                    className="bg-white/20 text-[var(--text-main)] px-3 py-1 rounded-full text-sm font-medium"
                   >
                     {suggestion}
                   </span>
@@ -173,10 +173,10 @@ const GiftGuide: React.FC = () => {
 
       {/* 선물 선택 팁 */}
       <section className="glass-card">
-        <h3 className="text-2xl font-semibold text-white mb-6 text-center">
+        <h3 className="text-2xl font-semibold text-[var(--text-main)] mb-6 text-center">
           💡 AI 맞춤형 선물 아이디어 선택을 위한 팁
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-white/90">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-[var(--text-main-90)]">
           <div>
             <h4 className="text-lg font-semibold mb-3 flex items-center gap-2">
               <span className="text-xl">🎯</span>

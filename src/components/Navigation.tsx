@@ -24,8 +24,8 @@ const Navigation: React.FC = () => {
             href={item.path}
             title={item.title}
             className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 ${pathname === item.path
-                ? 'bg-white/20 text-white font-semibold'
-                : 'text-white/80 hover:bg-white/10 hover:text-white'
+              ? 'bg-white/20 text-[var(--text-main)] font-semibold shadow-sm'
+              : 'text-[var(--text-main-70)] hover:bg-white/10 hover:text-[var(--text-main)]'
               }`}
           >
             <span className="text-lg">{item.icon}</span>

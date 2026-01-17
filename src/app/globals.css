@@ -1,35 +1,246 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Silkscreen&family=Annie+Use+Your+Telescope&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  html {
-    font-family: 'Poppins', 'Inter', sans-serif;
+  :root {
+    /* DEFAULT THEME (Original) */
+    --font-main: 'Poppins', 'Inter', sans-serif;
+    --bg-layer-1: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+    --text-gradient: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+
+    --card-bg: rgba(255, 255, 255, 0.25);
+    --card-border: 1px solid rgba(255, 255, 255, 0.18);
+    --card-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    --card-radius: 20px;
+    --card-backdrop: blur(10px);
+
+    --btn-primary-bg: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    --btn-primary-text: white;
+    --btn-primary-shadow: 0 4px 15px 0 rgba(102, 126, 234, 0.4);
+    --btn-primary-border: none;
+    --btn-radius: 12px;
+
+    --input-bg: rgba(255, 255, 255, 0.1);
+    --input-border: 2px solid rgba(255, 255, 255, 0.3);
+    --input-text: #333;
+    --input-placeholder: rgba(0, 0, 0, 0.5);
+    --input-focus-border: rgba(102, 126, 234, 0.6);
+
+    --floating-item-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
+
+    /* Default Theme Text Color (White) */
+    --text-main: #ffffff;
+    --text-main-70: rgba(255, 255, 255, 0.7);
+    --text-main-90: rgba(255, 255, 255, 0.9);
   }
-  
+
+  /* THEME: MZ NEWTRO (Pixel/Neon) */
+  .theme-newtro {
+    --font-main: 'Noto Sans KR', 'Silkscreen', sans-serif;
+    --bg-layer-1: #FF00FF;
+    /* Hot Pink Background */
+    --text-gradient: #000;
+    /* Solid Black Text for contrast */
+
+    --text-main: #000000;
+    --text-main-70: rgba(0, 0, 0, 0.7);
+    --text-main-90: rgba(0, 0, 0, 0.9);
+
+    --card-bg: #FFFFFF;
+    --card-border: 4px solid #000000;
+    --card-shadow: 8px 8px 0px 0px #000000;
+    --card-radius: 0px;
+    /* Sharp corners */
+    --card-backdrop: none;
+
+    --btn-primary-bg: #CCFF00;
+    /* Lime Green */
+    --btn-primary-text: #000000;
+    --btn-primary-shadow: 4px 4px 0px 0px #000000;
+    --btn-primary-border: 4px solid #000000;
+    --btn-radius: 0px;
+
+    --input-bg: #FFFFFF;
+    --input-border: 4px solid #000000;
+    --input-text: #000000;
+    --input-placeholder: #888;
+    --input-focus-border: #CCFF00;
+
+    --floating-item-bg: #00FFFF;
+    /* Cyan floating items */
+  }
+
+  /* THEME: DREAMY AURA (Pastel/Soft) */
+  .theme-aura {
+    --font-main: 'Inter', sans-serif;
+    --bg-layer-1: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+    --text-gradient: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+
+    --card-bg: rgba(255, 255, 255, 0.4);
+    --card-border: 1px solid rgba(255, 255, 255, 0.8);
+    --card-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+    --card-radius: 30px;
+    /* Extra rounded */
+    --card-backdrop: blur(20px);
+
+    /* Aura is light pastel, so use Dark Grey text */
+    --text-main: #4a4a4a;
+    --text-main-70: rgba(74, 74, 74, 0.7);
+    --text-main-90: rgba(74, 74, 74, 0.9);
+
+    --btn-primary-bg: linear-gradient(to right, #a18cd1 0%, #fbc2eb 100%);
+    --btn-primary-text: white;
+    --btn-primary-shadow: 0 10px 20px rgba(161, 140, 209, 0.3);
+    --btn-primary-border: 1px solid white;
+    --btn-radius: 30px;
+
+    --input-bg: rgba(255, 255, 255, 0.6);
+    --input-border: 1px solid white;
+    --input-text: #555;
+    --input-placeholder: #999;
+    --input-focus-border: #a18cd1;
+
+    --floating-item-bg: rgba(255, 255, 255, 0.3);
+  }
+
+  /* THEME: DARK ACID (Black/Neon) */
+  .theme-dark-acid {
+    --font-main: 'Inter', 'Noto Sans KR', sans-serif;
+    --bg-layer-1: #050505;
+    --text-gradient: #CCFF00;
+    /* Neon Lime */
+
+    --card-bg: #111111;
+    --card-border: 1px solid #333;
+    --card-shadow: 0 0 20px rgba(204, 255, 0, 0.1);
+    --card-radius: 4px;
+    --card-backdrop: none;
+
+    /* Dark Acid is black, so use Neon/White text */
+    --text-main: #ffffff;
+    --text-main-70: rgba(255, 255, 255, 0.7);
+    --text-main-90: rgba(255, 255, 255, 0.9);
+
+    --btn-primary-bg: #CCFF00;
+    --btn-primary-text: #000000;
+    --btn-primary-shadow: 0 0 15px rgba(204, 255, 0, 0.5);
+    --btn-primary-border: none;
+    --btn-radius: 0px;
+
+    --input-bg: #222;
+    --input-border: 1px solid #444;
+    --input-text: #CCFF00;
+    --input-placeholder: #555;
+    --input-focus-border: #CCFF00;
+
+    --floating-item-bg: #333;
+  }
+
+  /* THEME: SOFT POP 3D (Yellow/Blue/Cute) */
+  .theme-soft-pop {
+    --font-main: 'Poppins', 'Noto Sans KR', sans-serif;
+    --bg-layer-1: #FFF8E1;
+    /* Soft Yellow */
+    --text-gradient: #FF8F00;
+    /* Amber */
+
+    --card-bg: #FFFFFF;
+    --card-border: 2px solid #FFE082;
+    --card-shadow: 0 12px 0px 0px #FFECB3;
+    --card-radius: 24px;
+    --card-backdrop: none;
+
+    /* Soft Pop is light yellow, use Dark Brown/Grey */
+    --text-main: #5D4037;
+    --text-main-70: rgba(93, 64, 55, 0.7);
+    --text-main-90: rgba(93, 64, 55, 0.9);
+
+    --btn-primary-bg: #29B6F6;
+    /* Light Blue */
+    --btn-primary-text: white;
+    --btn-primary-shadow: 0 6px 0px 0px #0288D1;
+    --btn-primary-border: none;
+    --btn-radius: 16px;
+
+    --input-bg: #F5F5F5;
+    --input-border: 2px solid #EEE;
+    --input-text: #555;
+    --input-placeholder: #AAA;
+    --input-focus-border: #29B6F6;
+
+    --floating-item-bg: #FFD54F;
+  }
+
+  /* THEME: HIGHTEEN COLLAGE (Scrapbook) */
+  .theme-highteen {
+    --font-main: 'Annie Use Your Telescope', 'Noto Sans KR', cursive;
+    --bg-layer-1: url('https://www.transparenttextures.com/patterns/crumpled-paper.png'), #fff0f5;
+    /* Lavender Blush */
+    --text-gradient: #d63384;
+    /* Pink */
+
+    --card-bg: #ffffff;
+    --card-border: 2px dashed #ff69b4;
+    --card-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+    --card-radius: 2px;
+    --card-backdrop: none;
+
+    /* Highteen is light pink, use Black */
+    --text-main: #000000;
+    --text-main-70: rgba(0, 0, 0, 0.7);
+    --text-main-90: rgba(0, 0, 0, 0.9);
+
+    --btn-primary-bg: #ff69b4;
+    --btn-primary-text: white;
+    --btn-primary-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
+    --btn-primary-border: 2px solid white;
+    --btn-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    /* Organic shape */
+
+    --input-bg: #fff;
+    --input-border: 2px solid #ddd;
+    --input-text: #333;
+    --input-placeholder: #bbb;
+    --input-focus-border: #ff69b4;
+
+    --floating-item-bg: rgba(255, 105, 180, 0.2);
+  }
+
+  html {
+    font-family: var(--font-main);
+  }
+
   body {
     overflow-x: hidden;
   }
 }
 
 @layer components {
-  .instagram-gradient {
-    background: linear-gradient(135deg, 
-      #667eea 0%, 
-      #764ba2 25%, 
-      #f093fb 50%, 
-      #f5576c 75%, 
-      #4facfe 100%);
+
+  .instagram-gradient,
+  .theme-bg {
+    background: var(--bg-layer-1);
+    /* For image backgrounds in highteen theme */
+    background-color: var(--bg-layer-1);
+    background-size: cover;
+    background-attachment: fixed;
+    transition: background 0.5s ease;
   }
-  
-  .glass-card {
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+
+  .glass-card,
+  .card {
+    background: var(--card-bg);
+    backdrop-filter: var(--card-backdrop);
+    border: var(--card-border);
+    box-shadow: var(--card-shadow);
+    border-radius: var(--card-radius);
+    padding: 32px;
+    transition: all 0.3s ease;
   }
-  
+
+
   .floating-bg {
     position: fixed;
     top: 0;
@@ -38,15 +249,16 @@
     height: 100%;
     z-index: -1;
     overflow: hidden;
+    pointer-events: none;
   }
-  
+
   .floating-element {
     position: absolute;
     border-radius: 50%;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
+    background: var(--floating-item-bg);
     animation: float 6s ease-in-out infinite;
   }
-  
+
   .floating-element:nth-child(1) {
     width: 120px;
     height: 120px;
@@ -54,7 +266,7 @@
     left: 10%;
     animation-delay: 0s;
   }
-  
+
   .floating-element:nth-child(2) {
     width: 80px;
     height: 80px;
@@ -62,7 +274,7 @@
     right: 20%;
     animation-delay: 2s;
   }
-  
+
   .floating-element:nth-child(3) {
     width: 100px;
     height: 100px;
@@ -70,7 +282,7 @@
     left: 20%;
     animation-delay: 4s;
   }
-  
+
   .floating-element:nth-child(4) {
     width: 60px;
     height: 60px;
@@ -78,7 +290,7 @@
     right: 10%;
     animation-delay: 1s;
   }
-  
+
   .floating-element:nth-child(5) {
     width: 90px;
     height: 90px;
@@ -86,43 +298,61 @@
     right: 30%;
     animation-delay: 3s;
   }
-  
+
   @keyframes float {
-    0%, 100% {
+
+    0%,
+    100% {
       transform: translateY(0px) rotate(0deg);
     }
+
     50% {
       transform: translateY(-20px) rotate(180deg);
     }
   }
-  
+
   .gradient-text {
-    background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+    background: var(--text-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    /* Optional: fallback for solid colors in newtro/acid */
+    color: var(--text-gradient);
   }
-  
+
+  /* Specific override for newtro/acid where gradient clip might hide text if gradient is solid color */
+  .theme-newtro .gradient-text,
+  .theme-dark-acid .gradient-text,
+  .theme-soft-pop .gradient-text,
+  .theme-highteen .gradient-text {
+    -webkit-text-fill-color: initial;
+    background: none;
+    color: var(--text-gradient);
+  }
+
   .btn-primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-    color: white;
+    background: var(--btn-primary-bg);
+    color: var(--btn-primary-text);
     font-weight: 600;
     padding: 12px 24px;
-    border-radius: 12px;
-    border: none;
+    border-radius: var(--btn-radius);
+    border: var(--btn-primary-border);
     cursor: pointer;
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px 0 rgba(102, 126, 234, 0.4);
+    box-shadow: var(--btn-primary-shadow);
   }
-  
+
   .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px 0 rgba(102, 126, 234, 0.6);
+    opacity: 0.9;
   }
-  
-  .btn-primary::before {
+
+  /* Retaining the shimmer effect for default/aura only if needed, 
+     but keeping it simple for now to avoid conflicts with flat themes */
+  .theme-default .btn-primary::before,
+  .theme-aura .btn-primary::before {
     content: '';
     position: absolute;
     top: 0;
@@ -132,155 +362,116 @@
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     transition: left 0.5s;
   }
-  
+
   .btn-primary:hover::before {
     left: 100%;
   }
-  
+
   .btn-secondary {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #4facfe 100%);
-    color: white;
+    /* Fallback to primary vars for now or define secondary vars later */
+    background: var(--btn-primary-bg);
+    filter: hue-rotate(30deg);
+    color: var(--btn-primary-text);
     font-weight: 600;
     padding: 12px 24px;
-    border-radius: 12px;
-    border: none;
+    border-radius: var(--btn-radius);
+    border: var(--btn-primary-border);
     cursor: pointer;
-    position: relative;
-    overflow: hidden;
+    box-shadow: var(--btn-primary-shadow);
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px 0 rgba(240, 147, 251, 0.4);
   }
-  
-  .btn-secondary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px 0 rgba(240, 147, 251, 0.6);
-  }
-  
+
   .input-field {
     width: 100%;
     padding: 12px 16px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    color: #333;
+    border: var(--input-border);
+    border-radius: var(--btn-radius);
+    /* Use same radius as buttons */
+    background: var(--input-bg);
+    backdrop-filter: var(--card-backdrop);
+    color: var(--input-text);
     font-weight: 500;
     transition: all 0.3s ease;
     font-size: 16px;
   }
-  
+
   .input-field:focus {
     outline: none;
-    border-color: rgba(102, 126, 234, 0.6);
-    background: rgba(255, 255, 255, 0.2);
+    border-color: var(--input-focus-border);
     transform: scale(1.02);
-    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
   }
-  
+
   .input-field::placeholder {
-    color: rgba(0, 0, 0, 0.5);
+    color: var(--input-placeholder);
   }
-  
-  .card {
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 20px;
-    padding: 32px;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    transition: all 0.3s ease;
-  }
-  
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 16px 40px 0 rgba(31, 38, 135, 0.5);
-  }
-  
+
   .form-label {
     display: flex;
     align-items: center;
     gap: 8px;
     font-size: 16px;
     font-weight: 600;
-    color: #333;
+    color: var(--input-text);
+    /* Use input text color for labels too */
     margin-bottom: 8px;
   }
-  
+
+  /* Specific text color override for dark themes */
+  .theme-dark-acid .form-label,
+  .theme-dark-acid .text-gray-600,
+  .theme-dark-acid .text-gray-500 {
+    color: #aaa;
+  }
+
   .radio-option {
     display: flex;
     align-items: center;
     gap: 8px;
     padding: 12px 16px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+    border: var(--input-border);
+    border-radius: var(--btn-radius);
+    background: var(--input-bg);
+    backdrop-filter: var(--card-backdrop);
     cursor: pointer;
     transition: all 0.3s ease;
     font-weight: 500;
+    color: var(--input-text);
   }
-  
+
   .radio-option:hover {
     background: rgba(255, 255, 255, 0.2);
     transform: scale(1.02);
   }
-  
+
   .radio-option.selected {
-    border-color: rgba(102, 126, 234, 0.6);
-    background: rgba(102, 126, 234, 0.1);
+    border-color: var(--input-focus-border);
+    /* Light tint of focus color for bg */
+    background: var(--input-focus-border);
+    opacity: 0.8;
+    color: var(--btn-primary-text);
   }
-  
-  .custom-popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 20px;
-    padding: 32px;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
-    z-index: 1000;
-    max-width: 400px;
-    width: 90%;
-  }
-  
-  .custom-popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-  }
-  
-  .pulse {
-    animation: pulse 2s infinite;
-  }
-  
-  @keyframes pulse {
-    0%, 100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.5;
-    }
-  }
-  
+
+  /* Utils */
   .fade-in {
     animation: fadeIn 0.5s ease-in;
   }
-  
+
   @keyframes fadeIn {
     from {
       opacity: 0;
       transform: translateY(20px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);
     }
   }
-} 
+
+  /* Theme Text Overrides for Global components */
+  .theme-dark-acid header p,
+  .theme-newtro header p {
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 1px 1px 0 #000;
+  }
+}
