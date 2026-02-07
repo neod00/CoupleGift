@@ -1,33 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://couplegift.netlify.app/</loc>
-    <lastmod>2024-12-19</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://couplegift.netlify.app/about</loc>
-    <lastmod>2024-12-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://couplegift.netlify.app/contact</loc>
-    <lastmod>2024-12-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://couplegift.netlify.app/privacy</loc>
-    <lastmod>2024-12-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
-  </url>
-  <url>
-    <loc>https://couplegift.netlify.app/blog</loc>
-    <lastmod>2024-12-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <!-- Korean (Default) -->
+    <url>
+        <loc>https://couplegift.netlify.app/</loc>
+        <xhtml:link rel="alternate" hreflang="ko" href="https://couplegift.netlify.app/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://couplegift.netlify.app/en/" />
+        <xhtml:link rel="alternate" hreflang="ja" href="https://couplegift.netlify.app/ja/" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://couplegift.netlify.app/" />
+        <lastmod>2026-02-07</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://couplegift.netlify.app/about/</loc>
+        <xhtml:link rel="alternate" hreflang="ko" href="https://couplegift.netlify.app/about/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://couplegift.netlify.app/en/about/" />
+        <xhtml:link rel="alternate" hreflang="ja" href="https://couplegift.netlify.app/ja/about/" />
+        <lastmod>2026-02-07</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://couplegift.netlify.app/blog/</loc>
+        <xhtml:link rel="alternate" hreflang="ko" href="https://couplegift.netlify.app/blog/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://couplegift.netlify.app/en/blog/" />
+        <xhtml:link rel="alternate" hreflang="ja" href="https://couplegift.netlify.app/ja/blog/" />
+        <lastmod>2026-02-07</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://couplegift.netlify.app/contact/</loc>
+        <xhtml:link rel="alternate" hreflang="ko" href="https://couplegift.netlify.app/contact/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://couplegift.netlify.app/en/contact/" />
+        <xhtml:link rel="alternate" hreflang="ja" href="https://couplegift.netlify.app/ja/contact/" />
+        <lastmod>2026-02-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://couplegift.netlify.app/privacy/</loc>
+        <xhtml:link rel="alternate" hreflang="ko" href="https://couplegift.netlify.app/privacy/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://couplegift.netlify.app/en/privacy/" />
+        <xhtml:link rel="alternate" hreflang="ja" href="https://couplegift.netlify.app/ja/privacy/" />
+        <lastmod>2026-02-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+
+    <!-- English -->
+    <url>
+        <loc>https://couplegift.netlify.app/en/</loc>
+        <xhtml:link rel="alternate" hreflang="ko" href="https://couplegift.netlify.app/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://couplegift.netlify.app/en/" />
+        <xhtml:link rel="alternate" hreflang="ja" href="https://couplegift.netlify.app/ja/" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://couplegift.netlify.app/" />
+        <lastmod>2026-02-07</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://couplegift.netlify.app/en/about/</loc>
+        <lastmod>2026-02-07</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://couplegift.netlify.app/en/blog/</loc>
+        <lastmod>2026-02-07</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://couplegift.netlify.app/en/contact/</loc>
+        <lastmod>2026-02-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://couplegift.netlify.app/en/privacy/</loc>
+        <lastmod>2026-02-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+
+    <!-- Japanese -->
+    <url>
+        <loc>https://couplegift.netlify.app/ja/</loc>
+        <xhtml:link rel="alternate" hreflang="ko" href="https://couplegift.netlify.app/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://couplegift.netlify.app/en/" />
+        <xhtml:link rel="alternate" hreflang="ja" href="https://couplegift.netlify.app/ja/" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://couplegift.netlify.app/" />
+        <lastmod>2026-02-07</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://couplegift.netlify.app/ja/about/</loc>
+        <lastmod>2026-02-07</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://couplegift.netlify.app/ja/blog/</loc>
+        <lastmod>2026-02-07</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://couplegift.netlify.app/ja/contact/</loc>
+        <lastmod>2026-02-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://couplegift.netlify.app/ja/privacy/</loc>
+        <lastmod>2026-02-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
 </urlset>

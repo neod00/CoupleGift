@@ -1,15 +1,18 @@
 'use client';
 
 import React, { useState } from 'react';
-import GiftForm from '../components/GiftForm';
-import GiftRecommendations from '../components/GiftRecommendations';
-import LoadingSpinner from '../components/LoadingSpinner';
-import AdSense from '../components/AdSense';
-import GiftGuide from '../components/GiftGuide';
-import { GiftFormData, GiftRecommendation } from '../types/gift';
-import { getGiftRecommendations, getDummyRecommendations } from '../services/gptService';
+import { useLocale } from 'next-intl';
+import { useTranslations } from 'next-intl';
+import GiftForm from '@/components/GiftForm';
+import GiftRecommendations from '@/components/GiftRecommendations';
+import LoadingSpinner from '@/components/LoadingSpinner';
+import AdSense from '@/components/AdSense';
+import GiftGuide from '@/components/GiftGuide';
+import { GiftFormData, GiftRecommendation } from '@/types/gift';
+import { getGiftRecommendations, getDummyRecommendations } from '@/services/gptService';
 
 export default function Home() {
+    const t = useTranslations();
     const [loading, setLoading] = useState(false);
     const [recommendations, setRecommendations] = useState<GiftRecommendation[]>([]);
     const [error, setError] = useState<string | null>(null);
@@ -28,15 +31,15 @@ export default function Home() {
             } else {
                 const dummyResponse = await getDummyRecommendations(formData);
                 setRecommendations(dummyResponse.recommendations);
-                setError('API 호출에 실패했습니다. 샘플 데이터를 표시합니다.');
+                setError(t('common.error'));
             }
         } catch (err) {
             try {
                 const dummyResponse = await getDummyRecommendations(formData);
                 setRecommendations(dummyResponse.recommendations);
-                setError('서버 연결에 문제가 있습니다. 샘플 데이터를 표시합니다.');
+                setError(t('common.error'));
             } catch (dummyErr) {
-                setError('추천을 받아오는 중 오류가 발생했습니다. 다시 시도해주세요.');
+                setError(t('common.error'));
             }
         } finally {
             setLoading(false);
@@ -57,15 +60,15 @@ export default function Home() {
             } else {
                 const dummyResponse = await getDummyRecommendations(currentFormData);
                 setRecommendations(dummyResponse.recommendations);
-                setError('API 호출에 실패했습니다. 샘플 데이터를 표시합니다.');
+                setError(t('common.error'));
             }
         } catch (err) {
             try {
                 const dummyResponse = await getDummyRecommendations(currentFormData);
                 setRecommendations(dummyResponse.recommendations);
-                setError('서버 연결에 문제가 있습니다. 샘플 데이터를 표시합니다.');
+                setError(t('common.error'));
             } catch (dummyErr) {
-                setError('추천을 받아오는 중 오류가 발생했습니다. 다시 시도해주세요.');
+                setError(t('common.error'));
             }
         } finally {
             setLoading(false);
@@ -100,7 +103,7 @@ export default function Home() {
                         onClick={handleBackToForm}
                         className="btn-primary"
                     >
-                        🔄 다시 시도하기
+                        🔄 {t('common.retry')}
                     </button>
                 </div>
             )}

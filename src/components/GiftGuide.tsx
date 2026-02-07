@@ -1,81 +1,103 @@
+'use client';
+
 import React from 'react';
-import Link from 'next/link';
+import { useTranslations, useLocale } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 
 const GiftGuide: React.FC = () => {
+  const t = useTranslations();
+  const locale = useLocale();
+
   const giftCategories = [
     {
       id: "couple-accessories",
-      title: "연인 선물",
+      titleKey: "relationships.lover.title",
       icon: "💕",
-      description: "사랑하는 연인을 위한 로맨틱한 선물",
-      examples: ["커플링", "향수", "꽃다발", "초콜릿", "커플 시계"]
+      descriptionKey: "relationships.lover.description",
+      examplesKey: "relationships.lover.items"
     },
     {
       id: "beauty-cosmetics",
-      title: "가족 선물",
+      titleKey: "relationships.family.title",
       icon: "👨‍👩‍👧‍👦",
-      description: "소중한 가족을 위한 따뜻한 선물",
-      examples: ["건강식품", "마사지기", "가전제품", "의류", "여행 상품권"]
+      descriptionKey: "relationships.family.description",
+      examplesKey: "relationships.family.items"
     },
     {
       id: "friend-gifts",
-      title: "친구 선물",
+      titleKey: "relationships.friend.title",
       icon: "👫",
-      description: "친구와의 우정을 나누는 의미있는 선물",
-      examples: ["문구용품", "인테리어 소품", "책", "게임", "카페 상품권"]
+      descriptionKey: "relationships.friend.description",
+      examplesKey: "relationships.friend.items"
     },
     {
       id: "colleague-gifts",
-      title: "직장 동료",
+      titleKey: "relationships.colleague.title",
       icon: "🤝",
-      description: "직장에서의 인간관계를 돈독히 하는 선물",
-      examples: ["커피", "디저트", "사무용품", "플래너", "차 선물세트"]
+      descriptionKey: "relationships.colleague.description",
+      examplesKey: "relationships.colleague.items"
     }
   ];
 
   const occasionGuide = [
     {
-      occasion: "생일",
+      titleKey: "occasions.birthday.title",
       icon: "🎂",
-      tips: "받는 분의 취미와 관심사를 고려한 개인적인 선물이 좋습니다."
+      tipKey: "occasions.birthday.tip"
     },
     {
-      occasion: "기념일",
+      titleKey: "occasions.anniversary.title",
       icon: "💝",
-      tips: "함께한 추억을 떠올릴 수 있는 의미있는 선물을 선택해보세요."
+      tipKey: "occasions.anniversary.tip"
     },
     {
-      occasion: "명절",
+      titleKey: "occasions.holiday.title",
       icon: "🏮",
-      tips: "가족 모두가 함께 즐길 수 있는 실용적인 선물이 인기입니다."
+      tipKey: "occasions.holiday.tip"
     },
     {
-      occasion: "졸업/입학",
+      titleKey: "occasions.graduation.title",
       icon: "🎓",
-      tips: "새로운 시작을 응원하는 의미의 실용적인 선물이 좋습니다."
+      tipKey: "occasions.graduation.tip"
     }
   ];
 
   const budgetGuide = [
     {
-      range: "1만원 이하",
+      rangeKey: "budgets.under10k",
       icon: "💰",
-      suggestions: ["문구용품", "간식", "소품", "캔들", "양말"]
+      suggestions: locale === 'ko'
+        ? ["문구용품", "간식", "소품", "캔들", "양말"]
+        : locale === 'ja'
+          ? ["文房具", "お菓子", "小物", "キャンドル", "靴下"]
+          : ["Stationery", "Snacks", "Small items", "Candles", "Socks"]
     },
     {
-      range: "1-5만원",
+      rangeKey: "budgets.10kTo50k",
       icon: "💳",
-      suggestions: ["화장품", "액세서리", "책", "향수", "텀블러"]
+      suggestions: locale === 'ko'
+        ? ["화장품", "액세서리", "책", "향수", "텀블러"]
+        : locale === 'ja'
+          ? ["化粧品", "アクセサリー", "本", "香水", "タンブラー"]
+          : ["Cosmetics", "Accessories", "Books", "Perfume", "Tumbler"]
     },
     {
-      range: "5-10만원",
+      rangeKey: "budgets.50kTo100k",
       icon: "💎",
-      suggestions: ["의류", "가방", "신발", "전자기기", "뷰티기기"]
+      suggestions: locale === 'ko'
+        ? ["의류", "가방", "신발", "전자기기", "뷰티기기"]
+        : locale === 'ja'
+          ? ["衣類", "バッグ", "靴", "電子機器", "美容機器"]
+          : ["Clothing", "Bags", "Shoes", "Electronics", "Beauty devices"]
     },
     {
-      range: "10만원 이상",
+      rangeKey: "budgets.over100k",
       icon: "🎁",
-      suggestions: ["명품 액세서리", "가전제품", "여행 상품권", "고급 화장품", "브랜드 의류"]
+      suggestions: locale === 'ko'
+        ? ["명품 액세서리", "가전제품", "여행 상품권", "고급 화장품", "브랜드 의류"]
+        : locale === 'ja'
+          ? ["高級アクセサリー", "家電製品", "旅行ギフト券", "高級化粧品", "ブランド服"]
+          : ["Luxury accessories", "Home appliances", "Travel vouchers", "Premium cosmetics", "Brand clothing"]
     }
   ];
 
@@ -84,17 +106,17 @@ const GiftGuide: React.FC = () => {
       {/* 선물 가이드 헤더 */}
       <div className="text-center">
         <h2 className="text-3xl font-bold gradient-text mb-4">
-          🎁 AI 맞춤형 선물 가이드
+          {t('guide.title')}
         </h2>
         <p className="text-lg text-[var(--text-main-70)]">
-          커플 선물, 기념일 선물, 생일 선물 등 완벽한 맞춤형 선물 아이디어를 위한 가이드를 확인해보세요
+          {t('guide.subtitle')}
         </p>
       </div>
 
       {/* 관계별 선물 가이드 */}
       <section>
         <h3 className="text-2xl font-semibold text-[var(--text-main)] mb-6 text-center">
-          관계별 맞춤형 선물 추천
+          {t('guide.relationshipTitle')}
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {giftCategories.map((category, index) => (
@@ -105,11 +127,11 @@ const GiftGuide: React.FC = () => {
             >
               <div className="flex items-center gap-3 mb-4">
                 <span className="text-3xl">{category.icon}</span>
-                <h4 className="text-xl font-semibold text-[var(--text-main)]">{category.title}</h4>
+                <h4 className="text-xl font-semibold text-[var(--text-main)]">{t(category.titleKey)}</h4>
               </div>
-              <p className="text-[var(--text-main-90)] mb-4">{category.description}</p>
+              <p className="text-[var(--text-main-90)] mb-4">{t(category.descriptionKey)}</p>
               <div className="flex flex-wrap gap-2 mb-3">
-                {category.examples.map((example, idx) => (
+                {t(category.examplesKey).split(', ').map((example: string, idx: number) => (
                   <span
                     key={idx}
                     className="bg-white/20 text-[var(--text-main)] px-3 py-1 rounded-full text-sm font-medium"
@@ -119,7 +141,7 @@ const GiftGuide: React.FC = () => {
                 ))}
               </div>
               <div className="text-[var(--text-main-70)] text-sm">
-                자세히 보기 →
+                {t('common.viewMore')}
               </div>
             </Link>
           ))}
@@ -129,16 +151,16 @@ const GiftGuide: React.FC = () => {
       {/* 기념일별 선물 팁 */}
       <section>
         <h3 className="text-2xl font-semibold text-[var(--text-main)] mb-6 text-center">
-          기념일별 선물 아이디어 팁
+          {t('guide.occasionTitle')}
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {occasionGuide.map((guide, index) => (
             <div key={index} className="glass-card">
               <div className="flex items-center gap-3 mb-3">
                 <span className="text-2xl">{guide.icon}</span>
-                <h4 className="text-lg font-semibold text-[var(--text-main)]">{guide.occasion}</h4>
+                <h4 className="text-lg font-semibold text-[var(--text-main)]">{t(guide.titleKey)}</h4>
               </div>
-              <p className="text-[var(--text-main-90)]">{guide.tips}</p>
+              <p className="text-[var(--text-main-90)]">{t(guide.tipKey)}</p>
             </div>
           ))}
         </div>
@@ -147,14 +169,14 @@ const GiftGuide: React.FC = () => {
       {/* 예산별 선물 가이드 */}
       <section>
         <h3 className="text-2xl font-semibold text-[var(--text-main)] mb-6 text-center">
-          예산별 선물 추천 가이드
+          {t('guide.budgetTitle')}
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {budgetGuide.map((budget, index) => (
             <div key={index} className="glass-card">
               <div className="flex items-center gap-3 mb-4">
                 <span className="text-2xl">{budget.icon}</span>
-                <h4 className="text-lg font-semibold text-[var(--text-main)]">{budget.range}</h4>
+                <h4 className="text-lg font-semibold text-[var(--text-main)]">{t(budget.rangeKey)}</h4>
               </div>
               <div className="flex flex-wrap gap-2">
                 {budget.suggestions.map((suggestion, idx) => (
@@ -174,31 +196,29 @@ const GiftGuide: React.FC = () => {
       {/* 선물 선택 팁 */}
       <section className="glass-card">
         <h3 className="text-2xl font-semibold text-[var(--text-main)] mb-6 text-center">
-          💡 AI 맞춤형 선물 아이디어 선택을 위한 팁
+          {t('guide.tipsTitle')}
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-[var(--text-main-90)]">
           <div>
             <h4 className="text-lg font-semibold mb-3 flex items-center gap-2">
               <span className="text-xl">🎯</span>
-              받는 분 분석하기
+              {t('tips.analyze.title')}
             </h4>
             <ul className="space-y-2 text-sm">
-              <li>• 평소 관심사와 취미는 무엇인가요?</li>
-              <li>• 어떤 스타일을 선호하시나요?</li>
-              <li>• 실용적인 것을 좋아하시나요?</li>
-              <li>• 최근에 필요로 하는 것이 있나요?</li>
+              {(t.raw('tips.analyze.items') as string[]).map((item: string, idx: number) => (
+                <li key={idx}>• {item}</li>
+              ))}
             </ul>
           </div>
           <div>
             <h4 className="text-lg font-semibold mb-3 flex items-center gap-2">
               <span className="text-xl">💝</span>
-              의미 있는 선물 만들기
+              {t('tips.meaningful.title')}
             </h4>
             <ul className="space-y-2 text-sm">
-              <li>• 함께한 추억과 연결된 선물</li>
-              <li>• 개인적인 메시지나 각인 추가</li>
-              <li>• 받는 분만을 위한 맞춤형 선물</li>
-              <li>• 포장과 카드에도 정성을 담기</li>
+              {(t.raw('tips.meaningful.items') as string[]).map((item: string, idx: number) => (
+                <li key={idx}>• {item}</li>
+              ))}
             </ul>
           </div>
         </div>
@@ -208,4 +228,3 @@ const GiftGuide: React.FC = () => {
 };
 
 export default GiftGuide;
-

@@ -1,0 +1,137 @@
+{
+    "metadata": {
+        "title": "GiftGenie - AI-Powered Gift Recommendations | Perfect Gift Ideas",
+        "description": "AI Gift Recommendation Service GiftGenie - Get personalized couple gift, anniversary gift, and birthday gift ideas by budget. Buy directly on Amazon!",
+        "keywords": "couple gift ideas, AI gift recommendations, anniversary gifts, personalized gifts, GiftGenie, birthday gifts, romantic gifts, gift ideas, budget gifts, Amazon gifts",
+        "ogTitle": "GiftGenie - AI-Powered Personalized Gift Recommendations",
+        "ogDescription": "Discover AI-recommended personalized gift ideas! Get couple gifts, anniversary gifts, and birthday gifts by budget and buy directly on Amazon"
+    },
+    "header": {
+        "title": "GiftGenie",
+        "subtitle": "AI Gift Finder",
+        "tagline": "AI-Powered Gift Recommendations - Perfect Gift Ideas for Every Special Occasion",
+        "categories": "💑 Couple Gifts • 🎂 Birthday Gifts • 💒 Anniversary Gifts • 👶 Teens • 🧑‍💼 20s-30s • 👨‍💼 40s-50s • 👨‍🦳 60s-70s",
+        "description": "AI-powered personalized gift recommendations for all ages and relationships - Browse by budget and buy directly"
+    },
+    "nav": {
+        "home": "🏠 AI Gift Finder",
+        "about": "💝 About GiftGenie",
+        "blog": "📝 Gift Ideas Blog",
+        "contact": "📧 Contact Us",
+        "privacy": "🔒 Privacy Policy"
+    },
+    "form": {
+        "title": "Enter Information for AI Gift Recommendations",
+        "subtitle": "The more details you provide about couple gifts, anniversary gifts, birthday gifts, etc., the more accurate personalized gift ideas you'll receive! ✨",
+        "recipient": "Gift Recipient",
+        "recipientPlaceholder": "e.g., Girlfriend, Boyfriend, Wife, Husband",
+        "age": "Age",
+        "agePlaceholder": "e.g., 25 years old",
+        "occasion": "Occasion",
+        "occasionPlaceholder": "e.g., Anniversary, Birthday, Christmas",
+        "budget": "Budget",
+        "budgetPlaceholder": "e.g., $50, $100",
+        "interests": "Interests/Hobbies",
+        "interestsPlaceholder": "e.g., Reading, Cooking, Sports, Fashion",
+        "additionalInfo": "Additional Information",
+        "additionalInfoPlaceholder": "Let us know any additional requests about the gift",
+        "submit": "🎁 Get AI Gift Recommendations",
+        "loading": "AI is finding personalized gifts for you..."
+    },
+    "guide": {
+        "title": "🎁 AI Personalized Gift Guide",
+        "subtitle": "Check out our guide for perfect personalized gift ideas including couple gifts, anniversary gifts, and birthday gifts",
+        "relationshipTitle": "Gift Recommendations by Relationship",
+        "occasionTitle": "Gift Tips by Occasion",
+        "budgetTitle": "Gift Guide by Budget",
+        "tipsTitle": "💡 Tips for Choosing the Perfect AI-Recommended Gift"
+    },
+    "relationships": {
+        "lover": {
+            "title": "Romantic Partner",
+            "description": "Romantic gifts for your loved one",
+            "items": "Couple Rings, Perfume, Flowers, Chocolates, Couple Watches"
+        },
+        "family": {
+            "title": "Family",
+            "description": "Warm gifts for your precious family",
+            "items": "Health Supplements, Massagers, Electronics, Clothing, Travel Vouchers"
+        },
+        "friend": {
+            "title": "Friends",
+            "description": "Meaningful gifts to share friendship",
+            "items": "Stationery, Home Decor, Books, Games, Cafe Gift Cards"
+        },
+        "colleague": {
+            "title": "Colleagues",
+            "description": "Gifts to strengthen workplace relationships",
+            "items": "Coffee, Desserts, Office Supplies, Planners, Tea Gift Sets"
+        }
+    },
+    "occasions": {
+        "birthday": {
+            "title": "Birthday",
+            "tip": "A personal gift considering the recipient's hobbies and interests is ideal."
+        },
+        "anniversary": {
+            "title": "Anniversary",
+            "tip": "Choose a meaningful gift that brings back shared memories."
+        },
+        "holiday": {
+            "title": "Holidays",
+            "tip": "Practical gifts that the whole family can enjoy together are popular."
+        },
+        "graduation": {
+            "title": "Graduation/Enrollment",
+            "tip": "Practical gifts that encourage new beginnings are great."
+        }
+    },
+    "budgets": {
+        "under10k": "Under $10",
+        "10kTo50k": "$10-$50",
+        "50kTo100k": "$50-$100",
+        "over100k": "Over $100"
+    },
+    "tips": {
+        "analyze": {
+            "title": "🎯 Analyze the Recipient",
+            "items": [
+                "What are their usual interests and hobbies?",
+                "What style do they prefer?",
+                "Do they like practical things?",
+                "Is there something they've been needing recently?"
+            ]
+        },
+        "meaningful": {
+            "title": "💝 Making Meaningful Gifts",
+            "items": [
+                "Gifts connected to shared memories",
+                "Add a personal message or engraving",
+                "A customized gift just for them",
+                "Put care into wrapping and cards too"
+            ]
+        }
+    },
+    "footer": {
+        "brand": "GiftGenie",
+        "copyright": "© 2026 GiftGenie. AI-Powered Personalized Gift Recommendation Service - Anniversary Gift Ideas Expert",
+        "affiliate": "As an Amazon Associate, we earn from qualifying purchases.",
+        "privacy": "Privacy Policy",
+        "about": "About Us",
+        "contact": "Contact",
+        "blog": "Gift Ideas"
+    },
+    "results": {
+        "title": "🎁 AI Recommended Gifts",
+        "buyNow": "View on Amazon",
+        "newSearch": "Find New Gifts",
+        "whyRecommend": "Why We Recommend",
+        "priceRange": "Estimated Price"
+    },
+    "common": {
+        "viewMore": "Learn More →",
+        "loading": "Loading...",
+        "error": "An error occurred",
+        "retry": "Try Again"
+    }
+}
