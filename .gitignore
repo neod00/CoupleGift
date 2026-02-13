@@ -30,3 +30,6 @@ yarn-error.log*
 
 # OS
 Thumbs.db 
+# AI Agent System
+AGENTS.md
+directives/
