@@ -19,8 +19,8 @@ const blogPostsKo: BlogPost[] = [
     {
         id: 'valentine-day-guide',
         title: '밸런타인데이 완벽 가이드: 연인의 마음을 사로잡는 선물 아이디어',
-        excerpt: '2024년 밸런타인데이를 특별하게 만들어줄 선물 아이디어와 이벤트 계획을 소개합니다. 초콜릿부터 맞춤형 선물까지.',
-        date: '2024-01-15',
+        excerpt: '2026년 밸런타인데이를 특별하게 만들어줄 선물 아이디어와 이벤트 계획을 소개합니다. 초콜릿부터 맞춤형 선물까지.',
+        date: '2026-02-13',
         category: '기념일',
         readTime: '5분',
         image: '💝'
@@ -29,7 +29,7 @@ const blogPostsKo: BlogPost[] = [
         id: 'budget-gift-guide',
         title: '예산별 선물 가이드: 1만원부터 10만원까지 센스있는 선물 추천',
         excerpt: '제한된 예산으로도 센스있는 선물을 고를 수 있습니다. 가격대별로 엄선한 선물 아이디어와 선물 고르기 팁.',
-        date: '2024-01-10',
+        date: '2026-02-13',
         category: '선물 팁',
         readTime: '7분',
         image: '💰'
@@ -38,7 +38,7 @@ const blogPostsKo: BlogPost[] = [
         id: 'mbti-gift-guide',
         title: 'MBTI별 맞춤 선물 가이드: 성격 유형에 따른 완벽한 선물 찾기',
         excerpt: '16가지 MBTI 성격 유형별로 어울리는 선물을 추천합니다. 받는 분의 성격을 고려한 선물.',
-        date: '2024-01-05',
+        date: '2026-02-13',
         category: '선물 팁',
         readTime: '10분',
         image: '🧠'
@@ -49,8 +49,8 @@ const blogPostsEn: BlogPost[] = [
     {
         id: 'valentine-day-guide',
         title: "Valentine's Day Complete Guide: Gift Ideas to Capture Your Partner's Heart",
-        excerpt: "Discover gift ideas and event plans that will make Valentine's Day 2024 special. From chocolates to personalized gifts.",
-        date: '2024-01-15',
+        excerpt: "Discover gift ideas and event plans that will make Valentine's Day 2026 special. From chocolates to personalized gifts.",
+        date: '2026-02-13',
         category: 'Anniversary',
         readTime: '5 min',
         image: '💝'
@@ -59,7 +59,7 @@ const blogPostsEn: BlogPost[] = [
         id: 'budget-gift-guide',
         title: 'Budget Gift Guide: Thoughtful Recommendations from $10 to $100',
         excerpt: "You can choose thoughtful gifts even with a limited budget. We share gift ideas and tips by price range.",
-        date: '2024-01-10',
+        date: '2026-02-13',
         category: 'Gift Tips',
         readTime: '7 min',
         image: '💰'
@@ -68,7 +68,7 @@ const blogPostsEn: BlogPost[] = [
         id: 'mbti-gift-guide',
         title: 'MBTI Gift Guide: Finding the Perfect Gift by Personality Type',
         excerpt: "We recommend gifts that suit each of the 16 MBTI personality types. Consider the recipient's personality.",
-        date: '2024-01-05',
+        date: '2026-02-13',
         category: 'Gift Tips',
         readTime: '10 min',
         image: '🧠'
@@ -79,8 +79,8 @@ const blogPostsJa: BlogPost[] = [
     {
         id: 'valentine-day-guide',
         title: 'バレンタインデー完全ガイド：恋人の心を掴むギフトアイデア',
-        excerpt: '2024年のバレンタインデーを特別にするギフトアイデアとイベント計画をご紹介。チョコレートからカスタムギフトまで。',
-        date: '2024-01-15',
+        excerpt: '2026年のバレンタインデーを特別にするギフトアイデアとイベント計画をご紹介。チョコレートからカスタムギフトまで。',
+        date: '2026-02-13',
         category: '記念日',
         readTime: '5分',
         image: '💝'
@@ -89,7 +89,7 @@ const blogPostsJa: BlogPost[] = [
         id: 'budget-gift-guide',
         title: '予算別ギフトガイド：1,000円から10,000円までのセンスあるギフト推薦',
         excerpt: '限られた予算でもセンスのあるギフトを選べます。価格帯別に厳選したギフトアイデアとヒント。',
-        date: '2024-01-10',
+        date: '2026-02-13',
         category: 'ギフトのヒント',
         readTime: '7分',
         image: '💰'
@@ -98,7 +98,7 @@ const blogPostsJa: BlogPost[] = [
         id: 'mbti-gift-guide',
         title: 'MBTI別カスタムギフトガイド：性格タイプに合った完璧なギフト探し',
         excerpt: '16種類のMBTI性格タイプ別にぴったりのギフトをおすすめ。受け取る方の性格を考慮したギフト。',
-        date: '2024-01-05',
+        date: '2026-02-13',
         category: 'ギフトのヒント',
         readTime: '10分',
         image: '🧠'
