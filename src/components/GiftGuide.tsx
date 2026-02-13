@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { useTranslations, useLocale } from 'next-intl';
-import { Link } from '@/i18n/navigation';
 
 const GiftGuide: React.FC = () => {
   const t = useTranslations();
@@ -120,10 +119,12 @@ const GiftGuide: React.FC = () => {
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {giftCategories.map((category, index) => (
-            <Link
+            <div
               key={index}
-              href={`/category/${category.id}`}
-              className="glass-card hover:scale-105 transition-transform duration-300 block"
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="glass-card hover:scale-105 transition-transform duration-300 block cursor-pointer"
             >
               <div className="flex items-center gap-3 mb-4">
                 <span className="text-3xl">{category.icon}</span>
@@ -143,7 +144,7 @@ const GiftGuide: React.FC = () => {
               <div className="text-[var(--text-main-70)] text-sm">
                 {t('common.viewMore')}
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       </section>
