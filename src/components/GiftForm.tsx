@@ -15,9 +15,9 @@ const GiftForm: React.FC<GiftFormProps> = ({ onSubmit, isLoading }) => {
 
   // 환경 변수 디버깅 정보 추가
   useEffect(() => {
-    const hasOpenAIKey = !!process.env.NEXT_PUBLIC_OPENAI_API_KEY || !!process.env.REACT_APP_OPENAI_API_KEY;
-    const hasCoupangPartnerId = !!process.env.REACT_APP_COUPANG_PARTNER_ID;
-    const hasAdSenseId = !!process.env.REACT_APP_ADSENSE_PUBLISHER_ID;
+    const hasOpenAIKey = !!process.env.NEXT_PUBLIC_OPENAI_API_KEY;
+    const hasCoupangPartnerId = !!process.env.NEXT_PUBLIC_COUPANG_PARTNER_ID;
+    const hasAdSenseId = !!process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID;
 
     console.log('🔍 환경 변수 상태 확인:', {
       openAIKey: hasOpenAIKey ? '✅ 설정됨' : '❌ 없음',

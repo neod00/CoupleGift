@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useLocale } from 'next-intl';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter, usePathname } from '@/i18n/navigation';
 
 const languages = [
     { code: 'ko', label: '한국어', flag: '🇰🇷' },
@@ -19,23 +19,9 @@ const LanguageSwitcher: React.FC = () => {
     const currentLanguage = languages.find(lang => lang.code === locale) || languages[0];
 
     const handleLanguageChange = (langCode: string) => {
-        // Remove current locale from pathname
-        let newPathname = pathname;
-
-        // Handle locale prefix in pathname
-        const localePattern = /^\/(ko|en|ja)(\/|$)/;
-        if (localePattern.test(pathname)) {
-            newPathname = pathname.replace(localePattern, '/');
-        }
-
-        // For Korean (default), don't add prefix
-        // For other languages, add the locale prefix
-        if (langCode === 'ko') {
-            router.push(newPathname || '/');
-        } else {
-            router.push(`/${langCode}${newPathname}`);
-        }
-
+        // next-intl의 useRouter는 locale 옵션을 지원
+        // localePrefix: 'as-needed' 설정에 맞게 자동으로 URL을 처리
+        router.push(pathname, { locale: langCode as 'ko' | 'en' | 'ja' });
         setIsOpen(false);
     };
 

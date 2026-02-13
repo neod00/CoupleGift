@@ -219,20 +219,24 @@ const getStableImageUrl = (category: string, productTitle?: string): string => {
 };
 
 // 쿠팡 파트너스 검색 링크 생성 함수
+// lptag 파라미터를 사용하여 파트너스 추적 코드를 검색 URL에 삽입
 const generateCoupangSearchLink = (keyword: string): string => {
-  const partnerId = process.env.NEXT_PUBLIC_COUPANG_PARTNER_ID || process.env.REACT_APP_COUPANG_PARTNER_ID;
+  const partnerId = process.env.NEXT_PUBLIC_COUPANG_PARTNER_ID;
   const encodedKeyword = encodeURIComponent(keyword);
 
   console.log(`🔗 쿠팡 링크 생성: "${keyword}", 파트너ID: ${partnerId ? '설정됨' : '없음'}`);
 
+  // 기본 쿠팡 검색 URL
+  const baseSearchUrl = `https://www.coupang.com/np/search?component=&q=${encodedKeyword}&channel=user`;
+
   if (partnerId) {
-    const partnerLink = `https://link.coupang.com/a/${partnerId}?url=https%3A%2F%2Fwww.coupang.com%2Fnp%2Fsearch%3Fq%3D${encodedKeyword}`;
+    // 파트너스 추적 파라미터(lptag) 추가
+    const partnerLink = `${baseSearchUrl}&lptag=${partnerId}`;
     console.log(`✅ 파트너스 링크: ${partnerLink}`);
     return partnerLink;
   } else {
-    const directLink = `https://www.coupang.com/np/search?q=${encodedKeyword}`;
-    console.log(`⚠️ 직접 링크: ${directLink}`);
-    return directLink;
+    console.log(`⚠️ 직접 링크 (파트너 ID 없음): ${baseSearchUrl}`);
+    return baseSearchUrl;
   }
 };
 
