@@ -42,6 +42,24 @@ const blogPostsKo: BlogPost[] = [
         category: '선물 팁',
         readTime: '10분',
         image: '🧠'
+    },
+    {
+        id: 'boyfriend-birthday-gifts',
+        title: '20대 남자친구 생일 선물 추천 TOP 10 (2026 최신판)',
+        excerpt: '실패 없는 20대 남자친구 생일 선물! 실용성과 센스를 겸비한 트렌디한 선물 아이템 10가지를 추천합니다.',
+        date: '2026-04-10',
+        category: '생일',
+        readTime: '8분',
+        image: '👔'
+    },
+    {
+        id: 'housewarming-gifts',
+        title: '집들이 선물 리스트: 휴지 대신 센스있다고 칭찬받는 아이템',
+        excerpt: '흔한 휴지나 세제는 이제 그만! 집주인의 취향을 저격하고 실용성까지 갖춘 센스 만점 집들이 선물 아이디어를 소개합니다.',
+        date: '2026-04-10',
+        category: '집들이',
+        readTime: '6분',
+        image: '🏠'
     }
 ];
 
@@ -72,6 +90,24 @@ const blogPostsEn: BlogPost[] = [
         category: 'Gift Tips',
         readTime: '10 min',
         image: '🧠'
+    },
+    {
+        id: 'boyfriend-birthday-gifts',
+        title: 'Top 10 Birthday Gift Ideas for 20-something Boyfriends (2026 Edition)',
+        excerpt: 'Foolproof birthday gifts for your boyfriend! We recommend 10 trendy and practical gift items.',
+        date: '2026-04-10',
+        category: 'Birthday',
+        readTime: '8 min',
+        image: '👔'
+    },
+    {
+        id: 'housewarming-gifts',
+        title: 'Housewarming Gifts: Stop Giving Toilet Paper and Gift These Clever Items',
+        excerpt: 'Say goodbye to common detergents! Discover clever housewarming gift ideas that are practical and suit the host\'s taste.',
+        date: '2026-04-10',
+        category: 'Housewarming',
+        readTime: '6 min',
+        image: '🏠'
     }
 ];
 
@@ -102,6 +138,24 @@ const blogPostsJa: BlogPost[] = [
         category: 'ギフトのヒント',
         readTime: '10分',
         image: '🧠'
+    },
+    {
+        id: 'boyfriend-birthday-gifts',
+        title: '20代彼氏の誕生日プレゼントおすすめTOP10（2026年最新版）',
+        excerpt: '失敗しない20代彼氏への誕生日プレゼント！実用性とセンスを兼ね備えた最新トレンドアイテム10選をおすすめします。',
+        date: '2026-04-10',
+        category: '誕生日',
+        readTime: '8分',
+        image: '👔'
+    },
+    {
+        id: 'housewarming-gifts',
+        title: '引越し祝いギフト：ティッシュの代わりに「センスがいい」と褒められるアイテム',
+        excerpt: 'ありきたりな洗剤はもうおしまい！家主の好みにピッタリで実用性も備えた、気の利いた引越し祝いのアイデアをご紹介します。',
+        date: '2026-04-10',
+        category: '引越し祝い',
+        readTime: '6分',
+        image: '🏠'
     }
 ];
 

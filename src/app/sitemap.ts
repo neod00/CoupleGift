@@ -19,7 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   // 블로그 포스트
-  const blogSlugs = ['valentine-day-guide', 'budget-gift-guide', 'mbti-gift-guide'];
+  const blogSlugs = ['valentine-day-guide', 'budget-gift-guide', 'mbti-gift-guide', 'boyfriend-birthday-gifts', 'housewarming-gifts'];
 
   for (const page of staticPages) {
     for (const locale of locales) {

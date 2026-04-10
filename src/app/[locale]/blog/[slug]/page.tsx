@@ -87,6 +87,51 @@ const allPostsKo: BlogPostFull[] = [
             '## 💡 MBTI 활용 팁',
             '선물지니에서 상대방의 MBTI 유형과 취미를 입력하면, AI가 성격 특성에 맞는 맞춤 선물을 추천해 드립니다!'
         ]
+    },
+    {
+        id: 'boyfriend-birthday-gifts',
+        title: '20대 남자친구 생일 선물 추천 TOP 10 (2026 최신판)',
+        excerpt: '실패 없는 20대 남자친구 생일 선물! 실용성과 센스를 겸비한 트렌디한 선물 아이템 10가지를 추천합니다.',
+        date: '2026-04-10',
+        category: '생일',
+        readTime: '8분',
+        image: '👔',
+        content: [
+            '20대 남자친구의 생일, 무엇을 사줘야 할지 고민이신가요? 뻔한 선물 대신 실용성과 센스를 모두 챙길 수 있는 최신 트렌드 선물 리스트를 준비했습니다.',
+            '## 👔 20대 남자친구 생일 선물 고르는 기준',
+            '20대 남성들은 주로 **실용성, 전자기기 관심도, 취미 생활**에 큰 가치를 둡니다. 평소에 자주 사용하는 물건을 프리미엄 브랜드로 업그레이드해주거나, 새로운 취미를 응원하는 아이템이 좋습니다.',
+            '## 💻 실용성 1위! 전자기기 및 테크 아이템',
+            '**1. 스마트워치 스트랩 & 액세서리 세트:** 애플워치나 갤럭시워치를 이미 가지고 있다면, 질리지 않게 착용할 수 있는 프리미엄 가죽 스트랩이나 메탈 스트랩이 훌륭한 선물이 됩니다.',
+            '**2. 무선 노이즈캔슬링 이어폰:** 출퇴근길이나 운동할 때 필수인 무선 이어폰! 최신 모델로 바꿔주면 삶의 질이 수직 상승합니다.',
+            '**3. 기계식 커스텀 키보드:** 코딩이나 게임, 문서 작업이 많은 남자친구라면 타이핑 치는 맛을 향상시켜주는 기계식 키보드가 최고의 선물입니다.',
+            '## 👟 매일 함께하는 데일리 아이템',
+            '**4. 프리미엄 카드 지갑:** 두꺼운 지갑보다는 삼성페이/애플페이와 함께 가볍게 들고 다닐 수 있는 질 좋은 명품 카드 지갑을 추천합니다.',
+            '**5. 니치 향수 (우디 계열):** 남성들이 선호하는 깔끔하고 중성적인 향수(딥디크, 르라보, 조말론 등)는 센스 있는 여자친구가 되기 위한 좋은 아이템입니다.',
+            '**6. 브랜드 맨투맨 & 후드티:** 봄, 가을에 편하게 입을 수 있는 깔끔한 디자인의 브랜드 상의는 절대 실패하지 않습니다.',
+            '## 💡 선물 고르기 꿀팁',
+            '선물지니 사이트에서 남자친구의 구체적인 취향과 예산을 선택하고 AI에게 맞춤형 선물을 물어보세요!'
+        ]
+    },
+    {
+        id: 'housewarming-gifts',
+        title: '집들이 선물 리스트: 휴지 대신 센스있다고 칭찬받는 아이템',
+        excerpt: '흔한 휴지나 세제는 이제 그만! 집주인의 취향을 저격하고 실용성까지 갖춘 센스 만점 집들이 선물 아이디어를 소개합니다.',
+        date: '2026-04-10',
+        category: '집들이',
+        readTime: '6분',
+        image: '🏠',
+        content: [
+            '과거에는 집들이 갈 때 두루마리 휴지나 세제를 사가는 것이 "국룰"이었지만, 요즘은 실용적이면서도 인테리어를 해치지 않는 센스 있는 선물을 더 환영합니다.',
+            '## 🏠 인테리어를 빛내주는 감성 소품',
+            '**1. 프리미엄 디퓨저 & 인센스 스틱:** 이사 직후 새집 냄새를 잡아주고 공간에 고급스러운 향기를 채워주는 디퓨저는 호불호 없는 선물입니다.',
+            '**2. 디자인 무드등 (테이블 램프):** 집안의 분위기를 따뜻하게 만들어주는 작고 예쁜 조명은 인테리어 초보자에게도 유용합니다.',
+            '**3. 감각적인 화병과 생화:** 오브제로도 활용 가능한 디자인 화병과 기분 좋은 생화 다발은 집주인을 미소 짓게 합니다.',
+            '## ☕ 자취생 및 신혼부부 맞춤 소형 가전',
+            '**4. 캡슐 커피 머신:** 홈카페를 즐기는 사람에게 필수! 예쁜 디자인의 커피 머신은 실용성 1위에 꼽힙니다.',
+            '**5. 와인잔 세트 및 전동 오프너:** 홈파티를 즐기고 와인을 좋아하는 친구라면 무조건 환영받는 선물입니다.',
+            '## 💡 센스 있는 집들이 팁',
+            '선물 받을 분의 집 인테리어 톤(화이트, 우드, 모던 등)을 미리 파악해 두면 더욱 마음에 쏙 드는 선물을 고를 수 있습니다.'
+        ]
     }
 ];
 
@@ -160,6 +205,51 @@ const allPostsEn: BlogPostFull[] = [
             "## 💡 MBTI Tips",
             "Enter your partner's MBTI type and hobbies in GiftGenie, and our AI will recommend personalized gifts based on their personality!"
         ]
+    },
+    {
+        id: 'boyfriend-birthday-gifts',
+        title: 'Top 10 Birthday Gift Ideas for 20-something Boyfriends (2026 Edition)',
+        excerpt: 'Foolproof birthday gifts for your boyfriend! We recommend 10 trendy and practical gift items.',
+        date: '2026-04-10',
+        category: 'Birthday',
+        readTime: '8 min',
+        image: '👔',
+        content: [
+            "Are you struggling to find a gift for your 20-something boyfriend's birthday? We've prepared a trendy list of gifts packed with both practicality and style, instead of the usual boring stuff.",
+            "## 👔 Criteria for Choosing a Boyfriend's Birthday Gift",
+            "Men in their 20s highly value **practicality, tech gadgets, and their hobbies**. Upgrading an item they use daily to a premium brand or supporting a new hobby is always a great choice.",
+            "## 💻 Practicality #1! Tech Gadgets",
+            "**1. Smartwatch Straps & Accessory Sets:** If he already owns an Apple Watch or Galaxy Watch, premium leather or metal straps make excellent gifts to give his watch a fresh look.",
+            "**2. Wireless Noise-Canceling Earphones:** A must-have for commuting and working out! Upgrading his earphones to the latest model will drastically improve his quality of life.",
+            "**3. Mechanical Custom Keyboards:** For boyfriends who code, game, or do a lot of typing, a mechanical keyboard that enhances the typing experience is the ultimate gift.",
+            "## 👟 Daily Items He's Always With",
+            "**4. Premium Card Wallet:** Rather than a bulky wallet, a high-quality designer card wallet that he can easily carry around alongside mobile payments is highly recommended.",
+            "**5. Niche Perfumes (Woody notes):** Clean and gender-neutral fragrances (like Diptyque, Le Labo, and Jo Malone) preferred by men are great items to show your sophisticated taste.",
+            "**6. Brand Sweatshirts & Hoodies:** Clean, branded tops that he can wear comfortably in spring and fall will never fail.",
+            "## 💡 Gift Selection Tip",
+            "Select his specific tastes and your budget on the GiftGenie website, and ask our AI for customized gift recommendations!"
+        ]
+    },
+    {
+        id: 'housewarming-gifts',
+        title: 'Housewarming Gifts: Stop Giving Toilet Paper and Gift These Clever Items',
+        excerpt: 'Say goodbye to common detergents! Discover clever housewarming gift ideas that are practical and suit the host\'s taste.',
+        date: '2026-04-10',
+        category: 'Housewarming',
+        readTime: '6 min',
+        image: '🏠',
+        content: [
+            "In the past, giving toilet paper or detergent as a housewarming gift was the norm. However, these days, clever gifts that are practical and well-aligned with the host's interior taste are much more welcomed.",
+            "## 🏠 Aesthetic Items That Brighten Up the Interior",
+            "**1. Premium Diffusers & Incense Sticks:** Removing the 'new house smell' right after moving in and filling the space with a luxurious scent, a diffuser is a universally loved gift.",
+            "**2. Design Mood Lights (Table Lamps):** Small, pretty lighting that makes the house atmosphere warmer is useful even for people who are beginners at home interior design.",
+            "**3. Aesthetic Vases & Fresh Flowers:** A beautifully designed vase that acts as a decorative object, accompanied by a delightful bouquet of fresh flowers, will make the host smile.",
+            "## ☕ Small Appliances Tailored for Singles and Newlyweds",
+            "**4. Capsule Coffee Machines:** Essential for those who enjoy a home cafe! A beautifully designed coffee machine is ranked #1 in practicality.",
+            "**5. Wine Glass Sets & Electric Openers:** If your friend enjoys home parties and wine, this is a gift they will undoubtedly welcome.",
+            "## 💡 Clever Housewarming Tip",
+            "If you get a grasp of the color tone of the recipient's home interior (white, wood, modern, etc.) beforehand, you can pick a gift they will absolutely fall in love with."
+        ]
     }
 ];
 
@@ -225,6 +315,50 @@ const allPostsJa: BlogPostFull[] = [
             '**おすすめギフト：** アクティビティ利用券、スポーツ用品、旅行関連製品',
             '## 💡 MBTIヒント',
             'ギフトジニーでMBTIタイプと趣味を入力すれば、AIが性格に合ったカスタムギフトをおすすめします！'
+        ]
+    },
+    {
+        id: 'boyfriend-birthday-gifts',
+        title: '20代彼氏の誕生日プレゼントおすすめTOP10（2026年最新版）',
+        excerpt: '失敗しない20代彼氏への誕生日プレゼント！実用性とセンスを兼ね備えた最新トレンドアイテム10選をおすすめします。',
+        date: '2026-04-10',
+        category: '誕生日',
+        readTime: '8分',
+        image: '👔',
+        content: [
+            '20代の彼氏の誕生日、何をプレゼントすればいいか悩んでいませんか？ありきたりなプレゼントの代わりに、実用性とセンスの両方を兼ね備えた最新トレンドのギフトリストをご用意しました。',
+            '## 👔 20代彼氏へのプレゼントの選び方',
+            '20代の男性は主に**実用性、電子機器への関心、趣味**に大きな価値を置いています。普段からよく使っているアイテムをプレミアムブランドにアップグレードしてあげたり、新しい趣味を応援するアイテムが良いでしょう。',
+            '## 💻 実用性No.1！電子機器・テックアイテム',
+            '**1. スマートウォッチのストラップ＆アクセサリーセット：** すでにApple WatchやGalaxy Watchを持っているなら、飽きずに着けられるプレミアムなレザーやメタル素材のストラップが素晴らしいプレゼントになります。',
+            '**2. ワイヤレスノイズキャンセリングイヤホン：** 通勤・通学や運動の際に必須のワイヤレスイヤホン！最新モデルに変えてあげれば、QOLが劇的に向上します。',
+            '**3. カスタムメカニカルキーボード：** コーディングやゲーム、文書作成が多い彼氏なら、タイピングの心地よさを向上させてくれるメカニカルキーボードが最高のプレゼントになります。',
+            '## 👟 毎日使えるデイリーアイテム',
+            '**4. プレミアムカードケース：** 分厚い財布よりも、キャッシュレス決済と一緒に身軽に持ち歩ける高品質のブランドカードケースがおすすめです。',
+            '**5. ニッチフレグランス（ウッディ系）：** 男性が好むクリーンでジェンダーレスな香水（Diptyque、Le Labo、Jo Maloneなど）は、センスのある彼女になるための良いアイテムです。',
+            '## 💡 プレゼント選びのヒント',
+            'ギフトジニーのサイトで彼氏の具体的な好みと予算を選択し、AIにカスタムギフトをおすすめしてもらいましょう！'
+        ]
+    },
+    {
+        id: 'housewarming-gifts',
+        title: '引越し祝いギフト：ティッシュの代わりに「センスがいい」と褒められるアイテム',
+        excerpt: 'ありきたりな洗剤はもうおしまい！家主の好みにピッタリで実用性も備えた、気の利いた引越し祝いのアイデアをご紹介します。',
+        date: '2026-04-10',
+        category: '引越し祝い',
+        readTime: '6分',
+        image: '🏠',
+        content: [
+            '昔は引越しの際にトイレットペーパーや洗剤を買っていくのが「お決まり」でしたが、最近は実用的でありながらインテリアを損なわないセンスあるプレゼントの方が歓迎されます。',
+            '## 🏠 インテリアをより美しくする感性アイテム',
+            '**1. プレミアムディフューザー＆インセンススティック：** 引越し直後の新居の匂いを消し、空間を高級感のある香りで満たすディフューザーは、好みが分かれない安全なプレゼントです。',
+            '**2. デザインムードランプ（テーブルランプ）：** 家の雰囲気を温かくしてくれる小さくて可愛い照明は、インテリア初心者にも便利です。',
+            '**3. センスのある花瓶と生花：** オブジェとしても活用可能なデザイン花瓶と心地よい生花の花束は、家主を笑顔にしてくれます。',
+            '## ☕ 一人暮らしや新婚夫婦にぴったりの小型家電',
+            '**4. カプセルコーヒーマシン：** ホームカフェを楽しむ人に必須！美しいデザインのコーヒーマシンは実用性1位に挙げられます。',
+            '**5. ワイングラスセットと電動オープナー：** ホームパーティーを楽しみ、ワインが好きな友人なら間違いなく歓迎されるプレゼントです。',
+            '## 💡 センスある引越し祝いのヒント',
+            'プレゼントを受け取る方の家のインテリアの色味（ホワイト、ウッド、モダンなど）を事前に把握しておくと、より気に入ってもらえるプレゼントを選ぶことができます。'
         ]
     }
 ];
