@@ -28,7 +28,8 @@ const AdSense: React.FC<AdSenseProps> = ({
   adLayout,
   adLayoutKey,
 }) => {
-  const publisherId = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID || 'ca-pub-5907754718994620';
+  const rawPublisherId = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID || 'ca-pub-5907754718994620';
+  const publisherId = rawPublisherId.startsWith('pub-') ? `ca-${rawPublisherId}` : rawPublisherId;
   const adRef = useRef<HTMLDivElement>(null);
   const pushed = useRef(false);
 
