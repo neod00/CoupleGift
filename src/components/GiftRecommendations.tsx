@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useTranslations, useLocale } from 'next-intl';
 import { GiftRecommendation } from '../types/gift';
 import AdSense from './AdSense';
 
@@ -15,23 +16,48 @@ const GiftRecommendations: React.FC<GiftRecommendationsProps> = ({
   onRegenerate,
   onBackToForm
 }) => {
+  const t = useTranslations();
+  const locale = useLocale();
+
+  // 언어별 쇼핑몰 텍스트
+  const shopText: Record<string, string> = {
+    ko: '쿠팡에서 구매하기',
+    en: 'Buy on Amazon',
+    ja: 'Amazonで購入する'
+  };
+
+  const reviewSuffix: Record<string, string> = {
+    ko: '개',
+    en: '',
+    ja: '件'
+  };
+
   return (
     <div className="space-y-10">
       <div className="text-center">
         <div className="mb-6">
           <h2 className="text-4xl md:text-5xl font-bold gradient-text mb-4">
-            ✨ 추천 선물 ✨
+            {t('results.title')}
           </h2>
           <div className="flex items-center justify-center gap-2 mb-4">
             <span className="text-2xl">🎁</span>
-            <span className="text-xl text-white/90 font-semibold">AI가 선별한 특별한 선물들</span>
+            <span className="text-xl text-[var(--text-main-90)] font-semibold">
+              {locale === 'ko' ? 'AI가 선별한 특별한 선물들' :
+               locale === 'ja' ? 'AIが厳選した特別なギフト' :
+               'Special gifts selected by AI'}
+            </span>
             <span className="text-2xl">🎁</span>
           </div>
         </div>
-        <p className="text-lg text-white/80 max-w-2xl mx-auto">
-          당신의 소중한 사람을 위한 완벽한 선물을 찾았어요! 마음에 드는 선물을 선택해보세요 💝
+        <p className="text-lg text-[var(--text-main-70)] max-w-2xl mx-auto">
+          {locale === 'ko' ? '당신의 소중한 사람을 위한 완벽한 선물을 찾았어요! 마음에 드는 선물을 선택해보세요 💝' :
+           locale === 'ja' ? '大切な方にぴったりのギフトを見つけました！お気に入りのギフトを選んでください 💝' :
+           'We found the perfect gifts for your special someone! Choose your favorite gift 💝'}
         </p>
       </div>
+
+      {/* 상단 광고 */}
+      <AdSense adFormat="banner" className="mb-4" />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {recommendations.map((gift, index) => (
@@ -43,8 +69,8 @@ const GiftRecommendations: React.FC<GiftRecommendationsProps> = ({
             <div className="relative mb-6 overflow-hidden rounded-xl">
               <img
                 src={gift.imageUrl}
-                alt={`${gift.category} 카테고리 ${gift.title} - AI 맞춤형 선물 추천`}
-                title={`${gift.title} - ${gift.price} 예산별 선물 추천`}
+                alt={`${gift.category} - ${gift.title}`}
+                title={`${gift.title} - ${gift.price}`}
                 className="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-500"
                 loading="lazy"
               />
@@ -74,9 +100,11 @@ const GiftRecommendations: React.FC<GiftRecommendationsProps> = ({
                     <span className="text-sm font-semibold text-gray-700">
                       {gift.rating}
                     </span>
-                    <span className="text-xs text-gray-500">
-                      ({gift.reviewCount}개)
-                    </span>
+                    {gift.reviewCount && (
+                      <span className="text-xs text-gray-500">
+                        ({gift.reviewCount}{reviewSuffix[locale] || ''})
+                      </span>
+                    )}
                   </div>
                 )}
               </div>
@@ -86,7 +114,7 @@ const GiftRecommendations: React.FC<GiftRecommendationsProps> = ({
                 className="btn-primary w-full text-base py-3 group-hover:shadow-2xl transition-all duration-300"
               >
                 <span className="text-lg mr-2">🛒</span>
-                쿠팡에서 구매하기
+                {shopText[locale] || shopText.ko}
                 <span className="text-lg ml-2">💎</span>
               </button>
             </div>
@@ -94,11 +122,16 @@ const GiftRecommendations: React.FC<GiftRecommendationsProps> = ({
         ))}
       </div>
 
+      {/* 추천 결과 사이 인피드 광고 */}
+      <AdSense adFormat="fluid" adLayout="in-article" className="my-6" />
+
       <div className="text-center space-y-6">
         <div className="glass-card max-w-lg mx-auto p-6">
           <div className="text-2xl mb-4">🤔</div>
-          <p className="text-gray-700 mb-6 font-medium">
-            마음에 드는 선물이 없으신가요?
+          <p className="text-[var(--text-main)] mb-6 font-medium">
+            {locale === 'ko' ? '마음에 드는 선물이 없으신가요?' :
+             locale === 'ja' ? 'お気に入りのギフトが見つかりませんでしたか？' :
+             "Didn't find a gift you like?"}
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <button
@@ -106,7 +139,9 @@ const GiftRecommendations: React.FC<GiftRecommendationsProps> = ({
               className="btn-secondary px-6 py-3 text-base font-semibold"
             >
               <span className="text-lg mr-2">🔄</span>
-              다시 추천받기
+              {locale === 'ko' ? '다시 추천받기' :
+               locale === 'ja' ? 'もう一度おすすめを受ける' :
+               'Get New Recommendations'}
             </button>
 
             <button
@@ -114,21 +149,26 @@ const GiftRecommendations: React.FC<GiftRecommendationsProps> = ({
               className="btn-primary px-6 py-3 text-base font-semibold"
             >
               <span className="text-lg mr-2">🔙</span>
-              처음으로 돌아가기
+              {locale === 'ko' ? '처음으로 돌아가기' :
+               locale === 'ja' ? '最初に戻る' :
+               'Back to Start'}
             </button>
           </div>
         </div>
 
-        <div className="text-sm text-white/60 flex items-center justify-center gap-2">
+        <div className="text-sm text-[var(--text-main-70)] flex items-center justify-center gap-2">
           <span className="text-base">💡</span>
-          <span>더 정확한 추천을 위해 추가 정보를 입력해보세요!</span>
+          <span>
+            {locale === 'ko' ? '더 정확한 추천을 위해 추가 정보를 입력해보세요!' :
+             locale === 'ja' ? 'より正確なおすすめのために追加情報を入力してみてください！' :
+             'Enter additional information for more accurate recommendations!'}
+          </span>
         </div>
       </div>
 
       {/* 추천결과 페이지 하단 AdSense 광고 */}
       <div className="mt-12">
         <AdSense
-          adSlot="RECOMMENDATIONS_BOTTOM_AD_SLOT"
           adFormat="rectangle"
           className="mb-6"
         />
@@ -137,4 +177,4 @@ const GiftRecommendations: React.FC<GiftRecommendationsProps> = ({
   );
 };
 
-export default GiftRecommendations; 
+export default GiftRecommendations;

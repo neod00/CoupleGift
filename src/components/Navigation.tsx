@@ -11,6 +11,7 @@ const Navigation: React.FC = () => {
 
   const navItems = [
     { path: '/', labelKey: 'home', icon: '🏠' },
+    { path: '/gift', labelKey: 'gift', icon: '🎁' },
     { path: '/about', labelKey: 'about', icon: '💝' },
     { path: '/blog', labelKey: 'blog', icon: '📝' },
     { path: '/contact', labelKey: 'contact', icon: '📧' },
