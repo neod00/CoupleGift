@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { generatePopularPages } from '@/data/giftPages';
+import { getAllBlogSlugs } from '@/data/blog';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://couplegift.netlify.app';
@@ -19,15 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   // 블로그 포스트
-  const fs = require('fs');
-  const path = require('path');
-  const postsPath = path.join(process.cwd(), 'src', 'data', 'blog', 'posts');
-  let blogSlugs: string[] = [];
-  if (fs.existsSync(postsPath)) {
-    blogSlugs = fs.readdirSync(postsPath)
-      .filter((f: string) => f.endsWith('.json'))
-      .map((f: string) => f.replace('.json', ''));
-  }
+  const blogSlugs = getAllBlogSlugs();
   for (const page of staticPages) {
     for (const locale of locales) {
       const prefix = locale === 'ko' ? '' : `/${locale}`;
