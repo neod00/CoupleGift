@@ -1,36 +1,23 @@
-import fs from 'fs';
-import path from 'path';
+import { routing } from '@/i18n/routing';
+import { getAllBlogPosts, getAllBlogSlugs, getBlogPostBySlug } from '@/data/blog';
 import BlogPostClient from './BlogPostClient';
 
-export async function generateStaticParams() {
-    const postsPath = path.join(process.cwd(), 'src', 'data', 'blog', 'posts');
-    if (!fs.existsSync(postsPath)) return [];
-    
-    const files = fs.readdirSync(postsPath).filter(f => f.endsWith('.json'));
-    const locales = ['ko', 'en', 'ja'];
-    
-    const params: { locale: string, slug: string }[] = [];
-    
-    for (const file of files) {
-        const slug = file.replace('.json', '');
-        for (const locale of locales) {
+export function generateStaticParams() {
+    const slugs = getAllBlogSlugs();
+    const params: { locale: string; slug: string }[] = [];
+
+    for (const locale of routing.locales) {
+        for (const slug of slugs) {
             params.push({ locale, slug });
         }
     }
-    
+
     return params;
 }
 
-export const dynamicParams = true; // 빌드 타임에 없어도 시도
-
-
-export default function BlogPostPage({ params: { locale, slug } }: { params: { locale: string; slug: string } }) {
-    const postPath = path.join(process.cwd(), 'src', 'data', 'blog', 'posts', `${slug}.json`);
-    let post = null;
-
-    if (fs.existsSync(postPath)) {
-        post = JSON.parse(fs.readFileSync(postPath, 'utf8'));
-    }
+export default async function BlogPostPage({ params }: any) {
+    const { locale, slug } = await params;
+    const post = getBlogPostBySlug(slug);
 
     return <BlogPostClient locale={locale} post={post} />;
 }
