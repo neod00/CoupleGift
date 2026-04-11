@@ -4,6 +4,8 @@ import React from 'react';
 import { useLocale } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { useParams } from 'next/navigation';
+import CoupangDynamicBanner from '@/components/CoupangDynamicBanner';
+import CoupangSearchWidget from '@/components/CoupangSearchWidget';
 
 interface BlogPostFull {
     id: string;
@@ -447,9 +449,20 @@ export default function BlogPost() {
                 </div>
 
                 <div className="mt-12 pt-8 border-t border-white/10 text-center">
-                    <Link href="/" className="btn-primary inline-block text-lg px-8 py-3">
-                        {tryAiText}
-                    </Link>
+                    <p className="text-xs text-[var(--text-main-70)] bg-[var(--surface-mixed)] inline-block px-4 py-2 rounded-full mb-6">
+                      💡 {locale === 'ko' ? '이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.' : 'As a Coupang/Amazon associate, we earn from qualifying purchases.'}
+                    </p>
+                    <CoupangDynamicBanner />
+                    
+                    <div className="my-8">
+                        <Link href="/" className="btn-primary inline-block text-lg px-8 py-3 w-full sm:w-auto">
+                            {tryAiText}
+                        </Link>
+                    </div>
+                    
+                    <div className="mt-8">
+                        <CoupangSearchWidget />
+                    </div>
                 </div>
             </article>
         </div>

@@ -4,6 +4,8 @@ import React from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { GiftRecommendation } from '../types/gift';
 import AdSense from './AdSense';
+import CoupangDynamicBanner from './CoupangDynamicBanner';
+import CoupangSearchWidget from './CoupangSearchWidget';
 
 interface GiftRecommendationsProps {
   recommendations: GiftRecommendation[];
@@ -128,6 +130,8 @@ const GiftRecommendations: React.FC<GiftRecommendationsProps> = ({
         </p>
       </div>
 
+      <CoupangDynamicBanner />
+
       {/* 추천 결과 사이 인피드 광고 */}
       <AdSense adFormat="fluid" adLayout="in-article" className="my-6" />
 
@@ -159,6 +163,9 @@ const GiftRecommendations: React.FC<GiftRecommendationsProps> = ({
                locale === 'ja' ? '最初に戻る' :
                'Back to Start'}
             </button>
+          </div>
+          <div className="mt-8">
+            <CoupangSearchWidget />
           </div>
         </div>
 

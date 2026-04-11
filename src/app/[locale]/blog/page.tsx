@@ -4,6 +4,8 @@ import React from 'react';
 import { useLocale } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import AdSense from '@/components/AdSense';
+import CoupangDynamicBanner from '@/components/CoupangDynamicBanner';
+import CoupangSearchWidget from '@/components/CoupangSearchWidget';
 
 interface BlogPost {
     id: string;
@@ -280,22 +282,29 @@ export default function Blog() {
                 </div>
             </div>
 
-            <div className="glass-card text-center mb-8 fade-in">
-                <h3 className="text-2xl font-semibold text-[var(--text-main)] mb-4">
+            {/* 뉴스레터 구독 */}
+            <div className="glass-card mt-16 p-8 text-center bg-gradient-to-br from-pink-50/50 to-purple-50/50">
+                <CoupangDynamicBanner />
+                
+                <h2 className="text-2xl font-bold text-[var(--text-main)] mb-2 mt-8">
                     {c.newsletterTitle}
-                </h3>
-                <p className="text-[var(--text-main-90)] mb-6">
+                </h2>
+                <p className="text-[var(--text-main-70)] mb-6">
                     {c.newsletterDesc}
                 </p>
-                <div className="max-w-md mx-auto flex gap-3">
-                    <input
-                        type="email"
+                <form className="max-w-md mx-auto flex gap-2" onSubmit={(e) => e.preventDefault()}>
+                    <input 
+                        type="email" 
                         placeholder={c.emailPlaceholder}
-                        className="flex-1 px-4 py-3 bg-white/20 border border-white/20 rounded-lg text-[var(--text-main)] placeholder-white/50 focus:outline-none focus:border-white/40 focus:bg-white/30 transition-all font-medium"
+                        className="flex-1 bg-white/50 border border-white/20 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
                     />
-                    <button className="btn-primary px-6">
+                    <button type="submit" className="btn-primary">
                         {c.subscribe}
                     </button>
+                </form>
+                
+                <div className="mt-8">
+                    <CoupangSearchWidget />
                 </div>
             </div>
 
