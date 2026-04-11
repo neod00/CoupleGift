@@ -1,0 +1,61 @@
+{
+  "id": "budget-gift-guide",
+  "date": "2026-02-13",
+  "image": "💰",
+  "ko": {
+    "title": "예산별 선물 가이드: 1만원부터 10만원까지 센스있는 선물 추천",
+    "excerpt": "제한된 예산으로도 센스있는 선물을 고를 수 있습니다. 가격대별로 엄선한 선물 아이디어와 선물 고르기 팁.",
+    "category": "선물 팁",
+    "readTime": "7분",
+    "content": [
+      "선물의 가치는 가격이 아니라 마음에 달려 있습니다. 예산에 맞춰 센스있는 선물을 고르는 방법을 알아보겠습니다.",
+      "## 💸 1만원 이하: 마음을 담은 소소한 선물",
+      "**추천 아이템:** 핸드크림, 캔들, 양말 세트, 마스크팩 세트, 문구용품, 간식 선물 세트",
+      "작은 예산이라도 정성스럽게 포장하면 훌륭한 선물이 됩니다. 상대방이 평소에 자주 쓰는 소모품을 고급 브랜드로 선물하는 것도 좋은 방법입니다.",
+      "## 💳 1~3만원: 실용적이면서 센스있는 선물",
+      "**추천 아이템:** 텀블러, 에코백, 향수 미니어처 세트, 책, 디퓨저, 블루투스 이어폰 케이스",
+      "이 가격대에서는 실용성과 디자인성을 모두 갖춘 아이템을 찾을 수 있습니다.",
+      "## 💎 3~5만원: 특별한 선물",
+      "**추천 아이템:** 화장품 세트, 지갑, 무선 충전기, 캐릭터 피규어, 와인",
+      "## 🎁 5~10만원: 프리미엄 선물",
+      "**추천 아이템:** 프리미엄 향수, AirPods 케이스, 브랜드 액세서리, 고급 문구 세트",
+      "예산이 넉넉하다면 상대방이 평소에 사고 싶었지만 망설였던 아이템을 선물하는 것이 가장 감동적입니다."
+    ]
+  },
+  "en": {
+    "title": "Budget Gift Guide: Thoughtful Recommendations from $10 to $100",
+    "excerpt": "You can choose thoughtful gifts even with a limited budget. Gift ideas and tips by price range.",
+    "category": "Gift Tips",
+    "readTime": "7 min",
+    "content": [
+      "The value of a gift lies not in its price, but in the thought behind it. Let's explore how to choose thoughtful gifts within your budget.",
+      "## 💸 Under $10: Small but Meaningful Gifts",
+      "**Recommended Items:** Hand cream, candles, sock sets, face mask sets, stationery, snack gift sets",
+      "Even with a small budget, thoughtful packaging can make a wonderful gift.",
+      "## 💳 $10-$30: Practical and Thoughtful Gifts",
+      "**Recommended Items:** Tumblers, eco bags, mini perfume sets, books, diffusers",
+      "## 💎 $30-$50: Special Gifts",
+      "**Recommended Items:** Cosmetics sets, wallets, wireless chargers, wine",
+      "## 🎁 $50-$100: Premium Gifts",
+      "**Recommended Items:** Premium perfume, AirPods cases, brand accessories, luxury stationery sets",
+      "If your budget allows, gifting something your partner has been wanting but hesitating to buy is the most touching gesture."
+    ]
+  },
+  "ja": {
+    "title": "予算別ギフトガイド：1,000円から10,000円までのセンスあるギフト推薦",
+    "excerpt": "限られた予算でもセンスのあるギフトを選べます。価格帯別に厳選したギフトアイデア。",
+    "category": "ギフトのヒント",
+    "readTime": "7分",
+    "content": [
+      "ギフトの価値は価格ではなく気持ちにあります。予算に合わせてセンスあるギフトを選ぶ方法をご紹介します。",
+      "## 💸 1,000円以下：気持ちを込めたちょっとしたギフト",
+      "**おすすめアイテム：** ハンドクリーム、キャンドル、靴下セット、フェイスマスクセット、文房具",
+      "## 💳 1,000〜3,000円：実用的でセンスあるギフト",
+      "**おすすめアイテム：** タンブラー、エコバッグ、ミニ香水セット、本、ディフューザー",
+      "## 💎 3,000〜5,000円：特別なギフト",
+      "**おすすめアイテム：** 化粧品セット、財布、ワイヤレス充電器、ワイン",
+      "## 🎁 5,000〜10,000円：プレミアムギフト",
+      "**おすすめアイテム：** プレミアム香水、AirPodsケース、ブランドアクセサリー"
+    ]
+  }
+}

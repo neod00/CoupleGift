@@ -123,12 +123,26 @@ export default function GiftPageClient({ page, locale }: GiftPageClientProps) {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {suggestions.map((item, idx) => (
-              <a
+              <button
                 key={idx}
-                href={getSearchUrl(item)}
-                target="_blank"
-                rel="noopener noreferrer nofollow"
-                className="glass-card p-5 hover:scale-105 transition-all duration-300 cursor-pointer group block"
+                onClick={async (e) => {
+                  e.preventDefault();
+                  try {
+                    const fallbackUrl = getSearchUrl(item);
+                    const homeLink = process.env.NEXT_PUBLIC_COUPANG_HOME_LINK;
+                    
+                    if (locale === 'ko' && homeLink) {
+                      await navigator.clipboard.writeText(item);
+                      alert(`상품명 [${item}]이(가) 복사되었습니다! 🎉\n\n열리는 쿠팡 창에서 붙여넣기(Ctrl+V)를 하시면 바로 찾으실 수 있습니다.`);
+                      window.open(homeLink, '_blank');
+                    } else {
+                      window.open(fallbackUrl, '_blank');
+                    }
+                  } catch (err) {
+                    window.open(getSearchUrl(item), '_blank');
+                  }
+                }}
+                className="glass-card p-5 hover:scale-105 transition-all duration-300 cursor-pointer group block w-full"
               >
                 <div className="text-center">
                   <div className="text-4xl mb-3">
@@ -141,7 +155,7 @@ export default function GiftPageClient({ page, locale }: GiftPageClientProps) {
                     {l.coupangSearch} →
                   </div>
                 </div>
-              </a>
+              </button>
             ))}
           </div>
           

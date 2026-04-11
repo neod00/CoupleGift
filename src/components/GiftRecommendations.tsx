@@ -112,7 +112,25 @@ const GiftRecommendations: React.FC<GiftRecommendationsProps> = ({
               </div>
 
               <button
-                onClick={() => window.open(gift.coupangUrl, '_blank')}
+                onClick={async () => {
+                  try {
+                    const fallbackUrl = gift.coupangUrl;
+                    const homeLink = process.env.NEXT_PUBLIC_COUPANG_HOME_LINK;
+                    
+                    if (locale === 'ko' && homeLink) {
+                      // 전략 1: 한국어 환경이고 파트너스 메인 링크가 지정되어 있을 때
+                      await navigator.clipboard.writeText(gift.title);
+                      alert(`상품명 [${gift.title}]이(가) 복사되었습니다! 🎉\n\n열리는 쿠팡 창에서 붙여넣기(Ctrl+V)를 하시면 바로 찾으실 수 있습니다.`);
+                      window.open(homeLink, '_blank');
+                    } else {
+                      // 그 외 국가 혹은 링크 누락 시 기본 동작
+                      window.open(fallbackUrl, '_blank');
+                    }
+                  } catch (err) {
+                    // 클립보드 복사 실패 시 (또는 권한 거부 시) 기본 링크로 폴백
+                    window.open(gift.coupangUrl, '_blank');
+                  }
+                }}
                 className="btn-primary w-full text-base py-3 group-hover:shadow-2xl transition-all duration-300"
               >
                 <span className="text-lg mr-2">🛒</span>

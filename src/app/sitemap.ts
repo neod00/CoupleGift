@@ -19,8 +19,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   // 블로그 포스트
-  const blogSlugs = ['valentine-day-guide', 'budget-gift-guide', 'mbti-gift-guide', 'boyfriend-birthday-gifts', 'housewarming-gifts'];
-
+  const fs = require('fs');
+  const path = require('path');
+  const postsPath = path.join(process.cwd(), 'src', 'data', 'blog', 'posts');
+  let blogSlugs: string[] = [];
+  if (fs.existsSync(postsPath)) {
+    blogSlugs = fs.readdirSync(postsPath)
+      .filter((f: string) => f.endsWith('.json'))
+      .map((f: string) => f.replace('.json', ''));
+  }
   for (const page of staticPages) {
     for (const locale of locales) {
       const prefix = locale === 'ko' ? '' : `/${locale}`;
