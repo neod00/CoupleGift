@@ -26,6 +26,15 @@ const nextConfig = {
         ],
     },
     trailingSlash: true,
+    async redirects() {
+        return [
+            {
+                source: '/category/:path*',
+                destination: '/gift/',
+                permanent: true, // 301 리다이렉트 (검색엔진에 영구 이동 알림)
+            },
+        ]
+    },
 }
 
 export default withNextIntl(nextConfig);

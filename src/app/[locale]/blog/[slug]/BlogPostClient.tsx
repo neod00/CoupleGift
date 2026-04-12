@@ -120,7 +120,7 @@ export default function BlogPostClient({ locale, post: rawPost }: BlogPostClient
 
                 <div className="mt-12 pt-8 border-t border-white/10 text-center">
                     <p className="text-xs text-[var(--text-main-70)] bg-[var(--surface-mixed)] inline-block px-4 py-2 rounded-full mb-6">
-                      💡 {locale === 'ko' ? '이 포스팅은 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.' : 'As an affiliate associate, we earn from qualifying purchases.'}
+                      💡 {locale === 'ko' ? '이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.' : 'As an affiliate associate, we earn from qualifying purchases.'}
                     </p>
                     {locale === 'ko' && <CoupangDynamicBanner />}
                     
