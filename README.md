@@ -37,19 +37,32 @@ GPT가 당신의 입력을 바탕으로 딱 맞는 선물을 추천해드립니�
 
 ## 🔐 환경 변수 설정
 
+> ⚠️ 본 프로젝트는 Next.js 앱이며 Create React App이 아닙니다. `REACT_APP_` 접두사가 붙은 환경변수는 Next.js에서 인식되지 않고 조용히 무시되므로 아래의 실제 변수명을 사용하세요.
+
 ### 로컬 개발 환경
 
-`.env` 파일을 생성하고 아래 내용을 추가하세요:
+`.env.local` 파일을 생성하고 아래 내용을 추가하세요:
 
 ```
-# 필수: OpenAI API 키
-REACT_APP_OPENAI_API_KEY=sk-your_openai_api_key_here
+# 필수: OpenAI API 키 (서버 전용, API Route에서만 사용)
+OPENAI_API_KEY=sk-your_openai_api_key_here
 
-# 선택: 쿠팡 파트너스 ID (수익화)
-REACT_APP_COUPANG_PARTNER_ID=your_coupang_partner_id_here
+# 선택: 쿠팡 파트너스 ID (수익화, 클라이언트에 노출됨)
+NEXT_PUBLIC_COUPANG_PARTNER_ID=your_coupang_partner_id_here
 
 # 선택: Google AdSense Publisher ID
-REACT_APP_ADSENSE_PUBLISHER_ID=ca-pub-your_publisher_id_here
+NEXT_PUBLIC_ADSENSE_PUBLISHER_ID=ca-pub-your_publisher_id_here
+
+# 선택: Google AdSense 광고 슬롯 ID (디스플레이/본문 내/피드 내)
+NEXT_PUBLIC_ADSENSE_SLOT_DISPLAY=your_display_slot_id_here
+NEXT_PUBLIC_ADSENSE_SLOT_IN_ARTICLE=your_in_article_slot_id_here
+NEXT_PUBLIC_ADSENSE_SLOT_IN_FEED=your_in_feed_slot_id_here
+
+# 선택: 네이버 서치어드바이저 사이트 소유 확인
+NEXT_PUBLIC_NAVER_SITE_VERIFICATION=your_naver_verification_code_here
+
+# 선택: Google Analytics 4 측정 ID
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
 ```
 
 ### Netlify 배포 환경
@@ -60,12 +73,29 @@ Netlify 대시보드에서 환경변수 설정:
 키: OPENAI_API_KEY
 값: sk-your_openai_api_key_here
 
-키: REACT_APP_COUPANG_PARTNER_ID
+키: NEXT_PUBLIC_COUPANG_PARTNER_ID
 값: your_coupang_partner_id_here
 
-키: REACT_APP_ADSENSE_PUBLISHER_ID
+키: NEXT_PUBLIC_ADSENSE_PUBLISHER_ID
 값: ca-pub-your_publisher_id_here
+
+키: NEXT_PUBLIC_ADSENSE_SLOT_DISPLAY
+값: your_display_slot_id_here
+
+키: NEXT_PUBLIC_ADSENSE_SLOT_IN_ARTICLE
+값: your_in_article_slot_id_here
+
+키: NEXT_PUBLIC_ADSENSE_SLOT_IN_FEED
+값: your_in_feed_slot_id_here
+
+키: NEXT_PUBLIC_NAVER_SITE_VERIFICATION
+값: your_naver_verification_code_here
+
+키: NEXT_PUBLIC_GA_ID
+값: G-XXXXXXXXXX
 ```
+
+> 💰 광고 슬롯 발급, 수익화 전략, 쿠팡 파트너스 연동 방식에 대한 자세한 가이드는 [MONETIZATION.md](./MONETIZATION.md)를 참고하세요.
 
 ## 🚀 설치 및 실행
 

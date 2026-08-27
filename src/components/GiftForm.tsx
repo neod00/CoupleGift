@@ -13,8 +13,10 @@ const GiftForm: React.FC<GiftFormProps> = ({ onSubmit, isLoading }) => {
   const t = useTranslations();
   const locale = useLocale();
 
-  // 환경 변수 디버깅 정보 추가
+  // 환경 변수 디버깅 정보 추가 (개발 환경에서만 콘솔에 출력)
   useEffect(() => {
+    if (process.env.NODE_ENV !== 'development') return;
+
     const hasOpenAIKey = !!process.env.NEXT_PUBLIC_OPENAI_API_KEY;
     const hasCoupangPartnerId = !!process.env.NEXT_PUBLIC_COUPANG_PARTNER_ID;
     const hasAdSenseId = !!process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID;

@@ -43,7 +43,17 @@ export default function Privacy() {
                     ]
                 },
                 {
-                    title: "5. 정보주체의 권리",
+                    title: "5. 광고 및 쿠키 사용 (Google AdSense / 쿠팡 파트너스)",
+                    content: "본 서비스는 Google AdSense를 통해 광고를 게재하며, 쿠팡 파트너스 제휴 프로그램에 참여하고 있습니다.",
+                    items: [
+                        "Google을 포함한 제3자 광고 공급업체는 쿠키(예: DoubleClick/광고 쿠키)를 사용하여 사용자의 이전 방문 기록을 바탕으로 광고를 게재합니다.",
+                        "사용자는 Google 광고 설정(https://www.google.com/settings/ads)에서 맞춤 광고를 위한 쿠키 사용을 거부할 수 있습니다.",
+                        "제3자 광고 공급업체 및 네트워크가 사용하는 쿠키에 대한 옵트아웃은 www.aboutads.info 에서도 설정할 수 있습니다.",
+                        "본 서비스는 쿠팡 파트너스 활동의 일환으로, 이에 따라 일정액의 수수료를 제공받을 수 있습니다. 쿠팡 링크 클릭 시 쿠팡의 쿠키 및 서비스 정책이 적용됩니다."
+                    ]
+                },
+                {
+                    title: "6. 정보주체의 권리",
                     content: "사용자는 언제든지 본인의 개인정보 열람, 정정, 삭제를 요청할 수 있습니다. 문의하기 페이지 또는 이메일을 통해 요청 주시면 지체 없이 처리하겠습니다."
                 }
             ],
@@ -84,7 +94,17 @@ export default function Privacy() {
                     ]
                 },
                 {
-                    title: "5. Rights of Data Subjects",
+                    title: "5. Advertising and Cookie Usage (Google AdSense / Coupang Partners)",
+                    content: "This service displays advertisements through Google AdSense and participates in the Coupang Partners affiliate program.",
+                    items: [
+                        "Google and other third-party vendors use cookies (such as the DoubleClick/advertising cookie) to serve ads based on a user's prior visits to this or other websites.",
+                        "Users may opt out of personalized advertising by visiting Google Ads Settings at https://www.google.com/settings/ads.",
+                        "Users may also opt out of third-party vendor and ad network cookies via www.aboutads.info.",
+                        "As a Coupang Partners affiliate, this service may earn commissions from qualifying purchases. Coupang's own cookie and service policies apply when a Coupang link is clicked."
+                    ]
+                },
+                {
+                    title: "6. Rights of Data Subjects",
                     content: "Users can request access, correction, and deletion of their personal information at any time. Please contact us through the Contact page or email, and we will process your request without delay."
                 }
             ],
@@ -125,7 +145,17 @@ export default function Privacy() {
                     ]
                 },
                 {
-                    title: "5. 情報主体の権利",
+                    title: "5. 広告およびCookieの使用（Google AdSense / Coupangパートナーズ）",
+                    content: "本サービスはGoogle AdSenseを通じて広告を掲載しており、Coupangパートナーズ・アフィリエイトプログラムに参加しています。",
+                    items: [
+                        "Googleを含む第三者の広告配信事業者は、Cookie（DoubleClick/広告Cookieなど）を使用して、ユーザーの過去のサイト訪問履歴に基づいて広告を配信します。",
+                        "ユーザーはGoogle広告設定（https://www.google.com/settings/ads）にて、パーソナライズ広告のためのCookie使用をオプトアウトできます。",
+                        "第三者の広告配信事業者およびネットワークが使用するCookieについては、www.aboutads.info でもオプトアウトを設定できます。",
+                        "本サービスはCoupangパートナーズ活動の一環として、これにより一定の手数料を受け取る場合があります。Coupangリンクのクリック時にはCoupangのCookieおよびサービスポリシーが適用されます。"
+                    ]
+                },
+                {
+                    title: "6. 情報主体の権利",
                     content: "ユーザーはいつでも本人の個人情報の閲覧、訂正、削除を要求できます。お問い合わせページまたはメールでご連絡いただければ、遅滞なく処理いたします。"
                 }
             ],
