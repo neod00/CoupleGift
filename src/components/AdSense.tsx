@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
+import { ADSENSE_PUBLISHER_ID, AD_SLOTS } from '@/config/adsense';
 
 // Window 객체에 adsbygoogle 속성 타입 정의
 declare global {
@@ -28,89 +29,89 @@ const AdSense: React.FC<AdSenseProps> = ({
   adLayout,
   adLayoutKey,
 }) => {
-  const rawPublisherId = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID || 'ca-pub-5907754718994620';
-  const publisherId = rawPublisherId.startsWith('pub-') ? `ca-${rawPublisherId}` : rawPublisherId;
+  const publisherId = ADSENSE_PUBLISHER_ID;
+
+  // 슬롯 결정: 명시적 prop > 포맷별 기본 슬롯 (config/adsense.ts)
+  const isInArticle = adFormat === 'fluid' || adLayout === 'in-article';
+  const defaultSlot = isInArticle ? AD_SLOTS.inArticle : AD_SLOTS.display;
+  const explicitSlot = adSlot && !adSlot.includes('SLOT') && adSlot !== '1234567890' ? adSlot : '';
+  const resolvedSlot = explicitSlot || defaultSlot;
+
   const adRef = useRef<HTMLDivElement>(null);
   const pushed = useRef(false);
 
+  const shouldRender = displayAd && !!publisherId && !!resolvedSlot;
+
   useEffect(() => {
-    if (!displayAd || !publisherId) {
+    if (!shouldRender || pushed.current) {
       return;
     }
-
-    // 애드센스 스크립트 로드 대기 후 push
-    const tryPushAd = () => {
-      if (typeof window !== 'undefined' && window.adsbygoogle) {
-        try {
-          if (!pushed.current && adRef.current) {
-            (window.adsbygoogle as any[]).push({});
-            pushed.current = true;
-          }
-        } catch (err) {
-          // 이미 로드된 광고 슬롯에 대한 중복 push 에러는 무시
-          if (process.env.NODE_ENV === 'development') {
-            console.warn('AdSense load warning:', err);
-          }
-        }
+    try {
+      // 표준 AdSense 큐 패턴: 스크립트가 아직 로드되지 않았어도 큐에 쌓아두면
+      // adsbygoogle.js 로드 시점에 자동으로 처리된다 (타이밍 레이스 없음)
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+      pushed.current = true;
+    } catch (err) {
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('AdSense push warning:', err);
       }
-    };
-
-    // 스크립트가 아직 로드되지 않았다면 잠시 후 재시도
-    const timer = setTimeout(tryPushAd, 300);
-    return () => clearTimeout(timer);
-  }, [displayAd, publisherId]);
+    }
+  }, [shouldRender]);
 
   if (!displayAd) {
     return null;
   }
 
-  // 환경 변수에서 Publisher ID가 없으면 광고 자리만 표시
-  if (!publisherId || publisherId.includes('your_publisher_id')) {
-    return (
-      <div className={`adsense-placeholder ${className}`} style={{
-        display: 'block',
-        textAlign: 'center',
-        minHeight: '90px',
-        backgroundColor: 'rgba(255, 255, 255, 0.05)',
-        border: '1px solid rgba(255, 255, 255, 0.1)',
-        borderRadius: '12px',
-        color: 'rgba(255, 255, 255, 0.5)',
-        fontSize: '12px',
-        padding: '20px',
-        lineHeight: 1.5,
-        ...adStyle
-      }}>
-        <div>📢 광고 영역</div>
-        <div style={{ fontSize: '10px', marginTop: '8px', opacity: 0.7 }}>
-          AdSense 설정을 완료하면 광고가 표시됩니다
+  // 슬롯 ID가 없으면: 프로덕션에서는 아무것도 렌더링하지 않음
+  // (data-ad-slot 없는 <ins>는 광고가 채워지지 않아 빈 공간만 남는다)
+  if (!resolvedSlot) {
+    if (process.env.NODE_ENV === 'development') {
+      return (
+        <div className={`adsense-placeholder ${className}`} style={{
+          display: 'block',
+          textAlign: 'center',
+          minHeight: '90px',
+          backgroundColor: 'rgba(255, 255, 255, 0.05)',
+          border: '1px dashed rgba(255, 255, 255, 0.2)',
+          borderRadius: '12px',
+          color: 'rgba(255, 255, 255, 0.5)',
+          fontSize: '12px',
+          padding: '20px',
+          lineHeight: 1.5,
+          ...adStyle
+        }}>
+          <div>📢 광고 영역 (슬롯 미설정)</div>
+          <div style={{ fontSize: '10px', marginTop: '8px', opacity: 0.7 }}>
+            src/config/adsense.ts 에 AdSense 광고 단위 슬롯 ID를 설정하세요
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
+    return null;
   }
 
-  // adSlot이 없으면 Auto Ads 모드 (슬롯 없이 자동 광고만 표시)
   const insProps: Record<string, any> = {
     className: 'adsbygoogle',
     style: {
       display: 'block',
       textAlign: 'center' as const,
-      minHeight: adFormat === 'rectangle' ? '250px' : '90px',
+      minHeight: isInArticle ? undefined : adFormat === 'rectangle' ? '250px' : '90px',
       ...adStyle
     },
     'data-ad-client': publisherId,
-    'data-ad-format': adFormat,
-    'data-full-width-responsive': 'true',
+    'data-ad-slot': resolvedSlot,
   };
 
-  // 슬롯 ID가 제공된 경우에만 설정
-  if (adSlot && !adSlot.includes('SLOT') && adSlot !== '1234567890') {
-    insProps['data-ad-slot'] = adSlot;
+  // In-article(fluid) 광고와 일반 디스플레이 광고의 포맷 속성 분리
+  if (isInArticle) {
+    insProps['data-ad-format'] = 'fluid';
+    insProps['data-ad-layout'] = adLayout || 'in-article';
+  } else {
+    // 'banner'는 유효한 data-ad-format 값이 아니므로 반응형 'auto'로 매핑
+    insProps['data-ad-format'] = adFormat === 'banner' ? 'auto' : adFormat;
+    insProps['data-full-width-responsive'] = 'true';
   }
 
-  // 인피드 광고 레이아웃 설정
-  if (adLayout) {
-    insProps['data-ad-layout'] = adLayout;
-  }
   if (adLayoutKey) {
     insProps['data-ad-layout-key'] = adLayoutKey;
   }
