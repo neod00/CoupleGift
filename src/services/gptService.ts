@@ -149,11 +149,21 @@ const getStableImageUrl = (category: string, productTitle?: string): string => {
 
 // 쿠팡 파트너스 검색 링크 생성 함수
 // lptag 파라미터를 사용하여 파트너스 추적 코드를 검색 URL에 삽입
+//
+// ⚠️ 주의: 이 lptag 방식은 쿠팡 파트너스의 공식 문서화된 추적 방법이 아닙니다.
+// 공식적으로 지원되는 방법은 딥링크 변환 API, 파트너스 단축링크(shortlink),
+// 또는 공식 위젯(iframe) 중 하나이며, 이 lptag 파라미터만으로는 클릭/구매가
+// 파트너스 계정에 정상적으로 추적·귀속되지 않을 수 있습니다. 즉, 현재 방식으로는
+// 실제 수수료가 집계되지 않을 가능성이 있습니다.
+// 운영자는 쿠팡 파트너스 콘솔에서 공식 딥링크 방식으로 전환하는 것을 검토해야 하며,
+// 자세한 내용은 MONETIZATION.md 문서를 참고하세요.
 const generateCoupangSearchLink = (keyword: string): string => {
   const partnerId = process.env.NEXT_PUBLIC_COUPANG_PARTNER_ID;
   const encodedKeyword = encodeURIComponent(keyword);
 
-  console.log(`🔗 쿠팡 링크 생성: "${keyword}", 파트너ID: ${partnerId ? '설정됨' : '없음'}`);
+  if (process.env.NODE_ENV === 'development') {
+    console.log(`🔗 쿠팡 링크 생성: "${keyword}", 파트너ID: ${partnerId ? '설정됨' : '없음'}`);
+  }
 
   // 기본 쿠팡 검색 URL
   const baseSearchUrl = `https://www.coupang.com/np/search?component=&q=${encodedKeyword}&channel=user`;
@@ -161,10 +171,14 @@ const generateCoupangSearchLink = (keyword: string): string => {
   if (partnerId) {
     // 파트너스 추적 파라미터(lptag) 추가
     const partnerLink = `${baseSearchUrl}&lptag=${partnerId}`;
-    console.log(`✅ 파트너스 링크: ${partnerLink}`);
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`✅ 파트너스 링크: ${partnerLink}`);
+    }
     return partnerLink;
   } else {
-    console.log(`⚠️ 직접 링크 (파트너 ID 없음): ${baseSearchUrl}`);
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`⚠️ 직접 링크 (파트너 ID 없음): ${baseSearchUrl}`);
+    }
     return baseSearchUrl;
   }
 };

@@ -31,6 +31,21 @@ async function fetchThumbnailFromPexels(query: string): Promise<string> {
     return "🎁";
 }
 
+function getExistingPosts(): { slug: string; title: string }[] {
+    const postsDir = path.join(process.cwd(), "src", "data", "blog", "posts");
+    if (!fs.existsSync(postsDir)) return [];
+    return fs.readdirSync(postsDir)
+        .filter(f => f.endsWith(".json"))
+        .map(f => {
+            try {
+                const data = JSON.parse(fs.readFileSync(path.join(postsDir, f), "utf8"));
+                return { slug: f.replace(".json", ""), title: data?.ko?.title || "" };
+            } catch {
+                return { slug: f.replace(".json", ""), title: "" };
+            }
+        });
+}
+
 async function main() {
     console.log("Starting Auto-Blog Generation Cron Job...");
 
@@ -38,13 +53,26 @@ async function main() {
     const now = new Date();
     const dateStr = now.toISOString().split("T")[0];
     const month = now.getMonth() + 1;
-    
+
+    // 이미 발행한 글 목록 — 같은 주제를 반복 생성하지 않도록 프롬프트에 전달
+    // (중복 주제가 쌓이면 검색엔진이 서로 순위를 갉아먹는 키워드 카니벌리제이션이 발생하고,
+    //  구글/애드센스의 '가치 낮은 반복 콘텐츠' 평가 위험이 커진다)
+    const existingPosts = getExistingPosts();
+    const existingTitles = existingPosts.map(p => `- ${p.title}`).join("\n");
+
     // Create query grounded in reality
     const topicPrompt = `
     오늘 날짜는 ${dateStr}입니다.
-    현재 한국의 계절, 다가오는 주요 기념일(발렌타인, 화이트데이, 어버이날, 스승의날, 명절, 크리스마스 등), 또는 현재 인기 있는 라이프스타일 트렌드를 기반으로,
-    "선물 추천" 블로그에서 다룰 수 있는 가장 트렌디하고 검색량이 높을 것 같은 '블로그 제목 혹은 핵심 키워드' 딱 1개만 알려주세요.
-    예: 20대 여자친구 100일 기념 센스있는 선물, 다가오는 추석 부모님 용돈 이외의 선물 등
+    "선물 추천" 블로그에서 다룰 새 글 주제를 딱 1개 정해주세요.
+
+    ## 이미 발행한 글 목록 (아래 주제와 겹치거나 비슷한 주제는 절대 금지)
+${existingTitles}
+
+    ## 주제 선정 규칙
+    - 위 목록과 소재/키워드/대상이 겹치는 주제는 선택하지 마세요. (예: 이미 '추석 부모님 선물' 글이 많다면 그 변형도 금지)
+    - 연중 꾸준히 검색되는 에버그린 주제(여자친구 생일선물, 남자친구 선물, 부모님 생신, 100일/1주년 기념일, 집들이, 결혼/출산 선물, 예산별 선물 등)를 우선하되,
+      2~4주 안에 다가오는 기념일/시즌이 있으면 그것도 고려하세요.
+    - 검색량이 높을 법한 구체적 키워드를 포함하세요. (대상 + 상황 + 특징, 예: 20대 여자친구 100일 기념 센스있는 선물)
     아무 부연 설명 없이 딱 주제 1문장만 출력하세요.
     `;
 
@@ -68,6 +96,12 @@ async function main() {
     });
     const rawSlug = slugRes.text?.trim()?.toLowerCase() || '';
     const slug = rawSlug.replace(/[^a-z0-9-]/g, "") || `gift-guide-${Date.now()}`;
+
+    // 슬러그 충돌 시 기존 글을 덮어쓰지 않도록 방어
+    if (existingPosts.some(p => p.slug === slug)) {
+        console.log(`[Duplicate Slug]: ${slug} already exists. Skipping this run to avoid duplicate content.`);
+        process.exit(0);
+    }
     console.log(`[Target Slug]: ${slug}`);
 
     // Pexels thumbnail concept

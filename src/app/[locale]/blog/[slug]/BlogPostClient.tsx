@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Link } from '@/i18n/navigation';
+import AdSense from '@/components/AdSense';
 import CoupangDynamicBanner from '@/components/CoupangDynamicBanner';
 import CoupangSearchWidget from '@/components/CoupangSearchWidget';
 
@@ -84,28 +85,30 @@ export default function BlogPostClient({ locale, post: rawPost }: BlogPostClient
 
                 <div className="space-y-6 text-[var(--text-main-90)] leading-relaxed">
                     {post.content.map((paragraph, idx) => {
+                        // 본문 중간 In-article 광고: 도입부 뒤(3번째 문단 앞)와 본문 중간 지점에 삽입
+                        const midPoint = Math.floor(post.content.length / 2);
+                        const showAd = post.content.length >= 6 && (idx === 2 || idx === midPoint + 2);
+
+                        let node: React.ReactNode;
                         // Support for standard HTML inside string parsing
                         if (paragraph.startsWith('<p') || paragraph.startsWith('<div')) {
-                            return <div key={idx} dangerouslySetInnerHTML={{ __html: paragraph }} className="mt-4" />;
-                        }
-                        if (paragraph.startsWith('## ')) {
-                            return (
-                                <h2 key={idx} className="text-2xl font-bold text-[var(--text-main)] mt-10 mb-4">
+                            node = <div dangerouslySetInnerHTML={{ __html: paragraph }} className="mt-4" />;
+                        } else if (paragraph.startsWith('## ')) {
+                            node = (
+                                <h2 className="text-2xl font-bold text-[var(--text-main)] mt-10 mb-4">
                                     {paragraph.replace('## ', '')}
                                 </h2>
                             );
-                        }
-                        if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
-                            return (
-                                <p key={idx} className="font-semibold text-[var(--text-main)]">
+                        } else if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
+                            node = (
+                                <p className="font-semibold text-[var(--text-main)]">
                                     {paragraph.replace(/\*\*/g, '')}
                                 </p>
                             );
-                        }
-                        if (paragraph.startsWith('**')) {
+                        } else if (paragraph.startsWith('**')) {
                             const parts = paragraph.split('**');
-                            return (
-                                <p key={idx}>
+                            node = (
+                                <p>
                                     {parts.map((part, i) => (
                                         i % 2 === 1
                                             ? <strong key={i} className="text-[var(--text-main)]">{part}</strong>
@@ -113,10 +116,21 @@ export default function BlogPostClient({ locale, post: rawPost }: BlogPostClient
                                     ))}
                                 </p>
                             );
+                        } else {
+                            node = <p dangerouslySetInnerHTML={{ __html: paragraph }} />;
                         }
-                        return <p key={idx} dangerouslySetInnerHTML={{ __html: paragraph }} />;
+
+                        return (
+                            <React.Fragment key={idx}>
+                                {showAd && <AdSense adFormat="fluid" adLayout="in-article" className="my-8" />}
+                                {node}
+                            </React.Fragment>
+                        );
                     })}
                 </div>
+
+                {/* 본문 하단 디스플레이 광고 */}
+                <AdSense adFormat="auto" className="mt-10" />
 
                 <div className="mt-12 pt-8 border-t border-white/10 text-center">
                     <p className="text-xs text-[var(--text-main-70)] bg-[var(--surface-mixed)] inline-block px-4 py-2 rounded-full mb-6">

@@ -44,42 +44,36 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
 
     return {
         metadataBase: new URL('https://couplegift.netlify.app'),
-        title: metadata?.title || titles[locale] || titles.ko,
+        title: {
+            default: metadata?.title || titles[locale] || titles.ko,
+            template: locale === 'ko' ? '%s | 선물지니' : locale === 'ja' ? '%s | ギフトジニー' : '%s | GiftGenie',
+        },
         description: metadata?.description || descriptions[locale] || descriptions.ko,
         keywords: metadata?.keywords,
         authors: [{ name: locale === 'ko' ? '선물지니 GiftGenie' : 'GiftGenie' }],
-        alternates: {
-            canonical: alternateUrls[locale] || alternateUrls.ko,
-            languages: {
-                'ko': 'https://couplegift.netlify.app/',
-                'en': 'https://couplegift.netlify.app/en/',
-                'ja': 'https://couplegift.netlify.app/ja/',
-                'x-default': 'https://couplegift.netlify.app/'
-            }
-        },
+        // canonical/hreflang은 페이지마다 다르므로 레이아웃에서 지정하지 않는다.
+        // (레이아웃에서 홈 URL로 고정하면 모든 하위 페이지가 "나는 홈페이지의 복사본"이라고
+        //  검색엔진에 알리게 되어 블로그/가이드 페이지가 색인에서 제외된다)
         openGraph: {
             type: 'website',
             url: alternateUrls[locale] || alternateUrls.ko,
             title: metadata?.ogTitle || titles[locale] || titles.ko,
             description: metadata?.ogDescription || descriptions[locale] || descriptions.ko,
             locale: locale === 'ko' ? 'ko_KR' : locale === 'ja' ? 'ja_JP' : 'en_US',
-            images: [
-                {
-                    url: '/og-image.jpg',
-                    width: 1200,
-                    height: 630,
-                    alt: locale === 'ko' ? '선물지니 GiftGenie' : 'GiftGenie',
-                },
-            ],
+            // 이미지는 opengraph-image.tsx 파일 규칙으로 자동 생성됨
         },
         twitter: {
             card: 'summary_large_image',
             title: metadata?.ogTitle || titles[locale] || titles.ko,
             description: metadata?.ogDescription || descriptions[locale] || descriptions.ko,
-            images: ['/og-image.jpg'],
         },
         verification: {
             google: 'P6X5BpKy6Tqy78Teu6aFK1jQB1ZyyxpP9tFKHa4OOgA',
+            // 네이버 서치어드바이저(https://searchadvisor.naver.com) 사이트 인증 코드.
+            // 한국 검색 트래픽의 절반 이상이 네이버에서 나오므로 반드시 등록 필요 (MONETIZATION.md 참고)
+            ...(process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION
+                ? { other: { 'naver-site-verification': process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION } }
+                : {}),
         },
     };
 }
@@ -109,11 +103,17 @@ export default async function LocaleLayout({ children, params }: { children: Rea
         <html lang={locale}>
             <head>
                 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5907754718994620" crossOrigin="anonymous"></script>
-                {/* hreflang tags for SEO */}
-                <link rel="alternate" hrefLang="ko" href="https://couplegift.netlify.app/" />
-                <link rel="alternate" hrefLang="en" href="https://couplegift.netlify.app/en/" />
-                <link rel="alternate" hrefLang="ja" href="https://couplegift.netlify.app/ja/" />
-                <link rel="alternate" hrefLang="x-default" href="https://couplegift.netlify.app/" />
+                {/* Google Analytics 4 — NEXT_PUBLIC_GA_ID 환경변수 설정 시에만 로드 */}
+                {process.env.NEXT_PUBLIC_GA_ID && (
+                    <>
+                        <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}></script>
+                        <script
+                            dangerouslySetInnerHTML={{
+                                __html: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');`,
+                            }}
+                        />
+                    </>
+                )}
                 {/* JSON-LD Structured Data */}
                 <script
                     type="application/ld+json"
