@@ -5,14 +5,20 @@ import { Link } from '@/i18n/navigation';
 import AdSense from '@/components/AdSense';
 import CoupangDynamicBanner from '@/components/CoupangDynamicBanner';
 import CoupangSearchWidget from '@/components/CoupangSearchWidget';
+import { ProductGrid } from '@/components/ProductCard';
+import RelatedPosts, { type RelatedPostItem } from '@/components/RelatedPosts';
+import { getProductsForKeyword, getProductsForText } from '@/lib/coupang/catalog';
+import type { CoupangProduct } from '@/lib/coupang/types';
 import { GiftPageData, findRelatedPages, genders, ageGroups, occasions, budgets } from '@/data/giftPages';
 
 interface GiftPageClientProps {
   page: GiftPageData;
   locale: string;
+  /** 서버(page.tsx)에서 계산한 관련 블로그 글 */
+  relatedPosts?: RelatedPostItem[];
 }
 
-export default function GiftPageClient({ page, locale }: GiftPageClientProps) {
+export default function GiftPageClient({ page, locale, relatedPosts = [] }: GiftPageClientProps) {
   const gender = genders.find(g => g.id === page.gender);
   const age = ageGroups.find(a => a.id === page.ageGroup);
   const occasion = occasions.find(o => o.id === page.occasion);
@@ -35,6 +41,7 @@ export default function GiftPageClient({ page, locale }: GiftPageClientProps) {
       relatedTitle: '관련 선물 가이드',
       viewMore: '자세히 보기 →',
       coupangSearch: '쿠팡에서 검색',
+      moreIdeas: '다른 추천 아이템',
     },
     en: {
       breadHome: 'Home',
@@ -48,6 +55,7 @@ export default function GiftPageClient({ page, locale }: GiftPageClientProps) {
       relatedTitle: 'Related Gift Guides',
       viewMore: 'View Details →',
       coupangSearch: 'Search on Amazon',
+      moreIdeas: 'More gift ideas',
     },
     ja: {
       breadHome: 'ホーム',
@@ -61,6 +69,7 @@ export default function GiftPageClient({ page, locale }: GiftPageClientProps) {
       relatedTitle: '関連ギフトガイド',
       viewMore: '詳しく見る →',
       coupangSearch: 'Amazonで検索',
+      moreIdeas: 'その他のおすすめ',
     },
   };
 
@@ -75,6 +84,17 @@ export default function GiftPageClient({ page, locale }: GiftPageClientProps) {
     }
     return `https://www.amazon.com/s?k=${encodeURIComponent(item + ' gift')}`;
   };
+
+  // 추천 아이템별 쿠팡 파트너스 카탈로그 매칭 (한국어 전용). 매칭되면 추적 링크가 담긴 상품 그리드,
+  // 아니면 쿠팡/Amazon 검색으로 바로 가는 일반 링크로 렌더링한다.
+  const suggestionProducts: { item: string; products: CoupangProduct[] }[] = suggestions.map((item) => {
+    if (locale !== 'ko') return { item, products: [] };
+    let products = getProductsForKeyword(item, 3);
+    if (products.length === 0) products = getProductsForText(item, 3);
+    return { item, products };
+  });
+  const withProducts = suggestionProducts.filter((s) => s.products.length > 0);
+  const plainSuggestions = suggestionProducts.filter((s) => s.products.length === 0).map((s) => s.item);
 
   return (
     <div className="max-w-4xl mx-auto fade-in">
@@ -121,43 +141,44 @@ export default function GiftPageClient({ page, locale }: GiftPageClientProps) {
           <h2 className="text-2xl font-bold text-[var(--text-main)] mb-6 text-center">
             🎁 {l.suggestionsTitle}
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {suggestions.map((item, idx) => (
-              <button
-                key={idx}
-                onClick={async (e) => {
-                  e.preventDefault();
-                  try {
-                    const fallbackUrl = getSearchUrl(item);
-                    const homeLink = process.env.NEXT_PUBLIC_COUPANG_HOME_LINK;
-                    
-                    if (locale === 'ko' && homeLink) {
-                      await navigator.clipboard.writeText(item);
-                      alert(`상품명 [${item}]이(가) 복사되었습니다! 🎉\n\n열리는 쿠팡 창에서 붙여넣기(Ctrl+V)를 하시면 바로 찾으실 수 있습니다.`);
-                      window.open(homeLink, '_blank');
-                    } else {
-                      window.open(fallbackUrl, '_blank');
-                    }
-                  } catch (err) {
-                    window.open(getSearchUrl(item), '_blank');
-                  }
-                }}
-                className="glass-card p-5 hover:scale-105 transition-all duration-300 cursor-pointer group block w-full"
-              >
-                <div className="text-center">
-                  <div className="text-4xl mb-3">
-                    {['🎁', '💝', '✨', '🛍️', '💎', '🎀', '🌟'][idx % 7]}
-                  </div>
-                  <h3 className="text-lg font-semibold text-[var(--text-main)] mb-2 group-hover:text-purple-500 transition-colors">
-                    {item}
-                  </h3>
-                  <div className="text-xs text-[var(--text-main-70)] mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                    {l.coupangSearch} →
-                  </div>
-                </div>
-              </button>
-            ))}
-          </div>
+          {/* 카탈로그에 상품이 있는 추천 아이템: 실제 상품 카드 (파트너스 추적 링크) */}
+          {withProducts.map(({ item, products }) => (
+            <ProductGrid key={item} products={products} title={item} disclosure={false} />
+          ))}
+
+          {/* 나머지 추천 아이템: 검색 결과로 바로 연결되는 일반 링크 */}
+          {plainSuggestions.length > 0 && (
+            <>
+              {withProducts.length > 0 && (
+                <h3 className="text-lg font-bold text-[var(--text-main)] mb-4 mt-8">
+                  ✨ {l.moreIdeas}
+                </h3>
+              )}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {plainSuggestions.map((item, idx) => (
+                  <a
+                    key={item}
+                    href={getSearchUrl(item)}
+                    target="_blank"
+                    rel="nofollow noopener"
+                    className="glass-card p-5 hover:scale-105 transition-all duration-300 cursor-pointer group block w-full"
+                  >
+                    <div className="text-center">
+                      <div className="text-4xl mb-3">
+                        {['🎁', '💝', '✨', '🛍️', '💎', '🎀', '🌟'][idx % 7]}
+                      </div>
+                      <h3 className="text-lg font-semibold text-[var(--text-main)] mb-2 group-hover:text-purple-500 transition-colors">
+                        {item}
+                      </h3>
+                      <div className="text-xs text-[var(--text-main-70)] mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        {l.coupangSearch} →
+                      </div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </>
+          )}
           
           <div className="text-center mt-6 mb-2">
             <p className="text-xs text-[var(--text-main-70)] bg-[var(--surface-mixed)] inline-block px-4 py-2 rounded-full">
@@ -244,6 +265,13 @@ export default function GiftPageClient({ page, locale }: GiftPageClientProps) {
               );
             })}
           </div>
+        </section>
+      )}
+
+      {/* 내부 링크: 관련 블로그 글 */}
+      {relatedPosts.length > 0 && (
+        <section className="mb-8">
+          <RelatedPosts locale={locale} posts={relatedPosts} />
         </section>
       )}
 

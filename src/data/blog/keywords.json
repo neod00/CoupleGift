@@ -1,0 +1,2005 @@
+{
+  "updatedAt": "2026-09-07",
+  "keywords": [
+    {
+      "keyword": "여자친구 생일선물 추천 20대",
+      "slug": "girlfriend-birthday-gift-20s",
+      "receiver": "여자친구",
+      "occasion": "생일",
+      "category": "생일",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "SERP(브런치 큐레이션, 아하/에펨 Q&A, 앱)에 약한 UGC가 많아 소형 사이트도 진입 가능. 카테고리별(주얼리/향수/패션소품/뷰티) TOP 10 + 3/5/10만원 예산 태그 + '취향 안 타는 데일리템' 강조 포맷이 이김.",
+      "productKeywords": [
+        "실버 목걸이",
+        "여자 향수",
+        "립스틱 세트",
+        "여성 지갑",
+        "무선 이어폰",
+        "무드등",
+        "핸드크림 세트"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "여자친구 생일선물 추천 30대",
+      "slug": "girlfriend-birthday-gift-30s",
+      "receiver": "여자친구",
+      "occasion": "생일",
+      "category": "생일",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "30대는 '실용+브랜드' 조합 검색. 가격대별(5/10/20만원) 표 + 브랜드명 명시(조말론, 딥디크 등) + 실패 없는 안전템 리스트 포맷.",
+      "productKeywords": [
+        "명품 향수",
+        "여성 가죽 지갑",
+        "스마트워치",
+        "무선 고데기",
+        "골드 미니 반지",
+        "캡슐 커피머신",
+        "캐시미어 머플러"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "남자친구 생일선물 추천 30대",
+      "slug": "boyfriend-birthday-gift-30s",
+      "receiver": "남자친구",
+      "occasion": "생일",
+      "category": "생일",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "SERP: 브런치, 다나와 통합검색, 당근 동네생활, 개인 블로그 TOP 7. '실용템 중심 TOP 7~10 + 1~10만원 가격 명시 + 향수 브랜드(디올 소바쥬 등) + 취미 상위호환 소모품' 포맷이 이김. 기존 20대 남친 포스트와 내부링크.",
+      "productKeywords": [
+        "남자 향수",
+        "남성 반지갑",
+        "무선 이어폰",
+        "전기 면도기",
+        "마사지건",
+        "남자 벨트",
+        "스마트워치"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "남자친구 선물 추천 3만원대",
+      "slug": "boyfriend-gift-30k",
+      "receiver": "남자친구",
+      "occasion": "기념일",
+      "category": "선물 팁",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "소소한 기념일/서프라이즈용 저예산 검색. '3만원 이하 실물 가격 표기 + 무난한 데일리템' 리스트. 쿠팡 로켓배송 가능 상품 위주로 구성하면 전환 높음.",
+      "productKeywords": [
+        "남자 향수 미니",
+        "무선 충전기",
+        "남자 크로스백",
+        "커플 키링",
+        "남자 양말 세트",
+        "블루투스 스피커",
+        "남자 스킨케어 세트"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "여자친구 선물 추천 3만원대",
+      "slug": "girlfriend-gift-30k",
+      "receiver": "여자친구",
+      "occasion": "기념일",
+      "category": "선물 팁",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "학생/사회초년생 저예산 검색. '3만원대 카테고리 리스트(뷰티/향/소품) + 포장 팁' 포맷. 실제 가격 표기와 로켓배송 여부 명시가 전환 키.",
+      "productKeywords": [
+        "립밤 세트",
+        "디퓨저",
+        "핸드크림 세트",
+        "미니 향수",
+        "파우치",
+        "무드등",
+        "마스크팩 세트"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "남편 생일선물 추천 40대",
+      "slug": "husband-birthday-gift-40s",
+      "receiver": "남편",
+      "occasion": "생일",
+      "category": "생일",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "SERP: 틱톡, 개인 블로그 총정리, 스레드, 아하 Q&A(약함). '건강/휴식/취미 3축 분류 + 프리미엄 일상템(면도기, 마사지건) + 경험선물 대안' 포맷이 이김.",
+      "productKeywords": [
+        "마사지건",
+        "전기 면도기",
+        "목 안마기",
+        "골프 장갑",
+        "남성 장지갑",
+        "위스키 잔 세트",
+        "스마트워치"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "남편 생일선물 추천 30대 실용적인",
+      "slug": "husband-birthday-gift-30s-practical",
+      "receiver": "남편",
+      "occasion": "생일",
+      "category": "생일",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "'실용적인' 수식어 = 구매의도 높음. 사용 빈도 기준 랭킹(매일 쓰는 것 우선) + 5/10만원 예산 분리 포맷.",
+      "productKeywords": [
+        "무선 이어폰",
+        "전동 칫솔",
+        "남성 백팩",
+        "게이밍 마우스",
+        "커피 머신",
+        "남자 향수",
+        "무선 청소기"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "아내 생일선물 추천 40대",
+      "slug": "wife-birthday-gift-40s",
+      "receiver": "아내",
+      "occasion": "생일",
+      "category": "생일",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "남편이 검색, 결정 못해 고민 중 상태. '실패 없는 정석 TOP 10 + 주얼리/뷰티가전/휴식템 분류 + 10만원대/20만원대 예산' 포맷이 이김.",
+      "productKeywords": [
+        "안마기",
+        "명품 지갑",
+        "에어랩 스타일러",
+        "진주 목걸이",
+        "디퓨저 세트",
+        "호텔 침구 세트",
+        "여성 향수"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "아내 생일선물 추천 30대",
+      "slug": "wife-birthday-gift-30s",
+      "receiver": "아내",
+      "occasion": "생일",
+      "category": "생일",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "육아 중인 아내에게 '나를 위한 시간' 콘셉트 선물이 반응 좋음. 뷰티가전/주얼리/홈카페 카테고리 TOP 10 + 예산 표기 포맷.",
+      "productKeywords": [
+        "무선 고데기",
+        "여성 향수",
+        "골드 목걸이",
+        "캡슐 커피머신",
+        "여성 가방",
+        "목 어깨 마사지기",
+        "핸드크림 세트"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "엄마 생일선물 추천 50대",
+      "slug": "mom-birthday-gift-50s",
+      "receiver": "엄마",
+      "occasion": "생일",
+      "category": "생일",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "자녀(20~30대) 검색. '건강+품격' 조합, 연령대별 순위 리스트 + 5/10만원 예산 분리 + 다나와 비교 언급 포맷이 이김.",
+      "productKeywords": [
+        "발 마사지기",
+        "홍삼 세트",
+        "실크 스카프",
+        "여성 가죽 지갑",
+        "화장품 세트",
+        "실크 잠옷",
+        "목 안마기"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "아빠 생일선물 추천 50대",
+      "slug": "dad-birthday-gift-50s",
+      "receiver": "아빠",
+      "occasion": "생일",
+      "category": "생일",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "SERP: 다나와 통합검색 다수, 개인 블로그 40/50/60대 순위, 아하. '연령대별 순위 + 건강+품격(홍삼/장지갑/벨트) + 취미(골프/등산)' 포맷. 다나와가 상위 = 비교표 형식 유효.",
+      "productKeywords": [
+        "홍삼 세트",
+        "남성 장지갑",
+        "전기 면도기",
+        "골프 장갑",
+        "남자 벨트",
+        "마사지건",
+        "위스키"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "부모님 생신선물 추천 10만원대",
+      "slug": "parents-birthday-gift-100k",
+      "receiver": "부모님",
+      "occasion": "생일",
+      "category": "생일",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "'10만원대'는 성의 표시 예산대. 건강가전/침구/식품 3분류 + 정확한 가격 표 + 부모님 반응 좋았던 후기형 포맷.",
+      "productKeywords": [
+        "안마기",
+        "홍삼 세트",
+        "공기청정기",
+        "전기 온수매트",
+        "한우 세트",
+        "발 마사지기",
+        "커플 시계"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "친구 생일선물 추천 20대 여자",
+      "slug": "friend-birthday-gift-20s-women",
+      "receiver": "친구",
+      "occasion": "생일",
+      "category": "생일",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "여자 친구(friend) 사이 1~3만원 저예산 검색량 큼. '취향 안 타는 무난템 리스트 + 1/2/3만원 예산 + 포장 팁' 포맷.",
+      "productKeywords": [
+        "립밤 세트",
+        "미니 향수",
+        "디퓨저",
+        "무선 이어폰",
+        "텀블러",
+        "파우치",
+        "핸드크림"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "친구 생일선물 추천 20대 남자",
+      "slug": "friend-birthday-gift-20s-men",
+      "receiver": "친구",
+      "occasion": "생일",
+      "category": "생일",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "남자 친구 사이 '실용 소비재' 선호. 브랜드 향수/양말/캡모자 등 5~10개 리스트 + 2~3만원대 위주.",
+      "productKeywords": [
+        "남자 향수",
+        "남자 양말 세트",
+        "무선 충전기",
+        "키링",
+        "캡모자",
+        "블루투스 스피커",
+        "게이밍 마우스패드"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "친구 생일선물 추천 3만원대",
+      "slug": "friend-birthday-gift-30k",
+      "receiver": "친구",
+      "occasion": "생일",
+      "category": "생일",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "성별 무관 예산 검색. '3만원대 남녀 공용 리스트 + 실제 가격 + 로켓배송' 포맷이 이김. 링커리어/모하지 같은 커뮤니티 정리글이 상위 = 진입 가능.",
+      "productKeywords": [
+        "디퓨저 세트",
+        "텀블러",
+        "핸드크림 세트",
+        "미니 향수",
+        "무드등",
+        "무선 충전기",
+        "캔들"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "생일선물 추천 1만원대",
+      "slug": "birthday-gift-10k",
+      "receiver": "친구",
+      "occasion": "생일",
+      "category": "선물 팁",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "SERP: 모하지 매거진, 링커리어. 예산 기반 검색은 전환률 높음. '1만원대 카테고리 15~20개 롱리스트 + 카드 한 장 팁' 포맷.",
+      "productKeywords": [
+        "핸드크림",
+        "립밤",
+        "양말 세트",
+        "텀블러",
+        "키링",
+        "마스크팩 세트",
+        "캔들"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "생일선물 추천 5만원대 여자",
+      "slug": "birthday-gift-50k-women",
+      "receiver": "여자",
+      "occasion": "생일",
+      "category": "선물 팁",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "관계 미정(여자 지인/동료/친구) 예산 검색. 연령대 태그(20/30/40대)로 세분화한 리스트 포맷.",
+      "productKeywords": [
+        "여자 향수",
+        "실버 목걸이",
+        "디퓨저",
+        "무선 고데기",
+        "립스틱",
+        "여성 지갑",
+        "파우치"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "생일선물 추천 5만원대 남자",
+      "slug": "birthday-gift-50k-men",
+      "receiver": "남자",
+      "occasion": "생일",
+      "category": "선물 팁",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "관계 미정 남성 예산 검색. 연령대 태그 + 실용/취미 분류 리스트.",
+      "productKeywords": [
+        "남자 향수",
+        "무선 이어폰",
+        "남성 지갑",
+        "남자 벨트",
+        "전동 칫솔",
+        "스마트 체중계",
+        "마사지건"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "직장동료 생일선물 추천",
+      "slug": "coworker-birthday-gift",
+      "receiver": "직장동료",
+      "occasion": "생일",
+      "category": "직장",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "SERP: 모하지, 카카오선물. '부담 없는 1~3만원 무난템 + 개인적이지 않은 것 + 사무실에서 바로 쓰는 것' 기준 리스트 포맷.",
+      "productKeywords": [
+        "텀블러",
+        "핸드크림",
+        "디퓨저",
+        "드립백 커피 세트",
+        "캔들",
+        "무선 충전기",
+        "간식 선물세트"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "상사 생일선물 추천",
+      "slug": "boss-birthday-gift",
+      "receiver": "상사",
+      "occasion": "생일",
+      "category": "직장",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "격식 있고 개인적이지 않은 아이템 원함. '3/5/10만원 예산 3단계 + 피해야 할 선물 + 팀 공동구매 아이디어' 포맷.",
+      "productKeywords": [
+        "와인 세트",
+        "고급 볼펜",
+        "넥타이",
+        "홍삼 세트",
+        "프리미엄 티 세트",
+        "명함지갑",
+        "위스키"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "할머니 생신선물 추천",
+      "slug": "grandmother-birthday-gift",
+      "receiver": "할머니",
+      "occasion": "생일",
+      "category": "생일",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "손주가 검색, 3~10만원. '건강/보온/편의' 3분류 + 사용 쉬운 제품(버튼 큰 것) 기준 리스트.",
+      "productKeywords": [
+        "발 마사지기",
+        "보온병",
+        "전기 찜질기",
+        "카디건",
+        "홍삼 세트",
+        "실내화",
+        "무릎 보호대"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "할아버지 생신선물 추천",
+      "slug": "grandfather-birthday-gift",
+      "receiver": "할아버지",
+      "occasion": "생일",
+      "category": "생일",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "손주 검색. '건강기기/취미(등산)/생활 편의' 분류 + 5만원대 위주 리스트.",
+      "productKeywords": [
+        "전기 면도기",
+        "혈압계",
+        "등산 스틱",
+        "안마기",
+        "보온병",
+        "무릎 보호대",
+        "홍삼 세트"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "아이 생일선물 추천 5살",
+      "slug": "kid-birthday-gift-age-5",
+      "receiver": "아이",
+      "occasion": "생일",
+      "category": "생일",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "부모/이모삼촌 검색. '연령 발달 단계별(5세 소근육/역할놀이) + 남아/여아 + 실내/실외' 분류 리스트. 쿠팡 완구 카테고리 전환 좋음.",
+      "productKeywords": [
+        "자석 블록",
+        "킥보드",
+        "레고 듀플로",
+        "역할놀이 세트",
+        "그림책 세트",
+        "어린이 자전거",
+        "인형"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "초등학생 조카 생일선물 추천",
+      "slug": "nephew-elementary-birthday-gift",
+      "receiver": "조카",
+      "occasion": "생일",
+      "category": "생일",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "이모/삼촌이 학년 모르고 검색. '저학년/고학년 분리 + 3/5/10만원 예산 + 부모가 좋아하는(학습형) vs 아이가 좋아하는' 비교 포맷.",
+      "productKeywords": [
+        "레고",
+        "보드게임",
+        "키즈 스마트워치",
+        "과학 실험 키트",
+        "인라인 스케이트",
+        "문구 세트",
+        "학습 태블릿"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "20대 여자 선물 추천 순위",
+      "slug": "gift-ranking-women-20s",
+      "receiver": "여자",
+      "occasion": "기념일",
+      "category": "선물 팁",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "'순위' 검색 = 랭킹 포맷 필수. 카카오선물 랭킹 참고한 TOP 10 순위표 + 각 항목 예산/브랜드 + 여자친구/친구/동생 태그.",
+      "productKeywords": [
+        "여자 향수",
+        "목걸이",
+        "립스틱",
+        "무선 이어폰",
+        "디퓨저",
+        "여성 지갑",
+        "무선 고데기"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "30대 남자 선물 추천 순위",
+      "slug": "gift-ranking-men-30s",
+      "receiver": "남자",
+      "occasion": "기념일",
+      "category": "선물 팁",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "'순위' 포맷. 남자친구/남편/오빠/동료 등 관계별 태그 + TOP 10 순위표 + 예산.",
+      "productKeywords": [
+        "남자 향수",
+        "남성 지갑",
+        "남자 벨트",
+        "무선 이어폰",
+        "전기 면도기",
+        "마사지건",
+        "스마트워치"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "여자친구 100일 선물 추천",
+      "slug": "girlfriend-100days-gift",
+      "receiver": "여자친구",
+      "occasion": "100일",
+      "category": "기념일",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "SERP: 브런치, 쇼핑하우, 블라인드, 아하 — 약한 경쟁. '커플템/맞춤형(각인)/추억형(포토북) 3분류 + 3~10만원 예산 + 손편지 팁' 포맷이 이김.",
+      "productKeywords": [
+        "커플 목걸이",
+        "커플 팔찌",
+        "포토북",
+        "프리저브드 플라워",
+        "커플 키링",
+        "여자 향수",
+        "무드등"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "남자친구 100일 선물 추천",
+      "slug": "boyfriend-100days-gift",
+      "receiver": "남자친구",
+      "occasion": "100일",
+      "category": "기념일",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "여성 검색. '커플템 + 실용템(지갑/이어폰) + 5만원대 위주' 리스트. 여자친구 100일 글과 상호 링크.",
+      "productKeywords": [
+        "커플 반지",
+        "커플 팔찌",
+        "남자 향수",
+        "남성 반지갑",
+        "커플 키링",
+        "무선 이어폰",
+        "남자 목걸이"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "1주년 선물 추천 여자친구",
+      "slug": "girlfriend-1year-anniversary-gift",
+      "receiver": "여자친구",
+      "occasion": "1주년",
+      "category": "기념일",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "100일보다 예산 상향(10~20만원). '커플링/주얼리 vs 실용 가전 vs 추억(폴라로이드)' 비교 + 예산별 표 포맷.",
+      "productKeywords": [
+        "커플 반지",
+        "골드 목걸이",
+        "여자 향수",
+        "폴라로이드 카메라",
+        "커플 시계",
+        "여성 가방",
+        "포토북"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "1주년 선물 추천 남자친구",
+      "slug": "boyfriend-1year-anniversary-gift",
+      "receiver": "남자친구",
+      "occasion": "1주년",
+      "category": "기념일",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "10~20만원대 '오래 쓰는 것' 선호. 시계/지갑/향수 정석 + 스마트기기 대안 리스트.",
+      "productKeywords": [
+        "커플 시계",
+        "남성 지갑",
+        "남자 향수",
+        "커플 반지",
+        "무선 이어폰",
+        "남성 백팩",
+        "스마트워치"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "결혼기념일 선물 추천 아내",
+      "slug": "wedding-anniversary-gift-wife",
+      "receiver": "아내",
+      "occasion": "결혼기념일",
+      "category": "기념일",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "SERP: 다나와, 카카오선물 순위, 꽃배달 업체 20가지 리스트, 아하. '20가지 롱리스트 + 주얼리/추억/경험/휴식 분류 + 각인 팁 + 연차별(1/5/10주년)' 포맷이 이김.",
+      "productKeywords": [
+        "골드 목걸이",
+        "진주 귀걸이",
+        "여성 향수",
+        "안마기",
+        "명품 지갑",
+        "프리저브드 플라워",
+        "호텔 침구 세트"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "결혼기념일 선물 추천 남편",
+      "slug": "wedding-anniversary-gift-husband",
+      "receiver": "남편",
+      "occasion": "결혼기념일",
+      "category": "기념일",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "카카오선물 '결혼기념일남편선물' 연관검색 존재 = 수요 확인. '시계/지갑/향수 정석 + 건강(마사지건) + 술(위스키) 분류 + 10/20만원 예산' 포맷.",
+      "productKeywords": [
+        "남성 시계",
+        "남성 지갑",
+        "남자 향수",
+        "위스키 잔 세트",
+        "마사지건",
+        "남자 벨트",
+        "전기 면도기"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "결혼 10주년 선물 추천",
+      "slug": "10th-wedding-anniversary-gift",
+      "receiver": "아내",
+      "occasion": "결혼기념일",
+      "category": "기념일",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "'주석혼식' 의미 설명 + 고예산(20만원 이상) 주얼리/여행 + 부부 공용템 리스트. FAQ(10주년 의미, 적정 예산) 포함 포맷.",
+      "productKeywords": [
+        "다이아 목걸이",
+        "커플 시계",
+        "골드 반지",
+        "안마의자",
+        "커플 잠옷",
+        "프리미엄 침구",
+        "와인 세트"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "부모님 결혼기념일 선물 추천",
+      "slug": "parents-wedding-anniversary-gift",
+      "receiver": "부모님",
+      "occasion": "결혼기념일",
+      "category": "기념일",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "아이디어스 검색 페이지가 상위 = 약한 경쟁. '부부 공용템(커플 시계/잠옷) + 건강가전 + 꽃/식사 경험' 분류 + 형제 공동구매 예산 팁.",
+      "productKeywords": [
+        "커플 시계",
+        "안마기",
+        "커플 잠옷",
+        "호텔 침구 세트",
+        "한우 세트",
+        "꽃바구니",
+        "공기청정기"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "집들이 선물 추천 3만원대",
+      "slug": "housewarming-gift-30k",
+      "receiver": "친구",
+      "occasion": "집들이",
+      "category": "집들이",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "SERP: 다음 남녀생활백서 금액대별, 개인 블로그 3~10만원 총정리, 82cook. '금액대별(1/3/5/10만원) 표 + 핸드워시/디퓨저/무드등 실물 리스트 + 휴지 대신' 포맷이 이김. 기존 집들이 포스트와 링크.",
+      "productKeywords": [
+        "디퓨저",
+        "핸드워시 세트",
+        "무드등",
+        "주방세제 선물세트",
+        "캔들",
+        "도마 세트",
+        "수건 세트"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "신혼집 집들이 선물 추천",
+      "slug": "newlywed-housewarming-gift",
+      "receiver": "신혼부부",
+      "occasion": "집들이",
+      "category": "집들이",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "'신혼집' 수식어 = 인테리어 감성 + 부부 공용 실용템. '3만원/5만원/10만원대 총정리 + 신혼부부가 이미 있는 것 피하기' 포맷.",
+      "productKeywords": [
+        "커플 잠옷",
+        "토스터",
+        "디퓨저 세트",
+        "와인잔 세트",
+        "무드등",
+        "수건 세트",
+        "에어프라이어"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "집들이 선물 추천 5만원대 센스있는",
+      "slug": "housewarming-gift-50k-sensible",
+      "receiver": "친구",
+      "occasion": "집들이",
+      "category": "집들이",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "'센스있는' = 흔하지 않은 것. 소형가전/홈카페/식물 분류 + 실제 받은 사람 반응 후기형 포맷.",
+      "productKeywords": [
+        "토스터",
+        "전기포트",
+        "캔들 워머",
+        "와인 세트",
+        "캡슐 커피머신",
+        "화분",
+        "핸디 무선청소기"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "집들이 선물 추천 1만원대",
+      "slug": "housewarming-gift-10k",
+      "receiver": "직장동료",
+      "occasion": "집들이",
+      "category": "집들이",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "동료/후배 집들이 저예산. '휴지/세제 업그레이드 버전(브랜드 핸드워시) + 소모품 세트' 리스트.",
+      "productKeywords": [
+        "핸드워시",
+        "주방세제 세트",
+        "키친타올 세트",
+        "미니 디퓨저",
+        "수건",
+        "머그컵 세트",
+        "실내화"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "자취 집들이 선물 추천",
+      "slug": "solo-living-housewarming-gift",
+      "receiver": "친구",
+      "occasion": "집들이",
+      "category": "집들이",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "1인 가구 실용템 (소형가전, 수납). '자취생이 진짜 필요한 것 순위 + 3/5만원 예산' 포맷.",
+      "productKeywords": [
+        "전기포트",
+        "미니 밥솥",
+        "수건 세트",
+        "무드등",
+        "에어프라이어",
+        "디퓨저",
+        "수납 정리함"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "집들이 선물 추천 친구 실용적인",
+      "slug": "housewarming-gift-friend-practical",
+      "receiver": "친구",
+      "occasion": "집들이",
+      "category": "집들이",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "'실용적인' = 가전/주방용품 선호. 사용 빈도 기준 랭킹 + 없으면 아쉬운 것 체크리스트 포맷.",
+      "productKeywords": [
+        "에어프라이어",
+        "무선 청소기",
+        "수건 세트",
+        "도마 세트",
+        "주방 가위 세트",
+        "디퓨저",
+        "물걸레 청소기"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "결혼선물 추천 친구 10만원대",
+      "slug": "wedding-gift-friend-100k",
+      "receiver": "친구",
+      "occasion": "결혼",
+      "category": "결혼/출산",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "축의금 외 실물 선물. '가전/침구/홈카페 분류 + 부부 둘 다 쓰는 것 + 중복 방지(미리 물어보기) 팁' 포맷. 기존 신혼부부 포스트와 링크.",
+      "productKeywords": [
+        "에어프라이어",
+        "커플 잠옷",
+        "프리미엄 침구 세트",
+        "토스터",
+        "커피 머신",
+        "와인잔 세트",
+        "무선 청소기"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "신혼부부 선물 추천 실용적인",
+      "slug": "newlyweds-gift-practical",
+      "receiver": "신혼부부",
+      "occasion": "결혼",
+      "category": "결혼/출산",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "혼수에 빠지기 쉬운 실용템. '혼수 체크리스트에서 빠지는 것' 프레임 + 5/10/20만원 예산.",
+      "productKeywords": [
+        "밥솥",
+        "에어프라이어",
+        "커플 잠옷",
+        "침구 세트",
+        "식기 세트",
+        "공기청정기",
+        "커피 머신"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "출산선물 추천 산모",
+      "slug": "postpartum-mom-gift",
+      "receiver": "임산부",
+      "occasion": "출산",
+      "category": "결혼/출산",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "SERP: 유튜브/틱톡 '찐엄마 TOP 3', 블로그 TOP 7/50, 아하. '산모용 vs 아기용 분리 + 실제 엄마 추천 신뢰 + 피해야 할 선물(튼살크림 중복) + 3/5/10만원' 포맷이 이김.",
+      "productKeywords": [
+        "수유 잠옷",
+        "손목 보호대",
+        "산모 철분제",
+        "탈모 샴푸",
+        "좌욕기",
+        "산모 방석",
+        "산모 유산균"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "출산선물 추천 아기 실용적인",
+      "slug": "newborn-baby-gift-practical",
+      "receiver": "아이",
+      "occasion": "출산",
+      "category": "결혼/출산",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "'실용적인' = 소모품/필수템. '기저귀/물티슈 정석 + 브라운 체온계 등 TOP 3 조합 + 안전 성분 기준' 리스트. 쿠팡 유아 카테고리 전환 최상.",
+      "productKeywords": [
+        "기저귀",
+        "아기 물티슈",
+        "아기 체온계",
+        "바운서",
+        "아기띠",
+        "젖병 소독기",
+        "아기 로션 세트"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "임산부 선물 추천 친구",
+      "slug": "pregnant-friend-gift",
+      "receiver": "임산부",
+      "occasion": "출산",
+      "category": "결혼/출산",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "SERP: 베이비뉴스 설문(현금 1위, 아기용품 2위), 카카오선물, 블라인드 정리, doshoe 초기/만삭. '시기별(초기/만삭) + 설문 근거 + 피해야 할 선물 + 5만원 이하' 포맷.",
+      "productKeywords": [
+        "임산부 바디오일",
+        "임산부 방석",
+        "무카페인 티 세트",
+        "임산부 영양제",
+        "바디필로우",
+        "편안한 슬리퍼",
+        "핸드크림 세트"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "돌잔치 선물 추천 조카",
+      "slug": "nephew-first-birthday-gift",
+      "receiver": "조카",
+      "occasion": "돌잔치",
+      "category": "결혼/출산",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "SERP: 유튜브, 블라인드, 유가크루 금액대별, doshoe 남아/여아. '금 vs 실용템 비교 + 금액대별(3/5/10만원) + 남아/여아 분리 + 금값 시세 언급' 포맷이 이김.",
+      "productKeywords": [
+        "돌반지",
+        "역할놀이 장난감",
+        "유아 식탁의자",
+        "아기 신발",
+        "그림책 세트",
+        "붕붕카",
+        "아기 옷 세트"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "돌선물 추천 친구 아기 5만원대",
+      "slug": "friend-baby-first-birthday-gift-50k",
+      "receiver": "친구",
+      "occasion": "돌잔치",
+      "category": "결혼/출산",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "친구 아기 돌 = 5만원 선. '돌 이후 실제로 쓰는 장난감/용품 + 부모가 반긴 것' 후기형 리스트.",
+      "productKeywords": [
+        "붕붕카",
+        "사운드북",
+        "아기 식기 세트",
+        "블록 장난감",
+        "아기 옷",
+        "유아 목욕용품 세트",
+        "놀이매트"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "출산 축하 선물 추천 직장동료",
+      "slug": "coworker-baby-gift",
+      "receiver": "직장동료",
+      "occasion": "출산",
+      "category": "결혼/출산",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "팀 공동구매 3~10만원. '실패 없는 소모품 + 브랜드 세트 + 공동구매 예산 나누기' 포맷.",
+      "productKeywords": [
+        "기저귀",
+        "아기 로션 세트",
+        "물티슈 세트",
+        "산모 간식",
+        "배냇저고리 세트",
+        "아기 수건 세트",
+        "젖병 세트"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "직장동료 선물 추천 1만원대",
+      "slug": "coworker-gift-10k",
+      "receiver": "직장동료",
+      "occasion": "기념일",
+      "category": "직장",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "SERP: 잡플래닛, 카카오선물, 링커리어, 모하지. '카테고리 리스트 + 무난함(취향 안 타는) 강조 + 카드 한 장 팁' 포맷이 이김. 연말/퇴사/생일 다용도.",
+      "productKeywords": [
+        "텀블러",
+        "핸드크림",
+        "드립백 커피",
+        "키링",
+        "고급 볼펜",
+        "간식 선물세트",
+        "미니 디퓨저"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "승진 선물 추천 상사",
+      "slug": "boss-promotion-gift",
+      "receiver": "상사",
+      "occasion": "승진",
+      "category": "직장",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "SERP: SSG, 블라인드, 매거진, B2B, BEST 10. '예산 3단계(3-5/5-7/7-10만원) + 격식 있는 아이템 + 피해야 할 선물 + 축하문구 예시' 포맷이 이김. 인사시즌(1월/7월) 트래픽 상승.",
+      "productKeywords": [
+        "와인 세트",
+        "고급 볼펜",
+        "넥타이",
+        "명함지갑",
+        "프리미엄 티 세트",
+        "위스키",
+        "골프공 세트"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "승진 축하 선물 추천 동료",
+      "slug": "coworker-promotion-gift",
+      "receiver": "직장동료",
+      "occasion": "승진",
+      "category": "직장",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "동료 간 2~5만원. '데스크템/커피/다이어리 + 축하 문구' 리스트. 상사 승진 글과 링크.",
+      "productKeywords": [
+        "텀블러",
+        "다이어리",
+        "볼펜 세트",
+        "디퓨저",
+        "커피 선물세트",
+        "넥타이핀",
+        "무선 충전기"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "퇴직 선물 추천 아버지",
+      "slug": "father-retirement-gift",
+      "receiver": "아빠",
+      "occasion": "퇴직",
+      "category": "직장",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "SERP: 추억룸, 신한카드 블로그, 블라인드, 아이디어스 — 약한 경쟁. '의미형(앨범/은수저) + 취미형(골프/등산/캐주얼) + 현금 봉투 대안' 스토리텔링 포맷이 이김. 12월/6월 정년퇴직 시즌 피크.",
+      "productKeywords": [
+        "안마의자",
+        "골프 용품",
+        "등산화",
+        "은수저 세트",
+        "위스키",
+        "여행 캐리어",
+        "전기 면도기"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "정년퇴직 선물 추천 상사",
+      "slug": "boss-retirement-gift",
+      "receiver": "상사",
+      "occasion": "퇴직",
+      "category": "직장",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "팀 공동 10~30만원. '품격 있는 기념품(만년필/위스키) + 취미 + 건강' 분류 + 감사 문구.",
+      "productKeywords": [
+        "만년필",
+        "위스키",
+        "골프 용품",
+        "안마기",
+        "난초 화분",
+        "캐시미어 머플러",
+        "여행 캐리어"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "퇴사 선물 추천 동료",
+      "slug": "coworker-farewell-gift",
+      "receiver": "직장동료",
+      "occasion": "퇴직",
+      "category": "직장",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "이직/퇴사 송별. '가볍고 기억에 남는 것 + 2~5만원 + 새 직장에서 쓰는 데스크템' 리스트.",
+      "productKeywords": [
+        "텀블러",
+        "디퓨저",
+        "캔들",
+        "다이어리",
+        "핸드크림 세트",
+        "화분",
+        "와인"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "전역 선물 추천 남자친구",
+      "slug": "boyfriend-discharge-gift",
+      "receiver": "남자친구",
+      "occasion": "전역",
+      "category": "기념일",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "군 전역 후 사회 복귀템. '패션/향/디지털 3분류 + 5~10만원 + 전역 당일 이벤트 아이디어' 포맷. 경쟁 약함.",
+      "productKeywords": [
+        "남자 향수",
+        "남성 지갑",
+        "무선 이어폰",
+        "남자 크로스백",
+        "스니커즈",
+        "남성 시계",
+        "휴대폰 케이스"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "환갑 선물 추천 아버지",
+      "slug": "father-60th-birthday-gift",
+      "receiver": "아빠",
+      "occasion": "환갑",
+      "category": "생일",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "SERP: 다나와, 스냅스 블로그 10가지 가격비교(순금/포토북/용돈박스), 블라인드. '10가지 + 가격 비교표 + 순금 시세 언급 + 가족사진/여행 경험형 + 형제 공동 예산' 포맷이 이김.",
+      "productKeywords": [
+        "골드바",
+        "안마의자",
+        "골프 용품",
+        "위스키",
+        "명품 지갑",
+        "전기 면도기",
+        "여행 캐리어"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "환갑 선물 추천 어머니",
+      "slug": "mother-60th-birthday-gift",
+      "receiver": "엄마",
+      "occasion": "환갑",
+      "category": "생일",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "아버지 환갑과 쌍 페이지. '순금/주얼리/안마의자/명품 스카프 + 10/30/50만원 예산 + 잔치 없이 하는 법 FAQ' 포맷.",
+      "productKeywords": [
+        "순금 반지",
+        "안마의자",
+        "명품 스카프",
+        "진주 목걸이",
+        "안마기",
+        "실크 잠옷",
+        "화장품 세트"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "칠순 선물 추천 부모님",
+      "slug": "parents-70th-birthday-gift",
+      "receiver": "부모님",
+      "occasion": "칠순",
+      "category": "생일",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "'고희' 의미 설명 + 건강기기 중심 + 순금 + 가족여행 대안. FAQ(칠순 잔치 여부, 적정 금액) 포함 포맷.",
+      "productKeywords": [
+        "안마의자",
+        "골드바",
+        "혈압계",
+        "발 마사지기",
+        "전동 안마 매트",
+        "홍삼 세트",
+        "여행 캐리어"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "팔순 선물 추천 할머니",
+      "slug": "grandmother-80th-birthday-gift",
+      "receiver": "할머니",
+      "occasion": "팔순",
+      "category": "생일",
+      "season": "evergreen",
+      "priority": 4,
+      "intent": "손주 검색, 경쟁 매우 약함. '보온/건강/편의 + 사용 쉬운 것 + 5~10만원' 리스트.",
+      "productKeywords": [
+        "발 마사지기",
+        "전기 찜질기",
+        "실내화",
+        "보온병",
+        "홍삼 세트",
+        "카디건",
+        "무릎 보호대"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "시어머니 선물 추천 첫인사",
+      "slug": "mother-in-law-first-visit-gift",
+      "receiver": "부모님",
+      "occasion": "결혼",
+      "category": "결혼/출산",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "예비 며느리 첫 방문 선물 — 긴장도 높은 고의도 검색. '실패 없는 정석(홍삼/한우/과일) + 5/10만원 + 예절 팁 FAQ' 포맷.",
+      "productKeywords": [
+        "홍삼 세트",
+        "한우 세트",
+        "과일 선물세트",
+        "실크 스카프",
+        "핸드크림 세트",
+        "화장품 세트",
+        "꿀 선물세트"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "장인어른 선물 추천",
+      "slug": "father-in-law-gift",
+      "receiver": "부모님",
+      "occasion": "결혼",
+      "category": "결혼/출산",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "예비 사위/사위 검색(첫인사, 생신, 명절 공용). '취미(골프/등산)/건강/술 분류 + 5/10만원' 리스트.",
+      "productKeywords": [
+        "홍삼 세트",
+        "위스키",
+        "골프 장갑",
+        "남성 지갑",
+        "전기 면도기",
+        "등산 자켓",
+        "안마기"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "남자가 좋아하는 선물 순위",
+      "slug": "gifts-men-actually-want",
+      "receiver": "남자",
+      "occasion": "기념일",
+      "category": "선물 팁",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "관계/행사 무관 롱테일 허브 페이지. '실제 남성 설문/커뮤니티 근거 순위 + 받기 싫은 선물 + 연령대별 링크' 포맷.",
+      "productKeywords": [
+        "남자 향수",
+        "남성 지갑",
+        "무선 이어폰",
+        "전기 면도기",
+        "게이밍 마우스",
+        "남자 벨트",
+        "마사지건"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "여자가 좋아하는 선물 순위",
+      "slug": "gifts-women-actually-want",
+      "receiver": "여자",
+      "occasion": "기념일",
+      "category": "선물 팁",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "허브 페이지. '순위 + 받기 싫은 선물 + 연령대별/관계별 내부링크' 포맷.",
+      "productKeywords": [
+        "여자 향수",
+        "목걸이",
+        "립스틱",
+        "여성 가방",
+        "디퓨저",
+        "무선 고데기",
+        "핸드크림 세트"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "받으면 기분 좋은 선물 2만원대",
+      "slug": "gifts-20k-that-delight",
+      "receiver": "친구",
+      "occasion": "기념일",
+      "category": "선물 팁",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "링커리어 '받으면 기분 좋은 1~4만원대' 커뮤니티 글이 상위 = 진입 가능. '15~20개 롱리스트 + 실제 가격 + 로켓배송' 포맷.",
+      "productKeywords": [
+        "핸드크림 세트",
+        "디퓨저",
+        "텀블러",
+        "캔들",
+        "양말 세트",
+        "마스크팩 세트",
+        "드립백 커피"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "선물 금액 기준 관계별 적정 예산",
+      "slug": "gift-budget-guide-by-relationship",
+      "receiver": "친구",
+      "occasion": "기념일",
+      "category": "선물 팁",
+      "season": "evergreen",
+      "priority": 4,
+      "intent": "모든 예산 페이지의 허브. '관계 × 행사 적정 금액표 + 각 칸에서 예산별 글로 내부링크' 포맷. 기존 예산별 가이드와 통합.",
+      "productKeywords": [
+        "백화점 상품권",
+        "텀블러",
+        "디퓨저",
+        "향수",
+        "지갑",
+        "안마기",
+        "커플 시계"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "발렌타인데이 선물 추천 남자친구",
+      "slug": "valentines-gift-boyfriend",
+      "receiver": "남자친구",
+      "occasion": "발렌타인",
+      "category": "시즌",
+      "season": "2",
+      "priority": 1,
+      "intent": "피크 2월 초~14일, 발행 목표 12월 말~1월 초. '초콜릿+α 세트 구성 + 3/5/10만원 예산 + 수제 키트 vs 브랜드 비교' 포맷. 기존 발렌타인 가이드와 링크.",
+      "productKeywords": [
+        "수제 초콜릿 만들기 키트",
+        "남자 향수",
+        "남성 지갑",
+        "무선 이어폰",
+        "커플 키링",
+        "넥타이",
+        "위스키 초콜릿"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "발렌타인데이 선물 추천 남편",
+      "slug": "valentines-gift-husband",
+      "receiver": "남편",
+      "occasion": "발렌타인",
+      "category": "시즌",
+      "season": "2",
+      "priority": 2,
+      "intent": "피크 2월, 발행 1월 초. '초콜릿 + 실용템 + 술' 조합 리스트, 아이와 함께 만드는 키트 아이디어.",
+      "productKeywords": [
+        "초콜릿 선물세트",
+        "위스키",
+        "남자 향수",
+        "남자 벨트",
+        "전기 면도기",
+        "커플 잠옷",
+        "마사지건"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "발렌타인데이 초콜릿 말고 선물",
+      "slug": "valentines-gift-not-chocolate",
+      "receiver": "남자친구",
+      "occasion": "발렌타인",
+      "category": "시즌",
+      "season": "2",
+      "priority": 2,
+      "intent": "피크 2월, 발행 1월 초. '초콜릿 대신' 프레임 검색 증가. '실용/커플/디지털 10선 + 예산' 리스트.",
+      "productKeywords": [
+        "남자 향수",
+        "남성 지갑",
+        "커플 팔찌",
+        "스마트워치",
+        "무선 이어폰",
+        "남성 스킨케어 세트",
+        "커플 머그"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "화이트데이 선물 추천 여자친구",
+      "slug": "whiteday-gift-girlfriend",
+      "receiver": "여자친구",
+      "occasion": "화이트데이",
+      "category": "시즌",
+      "season": "3",
+      "priority": 1,
+      "intent": "피크 3월 초~14일, 발행 목표 1월 말~2월 초. '사탕 부케 + 주얼리/향수/뷰티 + 3/5/10만원' 포맷. 발렌타인 답례 예산 FAQ 포함.",
+      "productKeywords": [
+        "사탕 부케",
+        "여자 향수",
+        "실버 목걸이",
+        "립스틱",
+        "꽃다발",
+        "디퓨저",
+        "핸드크림 세트"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "화이트데이 선물 추천 아내",
+      "slug": "whiteday-gift-wife",
+      "receiver": "아내",
+      "occasion": "화이트데이",
+      "category": "시즌",
+      "season": "3",
+      "priority": 2,
+      "intent": "피크 3월, 발행 2월 초. '꽃+향수+휴식템' 조합, 기혼 예산(5~10만원) 리스트.",
+      "productKeywords": [
+        "여성 향수",
+        "진주 귀걸이",
+        "프리저브드 플라워",
+        "초콜릿 선물세트",
+        "안마기",
+        "실크 스카프",
+        "캔들"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "빼빼로데이 선물 추천 남자친구",
+      "slug": "pepero-day-gift-boyfriend",
+      "receiver": "남자친구",
+      "occasion": "빼빼로데이",
+      "category": "시즌",
+      "season": "11",
+      "priority": 2,
+      "intent": "피크 11월 1~11일, 발행 목표 9월 말~10월 초. '빼빼로 세트 + 소소한 실물 선물(1~3만원) 조합 + DIY 바구니' 포맷.",
+      "productKeywords": [
+        "빼빼로 선물세트",
+        "초콜릿 바구니",
+        "남자 향수 미니",
+        "커플 키링",
+        "남자 양말 세트",
+        "무선 충전기",
+        "간식 선물세트"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "크리스마스 선물 추천 여자친구 20대",
+      "slug": "christmas-gift-girlfriend-20s",
+      "receiver": "여자친구",
+      "occasion": "크리스마스",
+      "category": "시즌",
+      "season": "12",
+      "priority": 1,
+      "intent": "SERP: 블라인드, 개인 티스토리 가격대별 — 약한 경쟁. 피크 12월 1~24일, 발행 목표 11월 초. '가격대별(3/5/10만원) + 주얼리/캔들/립 + 겨울 아이템(장갑/목도리)' 포맷이 이김.",
+      "productKeywords": [
+        "실버 목걸이",
+        "여자 향수",
+        "캔들",
+        "립스틱",
+        "가죽 장갑",
+        "캐시미어 머플러",
+        "무드등"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "크리스마스 선물 추천 남자친구 30대",
+      "slug": "christmas-gift-boyfriend-30s",
+      "receiver": "남자친구",
+      "occasion": "크리스마스",
+      "category": "시즌",
+      "season": "12",
+      "priority": 1,
+      "intent": "피크 12월, 발행 11월 초. '겨울 실용템(머플러/장갑) + 향수/지갑 정석 + 위스키 + 5/10/20만원' 포맷.",
+      "productKeywords": [
+        "남자 향수",
+        "남성 지갑",
+        "캐시미어 머플러",
+        "스마트워치",
+        "무선 이어폰",
+        "위스키",
+        "남자 가죽 장갑"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "크리스마스 선물 추천 아내",
+      "slug": "christmas-gift-wife",
+      "receiver": "아내",
+      "occasion": "크리스마스",
+      "category": "시즌",
+      "season": "12",
+      "priority": 2,
+      "intent": "피크 12월, 발행 11월 초. '주얼리/뷰티가전/휴식템 + 10/20만원' 리스트, 아이 선물과 함께 사는 팁.",
+      "productKeywords": [
+        "진주 목걸이",
+        "여성 향수",
+        "안마기",
+        "캐시미어 머플러",
+        "무선 고데기",
+        "명품 지갑",
+        "캔들 워머"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "크리스마스 선물 추천 남편",
+      "slug": "christmas-gift-husband",
+      "receiver": "남편",
+      "occasion": "크리스마스",
+      "category": "시즌",
+      "season": "12",
+      "priority": 2,
+      "intent": "피크 12월, 발행 11월 초. '술/향/가죽/건강 분류 + 10/20만원' 리스트.",
+      "productKeywords": [
+        "위스키",
+        "남자 향수",
+        "남자 가죽 장갑",
+        "마사지건",
+        "전기 면도기",
+        "스마트워치",
+        "캐시미어 목도리"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "크리스마스 선물 추천 부모님",
+      "slug": "christmas-gift-parents",
+      "receiver": "부모님",
+      "occasion": "크리스마스",
+      "category": "시즌",
+      "season": "12",
+      "priority": 2,
+      "intent": "피크 12월, 발행 11월 초. '겨울 보온가전(온수매트/가습기) + 건강 + 방한 패션 + 5/10만원' 포맷.",
+      "productKeywords": [
+        "안마기",
+        "전기 온수매트",
+        "홍삼 세트",
+        "캐시미어 머플러",
+        "가습기",
+        "발 마사지기",
+        "한우 세트"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "크리스마스 선물 추천 5살 아이",
+      "slug": "christmas-gift-kids-age-5",
+      "receiver": "아이",
+      "occasion": "크리스마스",
+      "category": "시즌",
+      "season": "12",
+      "priority": 1,
+      "intent": "피크 11월 말~12월 20일, 발행 목표 11월 초(품절 전 구매 유도). '연령별 인기 완구 TOP 10 + 남아/여아 + 3/5/10만원 + 산타 선물 포장' 포맷. 쿠팡 완구 전환 최상.",
+      "productKeywords": [
+        "레고 듀플로",
+        "자석 블록",
+        "인형",
+        "킥보드",
+        "그림책 세트",
+        "역할놀이 세트",
+        "어린이 카메라"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "크리스마스 선물 추천 초등학생",
+      "slug": "christmas-gift-elementary",
+      "receiver": "아이",
+      "occasion": "크리스마스",
+      "category": "시즌",
+      "season": "12",
+      "priority": 2,
+      "intent": "피크 12월, 발행 11월 초. '저학년/고학년 분리 + 인기 완구/게임/스포츠 + 예산' 리스트.",
+      "productKeywords": [
+        "레고",
+        "보드게임",
+        "닌텐도 스위치 게임",
+        "과학 실험 키트",
+        "인라인 스케이트",
+        "키즈 스마트워치",
+        "만들기 세트"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "크리스마스 선물 추천 직장동료 1만원대",
+      "slug": "christmas-gift-coworker-10k",
+      "receiver": "직장동료",
+      "occasion": "크리스마스",
+      "category": "시즌",
+      "season": "12",
+      "priority": 2,
+      "intent": "피크 12월 중순(마니또/연말 파티), 발행 11월 초. 잡플래닛 '연말 1만원대' 글 상위 = 진입 가능. '1만원 이하 정확한 가격 + 대량 구매 가능 + 남녀 공용' 리스트.",
+      "productKeywords": [
+        "핸드크림",
+        "캔들",
+        "텀블러",
+        "미니 디퓨저",
+        "초콜릿 선물세트",
+        "양말 세트",
+        "드립백 커피"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "크리스마스 선물 추천 친구 2만원대",
+      "slug": "christmas-gift-friend-20k",
+      "receiver": "친구",
+      "occasion": "크리스마스",
+      "category": "시즌",
+      "season": "12",
+      "priority": 2,
+      "intent": "피크 12월, 발행 11월 초. 마니또/친구 교환 예산. '2만원대 남녀 공용 + 겨울 감성(캔들/머플러)' 리스트.",
+      "productKeywords": [
+        "캔들",
+        "디퓨저",
+        "핸드크림 세트",
+        "머플러",
+        "무드등",
+        "초콜릿 선물세트",
+        "양말 세트"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "연말 선물 추천 거래처",
+      "slug": "year-end-client-gift",
+      "receiver": "직장동료",
+      "occasion": "크리스마스",
+      "category": "직장",
+      "season": "12",
+      "priority": 3,
+      "intent": "피크 12월 초~중순, 발행 11월 초. B2B 실무자 검색. '3/5/10만원 예산 + 김영란법 5만원 한도 안내 + 대량 주문/포장' 포맷.",
+      "productKeywords": [
+        "와인 선물세트",
+        "프리미엄 티 세트",
+        "견과류 선물세트",
+        "홍삼 세트",
+        "커피 선물세트",
+        "다이어리",
+        "핸드크림 세트"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "설날 부모님 선물 추천 5만원대",
+      "slug": "seollal-parents-gift-50k",
+      "receiver": "부모님",
+      "occasion": "설날",
+      "category": "명절",
+      "season": "1",
+      "priority": 1,
+      "intent": "SERP: SSG, 티스토리 BEST 5(5만원 이하), 마인드브릿지 3-5/10만원대, 숏팍. 2027 설날 2월 7일 → 피크 1월 중순~말, 발행 목표 12월 초. 'BEST 5~7 + 홍삼 스틱/과일/스팸 세트 + 50대/60대 연령별 + 택배 마감일 안내' 포맷이 이김.",
+      "productKeywords": [
+        "홍삼 스틱",
+        "과일 선물세트",
+        "스팸 선물세트",
+        "건어물 세트",
+        "참기름 선물세트",
+        "견과류 선물세트",
+        "종합비타민"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "설 선물세트 추천 10만원대",
+      "slug": "seollal-gift-set-100k",
+      "receiver": "부모님",
+      "occasion": "설날",
+      "category": "명절",
+      "season": "1",
+      "priority": 2,
+      "intent": "피크 1월, 발행 12월 초. '한우/굴비/전복 프리미엄 세트 비교표 + 사전예약 할인 + 배송 마감' 포맷.",
+      "productKeywords": [
+        "한우 선물세트",
+        "홍삼 선물세트",
+        "굴비 세트",
+        "프리미엄 과일세트",
+        "전복 선물세트",
+        "와인 선물세트",
+        "안마기"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "설날 시댁 선물 추천",
+      "slug": "seollal-in-laws-gift",
+      "receiver": "부모님",
+      "occasion": "설날",
+      "category": "명절",
+      "season": "1",
+      "priority": 2,
+      "intent": "피크 1월, 발행 12월 초. 며느리 첫 명절 고의도. '정석 식품세트 + 실용 아이템 + 예산 FAQ(첫 명절 얼마)' 포맷.",
+      "productKeywords": [
+        "한우 선물세트",
+        "홍삼 세트",
+        "과일 선물세트",
+        "굴비 세트",
+        "꿀 선물세트",
+        "실크 스카프",
+        "백화점 상품권"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "설날 조카 선물 추천",
+      "slug": "seollal-nephew-gift",
+      "receiver": "조카",
+      "occasion": "설날",
+      "category": "명절",
+      "season": "1",
+      "priority": 4,
+      "intent": "피크 1월 말~2월 초, 발행 12월 중순. '세뱃돈 대신/세뱃돈+α' 프레임. 연령별(유아/초등) 완구·문구 리스트 + 용돈 박스.",
+      "productKeywords": [
+        "레고",
+        "보드게임",
+        "키즈 스마트워치",
+        "문구 세트",
+        "그림책 세트",
+        "용돈 박스",
+        "어린이 한복"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "추석 선물세트 추천 3만원대 가성비",
+      "slug": "chuseok-gift-set-30k-value",
+      "receiver": "직장동료",
+      "occasion": "추석",
+      "category": "명절",
+      "season": "9",
+      "priority": 2,
+      "intent": "기존 추석 부모님 포스트와 차별화된 각도(동료/거래처/지인 대량용). 2027 추석 9월 15일 → 피크 8월 말~9월 초, 발행 7월 말~8월 초. '3만원 이하 실속 세트 비교표 + 대량 구매 할인' 포맷.",
+      "productKeywords": [
+        "스팸 선물세트",
+        "참치 선물세트",
+        "식용유 선물세트",
+        "견과류 선물세트",
+        "샴푸 선물세트",
+        "커피 선물세트",
+        "과일 선물세트"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "추석 시댁 처가 선물 추천",
+      "slug": "chuseok-in-laws-gift",
+      "receiver": "부모님",
+      "occasion": "추석",
+      "category": "명절",
+      "season": "9",
+      "priority": 2,
+      "intent": "기존 '추석 부모님' 포스트와 다른 각도(시댁/처가 첫 명절). 피크 9월 초, 발행 7월 말. '양가 동일 예산 원칙 + 정석 식품세트 + 첫 명절 FAQ' 포맷.",
+      "productKeywords": [
+        "한우 선물세트",
+        "홍삼 세트",
+        "과일 선물세트",
+        "굴비 세트",
+        "전복 선물세트",
+        "참기름 선물세트",
+        "백화점 상품권"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "어버이날 선물 추천 할머니 할아버지",
+      "slug": "parents-day-gift-grandparents",
+      "receiver": "할머니",
+      "occasion": "어버이날",
+      "category": "시즌",
+      "season": "5",
+      "priority": 3,
+      "intent": "기존 어버이날 포스트(부모님)와 차별화된 조부모 각도. 피크 5월 1~8일, 발행 3월 말. '고령자 사용 쉬운 건강/보온템 + 5만원 이하' 리스트.",
+      "productKeywords": [
+        "발 마사지기",
+        "보온병",
+        "전기 찜질기",
+        "홍삼 세트",
+        "실내화",
+        "카디건",
+        "혈압계"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "어버이날 선물 추천 시부모님",
+      "slug": "parents-day-gift-in-laws",
+      "receiver": "부모님",
+      "occasion": "어버이날",
+      "category": "시즌",
+      "season": "5",
+      "priority": 3,
+      "intent": "기존 어버이날 포스트와 차별화(결혼 후 첫 어버이날 시부모/처가). 피크 5월 초, 발행 3월 말. '양가 동일 예산 + 카네이션 화분 + 실용템 + FAQ' 포맷.",
+      "productKeywords": [
+        "한우 선물세트",
+        "홍삼 세트",
+        "안마기",
+        "실크 스카프",
+        "과일 선물세트",
+        "카네이션 화분",
+        "백화점 상품권"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "스승의날 선물 추천 학원 선생님",
+      "slug": "teachers-day-gift-academy-teacher",
+      "receiver": "선생님",
+      "occasion": "스승의날",
+      "category": "시즌",
+      "season": "5",
+      "priority": 3,
+      "intent": "기존 스승의날 포스트와 차별화(학원/과외 선생님은 김영란법 비대상). 피크 5월 10~15일, 발행 4월 초. '학교 vs 학원 김영란법 차이 FAQ + 1~3만원 소소한 감사템' 포맷.",
+      "productKeywords": [
+        "핸드크림 세트",
+        "텀블러",
+        "디퓨저",
+        "드립백 커피 세트",
+        "캔들",
+        "고급 볼펜",
+        "간식 선물세트"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "수능 선물 추천 조카 실용적인",
+      "slug": "csat-gift-nephew-practical",
+      "receiver": "조카",
+      "occasion": "수능",
+      "category": "시즌",
+      "season": "11",
+      "priority": 2,
+      "intent": "SERP: 현대 매거진, YTN 설문(디저트/현금/기프티콘), sendbee 응원문구 40가지, 블로그 BEST 7. 기존 수능 포스트와 차별화(조카+실용). 피크 11월 초~수능일, 발행 10월 초. '설문 근거 + 실용템 BEST 7 + 응원 문구 모음' 포맷.",
+      "productKeywords": [
+        "손난로",
+        "무릎담요",
+        "종합비타민",
+        "초콜릿 선물세트",
+        "가죽 필통",
+        "텀블러",
+        "목 어깨 마사지기"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "수능 끝나고 선물 추천",
+      "slug": "post-csat-gift",
+      "receiver": "아이",
+      "occasion": "수능",
+      "category": "시즌",
+      "season": "11",
+      "priority": 2,
+      "intent": "수능 직후(11월 중순~12월) '수고했어' 선물 검색. 발행 10월 중순. '고3이 진짜 원하는 것(디지털/뷰티/패션) + 10/20/30만원 + 부모/이모삼촌 관계별' 포맷. 경쟁 약함.",
+      "productKeywords": [
+        "무선 이어폰",
+        "화장품 세트",
+        "향수",
+        "노트북 파우치",
+        "스마트워치",
+        "운동화",
+        "태블릿"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "대학교 졸업선물 추천",
+      "slug": "college-graduation-gift",
+      "receiver": "친구",
+      "occasion": "졸업",
+      "category": "시즌",
+      "season": "2",
+      "priority": 2,
+      "intent": "피크 2월 중순, 발행 1월 초. '사회인 준비템(명함지갑/시계/만년필) + 부모/친구/연인 관계별 예산' 포맷.",
+      "productKeywords": [
+        "명함지갑",
+        "향수",
+        "손목시계",
+        "만년필",
+        "노트북 가방",
+        "무선 이어폰",
+        "지갑"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "초등학교 졸업선물 추천",
+      "slug": "elementary-graduation-gift",
+      "receiver": "아이",
+      "occasion": "졸업",
+      "category": "시즌",
+      "season": "2",
+      "priority": 4,
+      "intent": "피크 1월 말~2월 초, 발행 12월 중순. '중학생 준비템 + 3/5/10만원' 리스트.",
+      "productKeywords": [
+        "키즈 스마트워치",
+        "무선 이어폰",
+        "백팩",
+        "문구 세트",
+        "책상 스탠드",
+        "보드게임",
+        "폴라로이드 카메라"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "초등학교 입학선물 추천",
+      "slug": "elementary-entrance-gift",
+      "receiver": "아이",
+      "occasion": "입학",
+      "category": "시즌",
+      "season": "3",
+      "priority": 1,
+      "intent": "피크 2월 중순~3월 초, 발행 1월 중순. 조부모/이모삼촌 검색 많음. '입학 준비물 체크리스트 + 선물로 좋은 것(책가방/스탠드/키즈워치) + 이름 스티커' 포맷. 쿠팡 전환 최상.",
+      "productKeywords": [
+        "초등학생 책가방",
+        "실내화",
+        "필통",
+        "책상 스탠드",
+        "키즈 스마트워치",
+        "어린이 보온 물통",
+        "네임 스티커"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "중학교 입학선물 추천",
+      "slug": "middleschool-entrance-gift",
+      "receiver": "조카",
+      "occasion": "입학",
+      "category": "시즌",
+      "season": "3",
+      "priority": 4,
+      "intent": "피크 2월 말~3월 초, 발행 1월 중순. '사춘기 취향 존중템(이어폰/백팩/운동화) + 5/10만원' 리스트.",
+      "productKeywords": [
+        "백팩",
+        "무선 이어폰",
+        "스마트워치",
+        "책상 스탠드",
+        "필기구 세트",
+        "운동화",
+        "태블릿 펜"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "대학교 입학선물 추천",
+      "slug": "college-entrance-gift",
+      "receiver": "조카",
+      "occasion": "입학",
+      "category": "시즌",
+      "season": "3",
+      "priority": 2,
+      "intent": "피크 2월~3월 초, 발행 1월 초. '새내기 필수템(노트북 가방/이어폰/화장품) + 10/20만원 + 부모/이모삼촌 관계별' 포맷.",
+      "productKeywords": [
+        "노트북 가방",
+        "무선 이어폰",
+        "지갑",
+        "향수",
+        "스마트워치",
+        "텀블러",
+        "화장품 세트"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "어린이날 선물 추천 5살",
+      "slug": "childrens-day-gift-age-5",
+      "receiver": "아이",
+      "occasion": "어린이날",
+      "category": "시즌",
+      "season": "5",
+      "priority": 1,
+      "intent": "피크 4월 중순~5월 5일, 발행 3월 말. 연간 최대 완구 시즌. '연령별 인기 완구 TOP 10 + 남아/여아 + 실외(킥보드/물놀이) + 3/5/10만원' 포맷. 쿠팡 완구 전환 최상.",
+      "productKeywords": [
+        "킥보드",
+        "자석 블록",
+        "레고 듀플로",
+        "물놀이 장난감",
+        "인형",
+        "역할놀이 세트",
+        "어린이 자전거"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "어린이날 선물 추천 초등학생 남자아이",
+      "slug": "childrens-day-gift-elementary-boy",
+      "receiver": "아이",
+      "occasion": "어린이날",
+      "category": "시즌",
+      "season": "5",
+      "priority": 2,
+      "intent": "피크 4월 말, 발행 3월 말. '저학년/고학년 + 인기 IP(레고/포켓몬) + 스포츠/게임' 리스트.",
+      "productKeywords": [
+        "레고",
+        "닌텐도 스위치",
+        "RC카",
+        "축구공",
+        "인라인 스케이트",
+        "보드게임",
+        "과학 실험 키트"
+      ],
+      "status": "pending"
+    },
+    {
+      "keyword": "어린이날 선물 추천 초등학생 여자아이",
+      "slug": "childrens-day-gift-elementary-girl",
+      "receiver": "아이",
+      "occasion": "어린이날",
+      "category": "시즌",
+      "season": "5",
+      "priority": 2,
+      "intent": "피크 4월 말, 발행 3월 말. '만들기/슬라임/인형 + 디지털(키즈워치) + 저학년/고학년' 리스트.",
+      "productKeywords": [
+        "실바니안",
+        "슬라임 키트",
+        "만들기 세트",
+        "인형",
+        "키즈 스마트워치",
+        "폴라로이드 카메라",
+        "팔찌 만들기 키트"
+      ],
+      "status": "pending"
+    }
+  ]
+}

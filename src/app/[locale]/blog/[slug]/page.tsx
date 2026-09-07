@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
-import { getAllBlogSlugs, getBlogPostBySlug } from '@/data/blog';
+import { getAllBlogSlugs, getBlogPostBySlug, getRelatedPosts, getRelatedGiftPages } from '@/data/blog';
 import { localeUrl, pageAlternates, SITE_URL } from '@/lib/seo';
+import type { RelatedPostItem } from '@/components/RelatedPosts';
 import BlogPostClient from './BlogPostClient';
 
 export function generateStaticParams() {
@@ -53,6 +54,12 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
     };
 }
 
+/** 포스트 JSON 의 선택적 "faq": [{ q, a }] 배열 (로케일별 또는 최상위) */
+function extractFaq(post: any, localData: any): { q: string; a: string }[] {
+    const raw = Array.isArray(localData?.faq) ? localData.faq : Array.isArray(post?.faq) ? post.faq : [];
+    return raw.filter((item: any) => item && typeof item.q === 'string' && typeof item.a === 'string');
+}
+
 export default async function BlogPostPage({ params }: any) {
     const { locale, slug } = await params;
     setRequestLocale(locale);
@@ -64,6 +71,19 @@ export default async function BlogPostPage({ params }: any) {
 
     const localData = typeof post[locale] === 'object' && post[locale] !== null ? post[locale] : post.ko;
     const image = typeof post.image === 'string' && post.image.startsWith('http') ? post.image : undefined;
+
+    // 내부 링크: 관련 글 + 관련 /gift 가이드 (서버에서 계산해 직렬화 가능한 형태로 전달)
+    const relatedPosts: RelatedPostItem[] = getRelatedPosts(slug, locale, 4).map((related) => {
+        const data = typeof related[locale] === 'object' && related[locale] !== null ? related[locale] : related.ko;
+        return {
+            id: related.id,
+            title: data?.title || related.id,
+            excerpt: data?.excerpt || '',
+            image: related.image || '',
+            date: related.date || '',
+        };
+    });
+    const relatedGiftPages = getRelatedGiftPages(post, locale, 3);
 
     // BlogPosting + BreadcrumbList 구조화 데이터 (구글 검색 리치 결과용)
     const blogPostingData = {
@@ -112,6 +132,21 @@ export default async function BlogPostPage({ params }: any) {
         ],
     };
 
+    // 선택적 FAQ → FAQPage 구조화 데이터
+    const faq = extractFaq(post, localData);
+    const faqData = faq.length > 0 ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faq.map((item) => ({
+            '@type': 'Question',
+            name: item.q,
+            acceptedAnswer: {
+                '@type': 'Answer',
+                text: item.a,
+            },
+        })),
+    } : null;
+
     return (
         <>
             <script
@@ -122,7 +157,18 @@ export default async function BlogPostPage({ params }: any) {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
             />
-            <BlogPostClient locale={locale} post={post} />
+            {faqData && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(faqData) }}
+                />
+            )}
+            <BlogPostClient
+                locale={locale}
+                post={post}
+                relatedPosts={relatedPosts}
+                relatedGiftPages={relatedGiftPages}
+            />
         </>
     );
 }

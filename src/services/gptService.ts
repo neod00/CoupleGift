@@ -1,13 +1,83 @@
-import { GiftFormData, GiftRecommendation, GPTResponse } from '../types/gift';
+/**
+ * 브라우저에서 실행되는 추천 서비스.
+ *
+ * 서버(/api/recommendations)가 각 추천에 실제 쿠팡 상품(추적 링크, 실제 이미지, 실제 가격)을 붙여
+ * 돌려주므로 여기서는 그 값을 우선 사용하고, 서버가 채우지 못한 항목(구버전 응답, 매칭 실패)에만
+ * 카테고리 기반 대체 이미지와 쿠팡 검색 링크를 채운다.
+ *
+ * 주의: 이 파일은 클라이언트 번들에 포함된다. '@/lib/coupang/client' (Secret Key 사용) 를 절대 import 하지 말 것.
+ * 평점/리뷰 수는 실제 데이터가 있을 때만 채운다 — 임의의 값을 만들어 넣지 않는다.
+ */
+import type { CoupangProduct } from '@/lib/coupang/types';
+import { GiftFormData, GiftRecommendation, GiftLinkSource, GPTResponse } from '../types/gift';
 
 // API 호출을 Next.js API Route로 변경
 const API_FUNCTION_URL = '/api/recommendations';
 
+const isDev = process.env.NODE_ENV === 'development';
+
+/** 서버 응답 한 건 (필드가 일부 빠져 있을 수 있음) */
+interface ServerRecommendation {
+  id?: string | number;
+  title?: string;
+  description?: string;
+  price?: string;
+  estimatedPrice?: string;
+  category?: string;
+  searchKeyword?: string;
+  imageUrl?: string;
+  coupangUrl?: string;
+  products?: CoupangProduct[];
+  source?: GiftLinkSource;
+  rating?: number;
+  reviewCount?: number;
+}
+
+function isLinkSource(value: unknown): value is GiftLinkSource {
+  return value === 'api' || value === 'catalog' || value === 'fallback';
+}
+
+/** 서버 응답을 화면용 GiftRecommendation 으로 정규화 */
+function toGiftRecommendation(rec: ServerRecommendation, index: number): GiftRecommendation {
+  const title = (rec.title || '').trim() || `추천 선물 ${index + 1}`;
+  const category = (rec.category || '').trim() || '기타';
+  const searchKeyword = (rec.searchKeyword || '').trim() || title;
+  const products = Array.isArray(rec.products) ? rec.products.filter((p) => p && p.productUrl) : [];
+
+  // 서버가 붙인 실제 상품 값을 우선 사용. 없을 때만 클라이언트 폴백
+  const imageUrl = (rec.imageUrl || '').trim() || getStableImageUrl(category, title);
+  const coupangUrl = (rec.coupangUrl || '').trim() || generateCoupangSearchLink(searchKeyword);
+  const source: GiftLinkSource = isLinkSource(rec.source)
+    ? rec.source
+    : products.length > 0
+      ? 'catalog'
+      : 'fallback';
+
+  const gift: GiftRecommendation = {
+    id: rec.id !== undefined && rec.id !== null ? String(rec.id) : String(index + 1),
+    title,
+    description: (rec.description || '').trim(),
+    price: (rec.price || '').trim() || (rec.estimatedPrice || '').trim(),
+    imageUrl,
+    coupangUrl,
+    category,
+    searchKeyword,
+    source,
+  };
+
+  if (rec.estimatedPrice) gift.estimatedPrice = rec.estimatedPrice;
+  if (products.length > 0) gift.products = products;
+  // 평점/리뷰 수는 서버가 실제 값을 준 경우에만 그대로 전달 (허위 사회적 증거 금지)
+  if (typeof rec.rating === 'number' && Number.isFinite(rec.rating)) gift.rating = rec.rating;
+  if (typeof rec.reviewCount === 'number' && Number.isFinite(rec.reviewCount)) gift.reviewCount = rec.reviewCount;
+
+  return gift;
+}
+
 export const getGiftRecommendations = async (formData: GiftFormData): Promise<GPTResponse> => {
-  console.log('🚀 Netlify Function 호출 시작:', {
-    url: API_FUNCTION_URL,
-    environment: process.env.NODE_ENV
-  });
+  if (isDev) {
+    console.log('🚀 추천 API 호출 시작:', { url: API_FUNCTION_URL });
+  }
 
   try {
     const response = await fetch(API_FUNCTION_URL, {
@@ -15,22 +85,24 @@ export const getGiftRecommendations = async (formData: GiftFormData): Promise<GP
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formData)
+      body: JSON.stringify(formData),
     });
 
-    console.log('📡 Netlify Function 응답 상태:', {
-      status: response.status,
-      statusText: response.statusText,
-      ok: response.ok
-    });
+    if (isDev) {
+      console.log('📡 추천 API 응답 상태:', {
+        status: response.status,
+        statusText: response.statusText,
+        ok: response.ok,
+      });
+    }
 
     if (!response.ok) {
-      const errorData = await response.json().catch(() => response.text());
-      console.error('❌ Netlify Function 오류:', errorData);
+      const errorData = await response.json().catch(() => null);
+      console.error('❌ 추천 API 오류:', errorData);
       throw new Error('서버에서 추천을 받아오는 중 오류가 발생했습니다.');
     }
 
-    let parsedResponse;
+    let parsedResponse: { recommendations?: ServerRecommendation[] };
     try {
       parsedResponse = await response.json();
     } catch (error) {
@@ -38,37 +110,25 @@ export const getGiftRecommendations = async (formData: GiftFormData): Promise<GP
       throw new Error('서버 응답을 파싱할 수 없습니다.');
     }
 
-    console.log('✅ 서버로부터 성공적인 응답 받음:', parsedResponse);
+    const serverList = Array.isArray(parsedResponse?.recommendations) ? parsedResponse.recommendations : [];
+    const recommendations = serverList.map(toGiftRecommendation);
 
-    // 각 추천 상품에 대해 쿠팡 검색 링크 및 이미지 생성
-    const recommendationsWithLinks = parsedResponse.recommendations.map((rec: any, index: number) => {
-      const searchKeyword = rec.searchKeyword || rec.title;
-      const coupangUrl = generateCoupangSearchLink(searchKeyword);
-      const imageUrl = getStableImageUrl(rec.category, rec.title);
-
-      console.log(`🔍 추천 ${index + 1}:`, {
-        title: rec.title,
-        searchKeyword: searchKeyword,
-        coupangUrl: coupangUrl,
-        imageUrl: imageUrl
-      });
-
-      return {
-        id: rec.id,
-        title: rec.title,
-        description: rec.description,
-        price: rec.price,
-        imageUrl: imageUrl,
-        coupangUrl: coupangUrl,
-        category: rec.category,
-        rating: 4.5, // 기본 평점
-        reviewCount: Math.floor(Math.random() * 500) + 50 // 랜덤 리뷰 수
-      };
-    });
+    if (isDev) {
+      console.log(
+        '✅ 추천 수신:',
+        recommendations.map((r) => ({
+          title: r.title,
+          source: r.source,
+          products: r.products?.length ?? 0,
+          coupangUrl: r.coupangUrl,
+        }))
+      );
+    }
 
     return {
-      recommendations: recommendationsWithLinks,
-      success: true
+      recommendations,
+      success: recommendations.length > 0,
+      ...(recommendations.length === 0 ? { error: '추천 결과가 비어 있습니다.' } : {}),
     };
   } catch (error) {
     console.error('💥 전체 API 호출 오류:', error);
@@ -77,14 +137,14 @@ export const getGiftRecommendations = async (formData: GiftFormData): Promise<GP
     return {
       recommendations: [],
       success: false,
-      error: error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다.'
+      error: error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다.',
     };
   }
 };
 
-// 더 안정적이고 다양한 이미지 URL 생성 함수
+// 실제 상품 이미지가 없을 때만 쓰는 카테고리 기반 대체 이미지 (Unsplash)
 const getStableImageUrl = (category: string, productTitle?: string): string => {
-  // 세부 키워드별 고품질 이미지 1:1 매칭 풀 (AI가 자주 추천하는 베스트셀러 위주)
+  // 세부 키워드별 이미지 1:1 매칭 풀 (AI가 자주 추천하는 베스트셀러 위주)
   const exactKeywordImages: { [key: string]: string[] } = {
     '조명': ['https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=400&h=300&fit=crop', 'https://images.unsplash.com/photo-1540932239986-30128078f3c5?w=400&h=300&fit=crop'],
     '무드등': ['https://images.unsplash.com/photo-1534346894562-b9b5a882d334?w=400&h=300&fit=crop'],
@@ -115,130 +175,107 @@ const getStableImageUrl = (category: string, productTitle?: string): string => {
     'IT기기': exactKeywordImages['이어폰'].concat(['https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop']),
     '패션': exactKeywordImages['가방'].concat(['https://images.unsplash.com/photo-1445205170230-053b83016050?w=400&h=300&fit=crop']),
     '생활용품': exactKeywordImages['텀블러'].concat(['https://images.unsplash.com/photo-1586880244386-8b3e34734ed8?w=400&h=300&fit=crop']),
-    '기본': ['https://images.unsplash.com/photo-1549465220-1d8c9d9c67cf?w=400&h=300&fit=crop']
+    '기본': ['https://images.unsplash.com/photo-1549465220-1d8c9d9c67cf?w=400&h=300&fit=crop'],
   };
 
   const title = (productTitle || '').toLowerCase();
-  
+
   // 1순위: 제품명(Title) 내 특정 키워드와 1:1 매칭 확인
   for (const [keyword, imageUrls] of Object.entries(exactKeywordImages)) {
     if (title.includes(keyword)) {
-      const imgUrl = imageUrls[Math.floor(Math.random() * imageUrls.length)];
-      console.log(`🖼️ 정확도 상승 매칭 완료: [키워드: ${keyword}] → ${imgUrl}`);
-      return imgUrl;
+      return imageUrls[Math.floor(Math.random() * imageUrls.length)];
     }
   }
 
   // 2순위: 카테고리 정규화 매칭
-  const normalizedCategory = category.toLowerCase().trim();
+  const normalizedCategory = (category || '').toLowerCase().trim();
   const categoryMappings: { [key: string]: string } = {
-    '액세서리': '액세서리', '악세서리': '액세서리', '쥬얼리': '액세서리', 
+    '액세서리': '액세서리', '악세서리': '액세서리', '쥬얼리': '액세서리',
     '뷰티': '뷰티', '화장품': '뷰티', '미용': '뷰티',
     '전자제품': 'IT기기', '전자': 'IT기기', 'it': 'IT기기',
     '패션': '패션', '의류': '패션',
-    '생활용품': '생활용품', '생활': '생활용품', '인테리어': '생활용품'
+    '생활용품': '생활용품', '생활': '생활용품', '인테리어': '생활용품',
   };
 
   const mappedCategory = categoryMappings[normalizedCategory] || '기본';
   const images = categoryImagePools[mappedCategory] || categoryImagePools['기본'];
-  
-  const selectedImage = images[Math.floor(Math.random() * images.length)];
-  console.log(`🖼️ 카테고리 매칭: [${category}] → ${mappedCategory}`);
-  return selectedImage;
+
+  return images[Math.floor(Math.random() * images.length)];
 };
 
-// 쿠팡 파트너스 검색 링크 생성 함수
-// lptag 파라미터를 사용하여 파트너스 추적 코드를 검색 URL에 삽입
+// 쿠팡 검색 링크 생성 함수 (서버가 링크를 주지 못했을 때만 사용하는 폴백)
 //
-// ⚠️ 주의: 이 lptag 방식은 쿠팡 파트너스의 공식 문서화된 추적 방법이 아닙니다.
-// 공식적으로 지원되는 방법은 딥링크 변환 API, 파트너스 단축링크(shortlink),
-// 또는 공식 위젯(iframe) 중 하나이며, 이 lptag 파라미터만으로는 클릭/구매가
-// 파트너스 계정에 정상적으로 추적·귀속되지 않을 수 있습니다. 즉, 현재 방식으로는
-// 실제 수수료가 집계되지 않을 가능성이 있습니다.
-// 운영자는 쿠팡 파트너스 콘솔에서 공식 딥링크 방식으로 전환하는 것을 검토해야 하며,
-// 자세한 내용은 MONETIZATION.md 문서를 참고하세요.
+// ⚠️ 주의: lptag 파라미터는 쿠팡 파트너스의 공식 문서화된 추적 방법이 아니며, 이 링크로 발생한
+// 구매는 파트너스 계정에 귀속되지 않을 수 있습니다. 실제 수수료가 잡히는 링크는 서버가
+// 파트너스 API/카탈로그에서 가져온 상품의 productUrl(추적 코드 포함) 입니다. MONETIZATION.md 참고.
 const generateCoupangSearchLink = (keyword: string): string => {
   const partnerId = process.env.NEXT_PUBLIC_COUPANG_PARTNER_ID;
   const encodedKeyword = encodeURIComponent(keyword);
-
-  if (process.env.NODE_ENV === 'development') {
-    console.log(`🔗 쿠팡 링크 생성: "${keyword}", 파트너ID: ${partnerId ? '설정됨' : '없음'}`);
-  }
 
   // 기본 쿠팡 검색 URL
   const baseSearchUrl = `https://www.coupang.com/np/search?component=&q=${encodedKeyword}&channel=user`;
 
   if (partnerId) {
-    // 파트너스 추적 파라미터(lptag) 추가
-    const partnerLink = `${baseSearchUrl}&lptag=${partnerId}`;
-    if (process.env.NODE_ENV === 'development') {
-      console.log(`✅ 파트너스 링크: ${partnerLink}`);
-    }
-    return partnerLink;
-  } else {
-    if (process.env.NODE_ENV === 'development') {
-      console.log(`⚠️ 직접 링크 (파트너 ID 없음): ${baseSearchUrl}`);
-    }
-    return baseSearchUrl;
+    return `${baseSearchUrl}&lptag=${partnerId}`;
   }
+  return baseSearchUrl;
 };
 
-// 더미 데이터 생성 함수 (개발/테스트 및 폴백용)
-export const getDummyRecommendations = async (formData: GiftFormData): Promise<GPTResponse> => {
-  console.log('🎭 더미 데이터 생성 중...');
-  await new Promise(resolve => setTimeout(resolve, 1500));
+// 더미 데이터 생성 함수 (개발/테스트 및 폴백용) — 평점/리뷰 수는 실제 값이 아니므로 넣지 않는다
+export const getDummyRecommendations = async (_formData: GiftFormData): Promise<GPTResponse> => {
+  if (isDev) console.log('🎭 더미 데이터 생성 중...');
+  await new Promise((resolve) => setTimeout(resolve, 1500));
 
-  const dummyRecommendations: GiftRecommendation[] = [
+  const dummyItems: Array<{ id: string; title: string; description: string; price: string; category: string; searchKeyword: string }> = [
     {
       id: '1',
       title: '커플 목걸이 세트',
       description: '사랑스러운 하트 모양의 커플 목걸이로 특별한 기념일을 축하하세요',
       price: '45,000원',
-      imageUrl: getStableImageUrl('액세서리'),
-      coupangUrl: generateCoupangSearchLink('커플 목걸이 세트'),
       category: '액세서리',
-      rating: 4.5,
-      reviewCount: 1284
+      searchKeyword: '커플 목걸이',
     },
     {
       id: '2',
       title: '프리미엄 향수 세트',
       description: '고급스러운 향으로 특별한 순간을 더욱 기억에 남게 만드는 향수',
       price: '89,000원',
-      imageUrl: getStableImageUrl('향수'),
-      coupangUrl: generateCoupangSearchLink('프리미엄 향수 세트'),
       category: '향수',
-      rating: 4.3,
-      reviewCount: 567
+      searchKeyword: '향수 세트',
     },
     {
       id: '3',
       title: '무선 블루투스 이어폰',
       description: '고음질 사운드로 함께 음악을 즐길 수 있는 스타일리시한 이어폰',
       price: '129,000원',
-      imageUrl: getStableImageUrl('전자제품'),
-      coupangUrl: generateCoupangSearchLink('무선 블루투스 이어폰'),
       category: '전자제품',
-      rating: 4.6,
-      reviewCount: 2341
+      searchKeyword: '무선 이어폰',
     },
     {
       id: '4',
       title: '로맨틱 꽃다발',
       description: '신선한 장미와 계절 꽃으로 구성된 아름다운 꽃다발',
       price: '35,000원',
-      imageUrl: getStableImageUrl('꽃'),
-      coupangUrl: generateCoupangSearchLink('로맨틱 꽃다발'),
       category: '꽃',
-      rating: 4.4,
-      reviewCount: 892
-    }
+      searchKeyword: '꽃다발',
+    },
   ];
 
-  console.log('✅ 더미 데이터 생성 완료:', dummyRecommendations.length, '개 아이템');
+  const dummyRecommendations: GiftRecommendation[] = dummyItems.map((item) => ({
+    id: item.id,
+    title: item.title,
+    description: item.description,
+    price: item.price,
+    estimatedPrice: item.price,
+    imageUrl: getStableImageUrl(item.category, item.title),
+    coupangUrl: generateCoupangSearchLink(item.searchKeyword),
+    category: item.category,
+    searchKeyword: item.searchKeyword,
+    source: 'fallback',
+  }));
 
   return {
     recommendations: dummyRecommendations,
-    success: true
+    success: true,
   };
-}; 
+};
