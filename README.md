@@ -47,8 +47,10 @@ GPT가 당신의 입력을 바탕으로 딱 맞는 선물을 추천해드립니�
 # 필수: OpenAI API 키 (서버 전용, API Route에서만 사용)
 OPENAI_API_KEY=sk-your_openai_api_key_here
 
-# 선택: 쿠팡 파트너스 ID (수익화, 클라이언트에 노출됨)
-NEXT_PUBLIC_COUPANG_PARTNER_ID=your_coupang_partner_id_here
+# 선택: 쿠팡 파트너스 Open API (서버 전용 — 절대 NEXT_PUBLIC_ 붙이지 말 것, 아래 "쿠팡 파트너스 API 키 발급" 참고)
+COUPANG_ACCESS_KEY=your_coupang_access_key_here
+COUPANG_SECRET_KEY=your_coupang_secret_key_here
+COUPANG_SUB_ID=your_registered_channel_id
 
 # 선택: Google AdSense Publisher ID
 NEXT_PUBLIC_ADSENSE_PUBLISHER_ID=ca-pub-your_publisher_id_here
@@ -73,8 +75,14 @@ Netlify 대시보드에서 환경변수 설정:
 키: OPENAI_API_KEY
 값: sk-your_openai_api_key_here
 
-키: NEXT_PUBLIC_COUPANG_PARTNER_ID
-값: your_coupang_partner_id_here
+키: COUPANG_ACCESS_KEY
+값: your_coupang_access_key_here
+
+키: COUPANG_SECRET_KEY
+값: your_coupang_secret_key_here
+
+키: COUPANG_SUB_ID
+값: your_registered_channel_id
 
 키: NEXT_PUBLIC_ADSENSE_PUBLISHER_ID
 값: ca-pub-your_publisher_id_here
@@ -96,6 +104,26 @@ Netlify 대시보드에서 환경변수 설정:
 ```
 
 > 💰 광고 슬롯 발급, 수익화 전략, 쿠팡 파트너스 연동 방식에 대한 자세한 가이드는 [MONETIZATION.md](./MONETIZATION.md)를 참고하세요.
+
+### 쿠팡 파트너스 API 키 발급
+
+상품 카드(실제 이미지·가격·추적 링크)는 쿠팡 파트너스 Open API 로 미리 받아둔 `src/data/coupang/products.json` 카탈로그에서 그려집니다.
+
+1. **활성 파트너스 계정이 필요합니다.** API 키는 [partners.coupang.com](https://partners.coupang.com) 에서 **최종 승인**(누적 실적 약 15만 원 + 채널 URL 등록 + 활동 캡처)을 받은 뒤에만 발급됩니다. 그 전에는 키 없이도 사이트는 정상 동작하며(일반 검색 링크로 폴백) 카탈로그 수집만 건너뜁니다.
+2. partners.coupang.com → **링크 생성 → API 키 발급**(도움말 › Open API) 에서 **Access Key / Secret Key** 를 발급받습니다.
+3. **채널 아이디 관리**에서 채널 ID 를 하나 만들고(예: `giftgenie-web`, 영문/숫자/`-`/`_`) 그 값을 `COUPANG_SUB_ID` 로 씁니다. 등록되지 않은 subId 로 만든 링크는 정산에서 제외됩니다.
+4. 환경변수 등록 — 서버 전용이므로 `NEXT_PUBLIC_` 접두사를 붙이면 안 됩니다.
+   - 로컬: `.env.local` 에 `COUPANG_ACCESS_KEY`, `COUPANG_SECRET_KEY`, `COUPANG_SUB_ID`
+   - GitHub → Settings → Secrets and variables → Actions 에 같은 이름으로 등록 (주간 카탈로그 수집 워크플로가 사용)
+   - Netlify 환경변수에도 등록하면 카탈로그에 없는 키워드에 한해 `/api/coupang/products` 가 라이브 검색을 수행합니다 (선택)
+5. 검증
+   ```bash
+   npx tsx scripts/check-coupang-signature.ts        # HMAC 서명이 기준값과 일치하는지 (네트워크 없음)
+   npx tsx scripts/fetch-coupang-products.ts --dry-run # 어떤 키워드를 조회할지 미리 보기
+   npx tsx scripts/fetch-coupang-products.ts --limit 10 # 실제 수집 (products.json 갱신)
+   ```
+
+> ⚠️ 검색 API 는 문서상 분당 50회지만 실제로는 **시간당 10회 안팎의 숨은 제한**이 보고되며, 3회 위반 시 계정이 정지될 수 있습니다. 수집 스크립트는 429 를 받으면 즉시 멈추고 재시도하지 않습니다. 빌드나 페이지 요청 중에는 API 를 호출하지 마세요.
 
 ## 🚀 설치 및 실행
 

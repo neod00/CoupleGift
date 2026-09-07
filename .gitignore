@@ -33,3 +33,4 @@ Thumbs.db
 # AI Agent System
 AGENTS.md
 directives/
+tsconfig.tsbuildinfo

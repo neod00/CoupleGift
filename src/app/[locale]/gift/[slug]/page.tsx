@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import { findPageBySlug, generatePopularPages, genders, ageGroups, occasions, budgets } from '@/data/giftPages';
+import { getPostsForGiftPage } from '@/data/blog';
+import type { RelatedPostItem } from '@/components/RelatedPosts';
 import GiftPageClient from './GiftPageClient';
 
 // 정적 파라미터 생성 (빌드 시 인기 페이지만 미리 생성)
@@ -66,6 +68,18 @@ export default async function GiftPage({ params }: any) {
     notFound();
   }
 
+  // 내부 링크: 이 조합(성별/기념일/나이대)에 어울리는 블로그 글 (서버에서 계산)
+  const relatedPosts: RelatedPostItem[] = getPostsForGiftPage(page, 4).map((post) => {
+    const data = typeof post[locale] === 'object' && post[locale] !== null ? post[locale] : post.ko;
+    return {
+      id: post.id,
+      title: data?.title || post.id,
+      excerpt: data?.excerpt || '',
+      image: post.image || '',
+      date: post.date || '',
+    };
+  });
+
   // 구조화 데이터 (FAQ + BreadcrumbList)
   const gender = genders.find(g => g.id === page.gender);
   const age = ageGroups.find(a => a.id === page.ageGroup);
@@ -123,7 +137,7 @@ export default async function GiftPage({ params }: any) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
       />
-      <GiftPageClient page={page} locale={locale} />
+      <GiftPageClient page={page} locale={locale} relatedPosts={relatedPosts} />
     </>
   );
 }
