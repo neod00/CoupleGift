@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from '@/i18n/navigation';
 import AdSense from '@/components/AdSense';
 import CoupangDynamicBanner from '@/components/CoupangDynamicBanner';
@@ -77,6 +77,23 @@ export default function BlogListClient({ locale, posts }: BlogListClientProps) {
 
     const c = content[locale as keyof typeof content] || content.ko;
 
+    // 카테고리는 하드코딩 목록 대신 실제 글에서 도출 (글이 없는 카테고리 버튼 방지)
+    const allLabel = c.categories[0];
+    const categories = [allLabel, ...Array.from(new Set(blogPosts.map(p => p.category).filter(Boolean)))];
+    const [selectedCategory, setSelectedCategory] = useState<string>(allLabel);
+    const [query, setQuery] = useState<string>('');
+
+    const normalizedQuery = query.replace(/\s+/g, '').toLowerCase();
+    const visiblePosts = blogPosts.filter(post => {
+        if (selectedCategory !== allLabel && post.category !== selectedCategory) return false;
+        if (!normalizedQuery) return true;
+        const haystack = `${post.title}${post.excerpt}${post.category}`.replace(/\s+/g, '').toLowerCase();
+        return haystack.includes(normalizedQuery);
+    });
+
+    const noResultText = locale === 'ko' ? '조건에 맞는 글이 없습니다.' : locale === 'ja' ? '該当する記事がありません。' : 'No posts match.';
+    const clearText = locale === 'ko' ? '필터 초기화' : locale === 'ja' ? 'フィルターをリセット' : 'Clear filters';
+
     return (
         <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12 fade-in">
@@ -90,10 +107,13 @@ export default function BlogListClient({ locale, posts }: BlogListClientProps) {
 
             <div className="glass-card mb-8 fade-in">
                 <div className="flex flex-wrap justify-center gap-4 p-4">
-                    {c.categories.map((category) => (
+                    {categories.map((category) => (
                         <button
                             key={category}
-                            className="px-4 py-2 rounded-lg bg-white/20 text-[var(--text-main)] hover:bg-white/30 transition-all duration-300"
+                            type="button"
+                            aria-pressed={selectedCategory === category}
+                            onClick={() => setSelectedCategory(category)}
+                            className={`px-4 py-2 rounded-lg transition-all duration-300 ${selectedCategory === category ? 'bg-white/40 text-[var(--text-main)] font-semibold' : 'bg-white/20 text-[var(--text-main)] hover:bg-white/30'}`}
                         >
                             {category}
                         </button>
@@ -101,9 +121,25 @@ export default function BlogListClient({ locale, posts }: BlogListClientProps) {
                 </div>
             </div>
 
+            {visiblePosts.length === 0 && (
+                <div className="glass-card text-center py-12 mb-12 fade-in">
+                    <p className="text-[var(--text-main-70)] mb-4">{noResultText}</p>
+                    <button type="button" className="btn-primary" onClick={() => { setSelectedCategory(allLabel); setQuery(''); }}>
+                        {clearText}
+                    </button>
+                </div>
+            )}
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-                {blogPosts.map((post) => (
-                    <article key={post.id} className="glass-card hover:scale-105 transition-transform duration-300 fade-in">
+                {visiblePosts.map((post, index) => (
+                    <React.Fragment key={post.id}>
+                    {/* 목록 중간 광고: 6번째 글 뒤에 한 줄 전체 폭으로 삽입 */}
+                    {index === 6 && (
+                        <div className="col-span-full">
+                            <AdSense adFormat="auto" className="my-2" />
+                        </div>
+                    )}
+                    <article className="glass-card hover:scale-105 transition-transform duration-300 fade-in">
                         <Link href={`/blog/${post.id}`} className="block">
                             <div className="text-center mb-4">
                                 {post.image.startsWith('http') ? (
@@ -137,6 +173,7 @@ export default function BlogListClient({ locale, posts }: BlogListClientProps) {
                             </div>
                         </Link>
                     </article>
+                    </React.Fragment>
                 ))}
             </div>
 
@@ -146,12 +183,15 @@ export default function BlogListClient({ locale, posts }: BlogListClientProps) {
                 </h3>
                 <div className="flex flex-wrap justify-center gap-3">
                     {c.tags.map((tag) => (
-                        <span
+                        <button
                             key={tag}
-                            className="bg-white/20 text-[var(--text-main-90)] px-3 py-1 rounded-full text-sm hover:bg-white/30 hover:text-[var(--text-main)] transition-all cursor-pointer font-medium"
+                            type="button"
+                            aria-pressed={query === tag}
+                            onClick={() => { setQuery(query === tag ? '' : tag); setSelectedCategory(allLabel); }}
+                            className={`px-3 py-1 rounded-full text-sm transition-all font-medium ${query === tag ? 'bg-white/40 text-[var(--text-main)]' : 'bg-white/20 text-[var(--text-main-90)] hover:bg-white/30 hover:text-[var(--text-main)]'}`}
                         >
                             #{tag}
-                        </span>
+                        </button>
                     ))}
                 </div>
             </div>
