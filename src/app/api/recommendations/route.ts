@@ -20,6 +20,7 @@ import {
   buildCoupangSearchFallbackUrl,
 } from '@/lib/coupang/client';
 import { getProductsForKeyword, getProductsForText } from '@/lib/coupang/catalog';
+import { buildCuratedPromptList, curatedToProduct, getCuratedById } from '@/lib/coupang/curated';
 
 // 요청 본문을 읽고 외부 API 를 호출하므로 항상 동적. sign.ts 가 Node crypto 를 쓰므로 nodejs 런타임.
 export const dynamic = 'force-dynamic';
@@ -33,7 +34,7 @@ const MAX_LIVE_API_CALLS_PER_REQUEST = 4;
 const OPENAI_TIMEOUT_MS = 20_000;
 const KEYWORD_MAX_LENGTH = 50;
 
-type LinkSource = 'api' | 'catalog' | 'fallback';
+type LinkSource = 'curated' | 'api' | 'catalog' | 'fallback';
 
 /** 모델이 돌려준 원본 형태 (필드가 빠지거나 타입이 다를 수 있음) */
 interface RawRecommendation {
@@ -43,6 +44,8 @@ interface RawRecommendation {
   price?: string | number;
   category?: string;
   searchKeyword?: string;
+  /** 직접 고른 상품 목록(curated.json)에서 모델이 고른 상품 id */
+  curatedId?: string | null;
 }
 
 interface EnrichedRecommendation {
@@ -53,6 +56,7 @@ interface EnrichedRecommendation {
   estimatedPrice: string;
   category: string;
   searchKeyword: string;
+  curatedId: string;
   imageUrl: string;
   coupangUrl: string;
   products: CoupangProduct[];
@@ -90,6 +94,7 @@ function normalizeRecommendation(raw: RawRecommendation | null | undefined, inde
     estimatedPrice: asString(raw?.price),
     category: asString(raw?.category, '기타'),
     searchKeyword: keyword,
+    curatedId: asString(raw?.curatedId),
   };
 }
 
@@ -167,9 +172,26 @@ function toFallback(base: ReturnType<typeof normalizeRecommendation>): EnrichedR
 async function enrichRecommendations(rawList: RawRecommendation[]): Promise<EnrichedRecommendation[]> {
   const bases = rawList.map((raw, index) => normalizeRecommendation(raw, index));
   const resolve = createProductResolver();
+  // 같은 등록 상품이 두 카드에 걸리지 않도록 먼저 고른 쪽에만 준다
+  const usedCuratedIds = new Set<string>();
 
   const settled = await Promise.allSettled(
     bases.map(async (base): Promise<EnrichedRecommendation> => {
+      // 1순위: 직접 고른 파트너스 간편링크 상품 (모델이 목록에 없는 id 를 지어내도 getCuratedById 가 걸러낸다)
+      const curated = getCuratedById(base.curatedId);
+      if (curated && !usedCuratedIds.has(curated.id)) {
+        usedCuratedIds.add(curated.id);
+        const product = curatedToProduct(curated);
+        return {
+          ...base,
+          price: product.productPrice > 0 ? formatKrw(product.productPrice) : base.estimatedPrice,
+          imageUrl: product.productImage,
+          coupangUrl: product.productUrl,
+          products: [product],
+          source: 'curated',
+        };
+      }
+
       const { products, source } = await resolve(base.searchKeyword);
       const top = products[0];
       if (!top) return toFallback(base);
@@ -253,6 +275,15 @@ export async function POST(request: Request) {
     const minBudget = asNumber(formData.minBudget, 0);
     const maxBudget = asNumber(formData.maxBudget, 0);
 
+    // 직접 고른 파트너스 상품 목록 — 예산에 맞는 후보가 있을 때만 프롬프트에 절을 추가한다
+    const curatedList = buildCuratedPromptList(minBudget, maxBudget);
+    const curatedSection = curatedList
+      ? `
+등록 상품 목록 (id | 상품명 | 카테고리 | 가격):
+${curatedList}
+`
+      : '';
+
     const prompt = `
 당신은 커플 기념일 선물 추천 전문가입니다. 다음 정보를 바탕으로 3-4개의 선물을 추천해주세요.
 
@@ -264,7 +295,7 @@ export async function POST(request: Request) {
 - 예산: ${minBudget.toLocaleString('ko-KR')}원 ~ ${maxBudget.toLocaleString('ko-KR')}원
 - 선호 카테고리: ${asString(formData.category, '전체')}
 - 추가 정보: ${asString(formData.additionalInfo, '없음')}
-
+${curatedSection}
 다음 JSON 형식으로 정확히 답변해주세요:
 {
   "recommendations": [
@@ -274,7 +305,8 @@ export async function POST(request: Request) {
       "description": "선물에 대한 간단한 설명 (50자 이내)",
       "price": "예상 가격 (예: 59,000원)",
       "category": "카테고리",
-      "searchKeyword": "쿠팡 검색용 키워드 (구체적이고 간단하게)"
+      "searchKeyword": "쿠팡 검색용 키워드 (구체적이고 간단하게)",
+      "curatedId": "등록 상품 목록에서 고른 id, 어울리는 상품이 없으면 null"
     }
   ]
 }
@@ -284,7 +316,7 @@ export async function POST(request: Request) {
 - 성별, 나이, 성격을 고려한 맞춤형 추천
 - 기념일 특성에 맞는 의미있는 선물 제안
 - searchKeyword는 쿠팡에서 실제 검색 가능한 단순한 키워드로 작성 (예: "커플 목걸이", "무선 이어폰", "향수")
-- JSON 형식을 정확히 지켜주세요
+${curatedList ? '- 등록 상품 목록에 상대방에게 어울리는 상품이 있으면 그 id 를 curatedId 에 넣고, 해당 상품 기준으로 title 과 description 을 쓰세요. 목록에 없는 id 를 지어내지 말고, 억지로 맞추지 말고 어울리는 것이 없으면 null 로 두세요\n' : ''}- JSON 형식을 정확히 지켜주세요
 `;
 
     const requestBody = {

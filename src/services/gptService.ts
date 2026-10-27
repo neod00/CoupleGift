@@ -34,7 +34,7 @@ interface ServerRecommendation {
 }
 
 function isLinkSource(value: unknown): value is GiftLinkSource {
-  return value === 'api' || value === 'catalog' || value === 'fallback';
+  return value === 'curated' || value === 'api' || value === 'catalog' || value === 'fallback';
 }
 
 /** 서버 응답을 화면용 GiftRecommendation 으로 정규화 */
