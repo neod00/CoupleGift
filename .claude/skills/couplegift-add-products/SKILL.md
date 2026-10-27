@@ -1,6 +1,6 @@
 ---
 name: couplegift-add-products
-description: CoupleGift 선물 추천에 쓸 쿠팡 상품을 골라 파트너스 간편링크를 직접 만들고 src/data/coupang/curated.json 에 추가한다. "선물 상품 20개 추가해줘", "추천 상품 링크 보충", "큐레이션 목록 늘려줘" 같은 요청에 쓴다. 사용자 Chrome 에 쿠팡 파트너스가 로그인돼 있어야 한다.
+description: CoupleGift 선물 추천에 쓸 쿠팡 상품을 골라 파트너스 간편링크를 직접 만들고 src/data/coupang/curated.json 에 추가한다. "선물 상품 20개 추가해줘", "추천 상품 링크 보충", "큐레이션 목록 늘려줘" 같은 요청에 쓴다. 사용자 PC 의 로컬 Claude Code 에서 Playwright MCP 브라우저로 쿠팡 파트너스에 로그인한 상태여야 한다.
 ---
 
 # 선물 상품 추가 (쿠팡 파트너스 링크 생성)
@@ -8,9 +8,11 @@ description: CoupleGift 선물 추천에 쓸 쿠팡 상품을 골라 파트너�
 파트너스 API 는 최종 승인 전이라 못 쓴다. 그래서 파트너스 사이트에서 간편링크를 만들어 `src/data/coupang/curated.json` 에 넣어 두고, 추천 API(`src/app/api/recommendations/route.ts`)가 이 목록에서 모델이 고른 상품에 그 링크를 건다. 목록에 없는 선물은 지금처럼 쿠팡 검색 링크(수수료 없음)로 나가므로, 목록이 넓을수록 수익 링크 비율이 올라간다. 이 스킬은 `threads-coupas` 저장소의 `threads-add-products` 스킬을 CoupleGift 용으로 옮긴 것이다.
 
 ## 0. 할 수 있는 환경인지 먼저 확인
-- 링크는 **사용자 Chrome 의 쿠팡 파트너스 로그인 세션**으로만 만든다. `chrome-browser` 스킬을 먼저 읽고 Claude in Chrome 도구(`mcp__claude-in-chrome__*`)를 불러온다.
-- 브라우저 도구가 없으면 (클라우드 세션 등): 링크를 지어내지 않는다. 고를 상품 종류·검색어 목록만 만들어 주고, "데스크톱 앱에서 Chrome 을 연결한 세션으로 다시 요청하거나, 링크를 직접 만들어 `카테고리 | 상품명 | https://link.coupang.com/a/...` 형식으로 보내 달라"고 안내한다.
-- 로그인이 안 돼 있으면 사용자에게 로그인을 부탁하고 기다린다. 비밀번호를 대신 입력하지 않는다.
+- 링크는 **사용자 PC 에서 돌리는 로컬 Claude Code + Playwright MCP 브라우저**로 만든다. threads-coupas 에서 sabol.kka 상품을 넣을 때(2026-10-18, 10-25 로컬 커밋)와 같은 방식이다 — 그 저장소 `.gitignore` 의 `.playwright-mcp/` 가 그 흔적. 파트너스 API 는 최종 승인 전이라 못 쓴다.
+- `mcp__playwright__*` 도구(`browser_navigate`, `browser_snapshot`, `browser_click`, `browser_evaluate` 등)가 보이면 준비된 것이다. 없으면 사용자에게 Playwright MCP 를 등록해 달라고 안내한다 (예: `claude mcp add playwright -- npx @playwright/mcp@latest`). 등록은 사용자가 직접 한다.
+- Playwright MCP 는 기본으로 전용 브라우저 프로필을 유지하므로, **처음 한 번만** 사용자가 열린 창에서 partners.coupang.com 에 직접 로그인하면 다음부터는 로그인 상태가 남는다. 로그인 화면이 보이면 사용자에게 로그인을 부탁하고 기다린다. 비밀번호를 대신 입력하지 않는다.
+- Claude 데스크톱 앱의 Claude in Chrome(`mcp__claude-in-chrome__*`)이 연결돼 있으면 그것으로 해도 절차는 같다.
+- 클라우드 세션(claude.ai/code)에서는 쿠팡 도메인 접속이 프록시에서 막히고 브라우저 로그인도 할 수 없다: 링크를 지어내지 않는다. 고를 상품 종류·검색어 목록만 만들어 주고, "PC 에서 이 저장소를 열고 로컬 Claude Code 로 다시 요청하거나, 링크를 직접 만들어 `카테고리 | 상품명 | https://link.coupang.com/a/...` 형식으로 보내 달라"고 안내한다.
 
 ## 1. 몇 개, 무엇을 고를지
 - **개수:** 요청한 만큼. 정해지지 않았으면 카테고리마다 3~5개씩 (총 20~30개). 현재 `curated.json` 을 먼저 읽어 이미 있는 상품·카테고리와 겹치지 않게 한다.
@@ -21,11 +23,11 @@ description: CoupleGift 선물 추천에 쓸 쿠팡 상품을 골라 파트너�
   - 후기 많은 대표 상품, 판매 종료·품절 아님, 이미지가 깨끗한 상품
   - 성별을 가리지 않는 것과 한쪽에 맞춘 것을 섞고, 맞춘 것은 `note` 에 "여성용"처럼 적는다
 
-## 2. 링크 만들기 (Chrome)
-1. `https://partners.coupang.com/#affiliate/ws/link/0/<검색어>` 로 검색한다 (검색어는 URL 인코딩).
+## 2. 링크 만들기 (Playwright MCP 브라우저)
+1. `browser_navigate` 로 `https://partners.coupang.com/#affiliate/ws/link/0/<검색어>` 를 연다 (검색어는 URL 인코딩). `browser_snapshot` 으로 상품 목록을 읽는다.
 2. 기준에 맞는 상품을 고르고, 그 상품의 링크 생성 버튼(`.btn-generate-link`)을 누른다.
 3. 페이지에 나타난 `https://link.coupang.com/a/...` 와 상품명, 판매가, 상품 이미지 주소(https)를 읽는다.
-4. 여러 개를 한 번에 돌릴 때: **JS 반복문은 비동기로 시작하고 결과를 폴링**한다 (한 번의 JS 실행은 45초 제한). 반복문을 겹쳐 실행하면 결과가 섞이니, 하나가 끝난 뒤 다음을 시작한다.
+4. 여러 개를 한 번에 돌릴 때: `browser_evaluate` 로 **JS 반복문을 비동기로 시작하고 결과를 폴링**한다 (한 번의 JS 실행에는 시간 제한이 있다 — threads-coupas 에서는 45초). 반복문을 겹쳐 실행하면 결과가 섞이니, 하나가 끝난 뒤 다음을 시작한다.
 5. 같은 상품에 링크를 두 번 만들지 않는다. 링크에 직접 접속하거나 `curl` 로 확인하지 않는다 (가짜 클릭으로 잡힌다).
 
 ## 3. 사용자 승인 (등록 전에 반드시)

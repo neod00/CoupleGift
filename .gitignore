@@ -34,3 +34,6 @@ Thumbs.db
 AGENTS.md
 directives/
 tsconfig.tsbuildinfo
+
+# Playwright MCP 산출물 (스냅샷·스크린샷)
+.playwright-mcp/
