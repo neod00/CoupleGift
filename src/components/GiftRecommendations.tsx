@@ -20,7 +20,7 @@ const AFFILIATE_DISCLOSURE_EN = 'As a Coupang/Amazon associate, we earn from qua
 
 /** 실제 상품이 매칭된 추천인지 (링크가 파트너스 추적 상품 URL 인지) */
 function hasRealProduct(gift: GiftRecommendation): boolean {
-  return gift.source === 'api' || gift.source === 'catalog';
+  return gift.source === 'curated' || gift.source === 'api' || gift.source === 'catalog';
 }
 
 /** 이미지가 없을 때 대체 박스에 띄울 카테고리 이모지 */
@@ -103,7 +103,8 @@ const GiftRecommendations: React.FC<GiftRecommendationsProps> = ({
   };
 
   const priceNote = (gift: GiftRecommendation): string => {
-    if (hasRealProduct(gift)) {
+    // 등록 상품은 가격을 모를 수 있다 — 그때는 모델의 예상 가격이므로 AI 예상 가격으로 표기
+    if (hasRealProduct(gift) && (gift.products?.[0]?.productPrice ?? 0) > 0) {
       return isKo ? '쿠팡 판매가 · 변동될 수 있음' : locale === 'ja' ? '参考価格（変動あり）' : 'Reference price (may change)';
     }
     return isKo ? 'AI 예상 가격' : locale === 'ja' ? 'AI予想価格' : 'AI estimated price';

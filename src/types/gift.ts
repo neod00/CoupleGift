@@ -13,11 +13,12 @@ export interface GiftFormData {
 
 /**
  * 추천 카드의 링크/이미지/가격 출처
+ * - 'curated'  : 직접 고른 파트너스 간편링크 상품 (src/data/coupang/curated.json)
  * - 'api'      : 요청 시점에 쿠팡 파트너스 API 로 검색한 실제 상품 (추적 링크)
  * - 'catalog'  : 빌드 타임 카탈로그(src/data/coupang/products.json)의 실제 상품 (추적 링크)
  * - 'fallback' : 매칭 상품 없음 → 쿠팡 일반 검색 URL + 대체 이미지
  */
-export type GiftLinkSource = 'api' | 'catalog' | 'fallback';
+export type GiftLinkSource = 'curated' | 'api' | 'catalog' | 'fallback';
 
 export interface GiftRecommendation {
   id: string;
