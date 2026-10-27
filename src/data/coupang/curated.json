@@ -1,4 +1,185 @@
 {
-  "updatedAt": "",
-  "items": []
+  "updatedAt": "2026-10-28",
+  "items": [
+    {
+      "id": "g001",
+      "name": "로이드 여성용 실버925 트리플 레이어 이터니티 커플 우정링 + 쇼핑백",
+      "category": "액세서리",
+      "link": "https://link.coupang.com/a/ib4GLTaPe0",
+      "price": 130380,
+      "image": "https://thumbnail2.coupangcdn.com/thumbnails/remote/212x212ex/image/retail/images/2026/10/13/15/0/673df979-9c97-45e2-a5c7-0f264348bb6a.jpg",
+      "note": "여성용, 10만원대 실버 커플링, 남성용(g002)과 세트 추천"
+    },
+    {
+      "id": "g002",
+      "name": "로이드 남성용 실버925 트리플 링크 이터니티 커플 우정링 + 쇼핑백",
+      "category": "액세서리",
+      "link": "https://link.coupang.com/a/ib4WkgPzB6",
+      "price": 116100,
+      "image": "https://t2c.coupangcdn.com/thumbnails/remote/212x212ex/image/retail/images/2026/10/13/15/7/22f5b842-a89b-43e3-86b3-9155884d063c.jpg",
+      "note": "남성용, g001과 커플 세트로 어울림"
+    },
+    {
+      "id": "g003",
+      "name": "누티르 살내음 커플 향수 2개 30ml",
+      "category": "향수·캔들",
+      "link": "https://link.coupang.com/a/ib4ZBVOvJI",
+      "price": 65900,
+      "image": "https://thumbnail5.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/a1f8/567db8ec566fa0d6959865a2ed6850108861a742146f26bbc3ede0e215df.jpg",
+      "note": "남녀 커플 향수 세트, 기념일 선물용"
+    },
+    {
+      "id": "g004",
+      "name": "양키캔들 자캔들 + 캔들워머 세트, 클린코튼 화이트",
+      "category": "리빙",
+      "link": "https://link.coupang.com/a/ib42pJAgh2",
+      "price": 44360,
+      "image": "https://thumbnail3.coupangcdn.com/thumbnails/remote/212x212ex/image/retail/images/288108062915950-0627ac9e-37a4-47a4-8058-413ee1b54190.jpg",
+      "note": "유명 브랜드 캔들 홈데코, 분위기 선물"
+    },
+    {
+      "id": "g005",
+      "name": "QCY 블루투스 이어폰 QCY-T13 화이트",
+      "category": "전자기기",
+      "link": "https://link.coupang.com/a/ib45OK3H0C",
+      "price": 22660,
+      "image": "https://t5c.coupangcdn.com/thumbnails/remote/212x212ex/image/retail/images/552038751270526-1c6ddfb7-dbb4-4994-81b9-1cb263377f76.jpg",
+      "note": "실용적인 가벼운 선물, 남녀공용"
+    },
+    {
+      "id": "g006",
+      "name": "크리스마스 미니 핸드크림 5종 선물세트",
+      "category": "뷰티",
+      "link": "https://link.coupang.com/a/ib48JjgEFh",
+      "price": 49800,
+      "image": "https://thumbnail8.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/07d4/b55636bd35f4db359fe729f987465d648eece14cc6f10549f3ed2f3aeffd.png",
+      "note": "여성용, 연말·기념일 선물세트"
+    },
+    {
+      "id": "g007",
+      "name": "차르미콜 커플 실내 슬리퍼 2켤레 세트",
+      "category": "패션·잡화",
+      "link": "https://link.coupang.com/a/ib5dyOUR1U",
+      "price": 12800,
+      "image": "https://thumbnail6.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/f22c/ef31081a9499dec1fa2263aca0b92046e3ed776fa84525c253820e505287.png",
+      "note": "커플 홈웨어, 가벼운 동거·신혼 선물"
+    },
+    {
+      "id": "g008",
+      "name": "집순이집돌이 커플머그컵 세트 화이트",
+      "category": "리빙",
+      "link": "https://link.coupang.com/a/ib5gfEfeOO",
+      "price": 17050,
+      "image": "https://thumbnail7.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/b268/b7dc65795e97abcd559b687cd5711508eafcb8c5f180d86948752a1779e2.jpg",
+      "note": "귀여운 커플 머그컵, 가벼운 선물"
+    },
+    {
+      "id": "g009",
+      "name": "페레로로쉐 초콜릿 꽃다발",
+      "category": "식품·디저트",
+      "link": "https://link.coupang.com/a/ib5jyFskBU",
+      "price": 20500,
+      "image": "https://thumbnail10.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/fc5e/9cef67ef5dcbec6cafe6d1cf61da72f63dcc00a68f39f48391f4a5c55b2b.png",
+      "note": "꽃+초콜릿, 기념일 이벤트용"
+    },
+    {
+      "id": "g010",
+      "name": "우리둘 커플문답 알콩달콩+오래오래 SET",
+      "category": "문구·도서",
+      "link": "https://link.coupang.com/a/ib5mlVyY1s",
+      "price": 17900,
+      "image": "https://thumbnail12.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/37a4/979a944dccd2cd51f321e02665d23751c1f2210057a5d76e02781e3ea88a.jpg",
+      "note": "커플 대화 소품, 추억 만들기용"
+    },
+    {
+      "id": "g011",
+      "name": "카시오 남성+여성 시계 + 패션팔찌 세트",
+      "category": "액세서리",
+      "link": "https://link.coupang.com/a/ib5phVm7HM",
+      "price": 79500,
+      "image": "https://t2a.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/image_audit/stage/manual/438c2235-4d53-4fda-9969-df505928b014_1780554400928.jpg",
+      "note": "유명 브랜드 커플 시계+팔찌 세트"
+    },
+    {
+      "id": "g012",
+      "name": "제이비엘 GO5 블루투스 스피커 블랙",
+      "category": "전자기기",
+      "link": "https://link.coupang.com/a/ib5sh6q5dI",
+      "price": 56900,
+      "image": "https://thumbnail3.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/baa7/b4ab061f5d84f8eb3a34be8f266fa7ca120733e0f0bc1c7ee6f53ffaf1e9.jpg",
+      "note": "유명 브랜드(JBL), 함께 듣는 음악 선물"
+    },
+    {
+      "id": "g013",
+      "name": "코어하임 캐시미어100 머플러 선물박스포함",
+      "category": "패션·잡화",
+      "link": "https://link.coupang.com/a/ib5vvq3U5s",
+      "price": 79000,
+      "image": "https://thumbnail1.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/9476/05b174c4525071ba207a23cfff8460af197b7fd0a59624d644efc8eb9391.jpg",
+      "note": "겨울 기념일 선물, 선물박스 포함"
+    },
+    {
+      "id": "g014",
+      "name": "그린데이 토끼 커플 인형 장식 2개 세트",
+      "category": "리빙",
+      "link": "https://link.coupang.com/a/ib5yGdWHnM",
+      "price": 32200,
+      "image": "https://thumbnail12.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/c220/576e087a9c9dc81e00d8d3a4040d1c5925c605bd5f3aa1b2cf378697bab7.jpg",
+      "note": "커플 인테리어 소품, 귀여운 분위기"
+    },
+    {
+      "id": "g015",
+      "name": "설화수 윤조마스크 5개입",
+      "category": "뷰티",
+      "link": "https://link.coupang.com/a/ib5BlRY2aO",
+      "price": 45360,
+      "image": "https://thumbnail13.coupangcdn.com/thumbnails/remote/212x212ex/image/retail/images/61516251055871-fd79e4e6-93b6-4679-a12d-13329d4326dd.jpg",
+      "note": "여성용, 프리미엄 브랜드 스킨케어"
+    },
+    {
+      "id": "g016",
+      "name": "고급 크리스탈 BRC 와인잔 2P 선물세트(레드+블랙)",
+      "category": "리빙",
+      "link": "https://link.coupang.com/a/ib5EhPQrjU",
+      "price": 104600,
+      "image": "https://t2c.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/d2c3/a95e6a5be380905dd9865a5bf5386e24eb860b8eaad262f64a0f8225ad89.jpg",
+      "note": "10만원대, 와인 데이트·기념일용"
+    },
+    {
+      "id": "g017",
+      "name": "나나엘르 925실버 로즈골드 커플 목걸이팔찌 세트",
+      "category": "액세서리",
+      "link": "https://link.coupang.com/a/ib5KyqUoOj",
+      "price": 40900,
+      "image": "https://thumbnail7.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/3dc2/889bdea36a8576f54a62b7b6c0184a8ac90a8a6dc77ee870a4aa3e07354b.png",
+      "note": "여성용 중심, 목걸이+팔찌 세트"
+    },
+    {
+      "id": "g018",
+      "name": "샤오미 미지아 1S 포켓 포토 프린터 + 인화지 50매",
+      "category": "전자기기",
+      "link": "https://link.coupang.com/a/ib5N1oi7ye",
+      "price": 90900,
+      "image": "https://thumbnail8.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/fa3b/bc37fbe5b04de176c39245820d0b82c6d0632aaa3d42924b084eb9a43772.jpg",
+      "note": "커플 사진 인화용, 추억 선물"
+    },
+    {
+      "id": "g019",
+      "name": "달꽃당 수제 화과자+무화과양갱 15구 세트",
+      "category": "식품·디저트",
+      "link": "https://link.coupang.com/a/ib5RATeMSq",
+      "price": 67610,
+      "image": "https://thumbnail11.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/8cc4/5e9c953f06c5b77a0da8e5a7b47bc81b9497c9efcc0922573493d462b810.jpg",
+      "note": "고급 수제 디저트 선물세트"
+    },
+    {
+      "id": "g020",
+      "name": "리드홈 로맨틱 편지지+봉투 선물 포장 세트",
+      "category": "문구·도서",
+      "link": "https://link.coupang.com/a/ib5UUxPpMO",
+      "price": 12900,
+      "image": "https://t3a.coupangcdn.com/thumbnails/remote/212x212ex/image/rs_quotation_api/usqcpcq6/7b63a2ac49f14befa3e2e830117a9d06.jpg",
+      "note": "손편지 선물 포장, 감성 선물"
+    }
+  ]
 }
