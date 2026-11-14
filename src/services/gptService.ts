@@ -2,13 +2,19 @@
  * 브라우저에서 실행되는 추천 서비스.
  *
  * 서버(/api/recommendations)가 각 추천에 실제 쿠팡 상품(추적 링크, 실제 이미지, 실제 가격)을 붙여
- * 돌려주므로 여기서는 그 값을 우선 사용하고, 서버가 채우지 못한 항목(구버전 응답, 매칭 실패)에만
- * 카테고리 기반 대체 이미지와 쿠팡 검색 링크를 채운다.
+ * 돌려주므로 여기서는 그 값을 우선 사용하고, 서버가 링크를 채우지 못한 항목(구버전 응답)은 가장 가까운
+ * 등록 상품(파트너스 간편링크)으로 바꾼다. 추적되지 않는 쿠팡 일반 검색 링크는 만들지 않는다.
  *
  * 주의: 이 파일은 클라이언트 번들에 포함된다. '@/lib/coupang/client' (Secret Key 사용) 를 절대 import 하지 말 것.
  * 평점/리뷰 수는 실제 데이터가 있을 때만 채운다 — 임의의 값을 만들어 넣지 않는다.
  */
 import type { CoupangProduct } from '@/lib/coupang/types';
+import {
+  PARTNERS_SEARCH_WIDGET_URL,
+  curatedToProduct,
+  pickClosestCurated,
+  type CuratedItem,
+} from '@/lib/coupang/curated';
 import { GiftFormData, GiftRecommendation, GiftLinkSource, GPTResponse } from '../types/gift';
 
 // API 호출을 Next.js API Route로 변경
@@ -44,9 +50,15 @@ function toGiftRecommendation(rec: ServerRecommendation, index: number): GiftRec
   const searchKeyword = (rec.searchKeyword || '').trim() || title;
   const products = Array.isArray(rec.products) ? rec.products.filter((p) => p && p.productUrl) : [];
 
+  // 서버가 링크를 주지 않은 항목(구버전 응답 등)은 가장 가까운 등록 상품 카드로 바꾼다
+  if (!(rec.coupangUrl || '').trim()) {
+    const substitute = pickClosestCurated({ text: `${title} ${searchKeyword} ${category}` });
+    if (substitute) return curatedToGift(substitute, String(rec.id ?? index + 1));
+  }
+
   // 서버가 붙인 실제 상품 값을 우선 사용. 없을 때만 클라이언트 폴백
   const imageUrl = (rec.imageUrl || '').trim() || getStableImageUrl(category, title);
-  const coupangUrl = (rec.coupangUrl || '').trim() || generateCoupangSearchLink(searchKeyword);
+  const coupangUrl = (rec.coupangUrl || '').trim() || PARTNERS_SEARCH_WIDGET_URL;
   const source: GiftLinkSource = isLinkSource(rec.source)
     ? rec.source
     : products.length > 0
@@ -203,79 +215,51 @@ const getStableImageUrl = (category: string, productTitle?: string): string => {
   return images[Math.floor(Math.random() * images.length)];
 };
 
-// 쿠팡 검색 링크 생성 함수 (서버가 링크를 주지 못했을 때만 사용하는 폴백)
-//
-// ⚠️ 주의: lptag 파라미터는 쿠팡 파트너스의 공식 문서화된 추적 방법이 아니며, 이 링크로 발생한
-// 구매는 파트너스 계정에 귀속되지 않을 수 있습니다. 실제 수수료가 잡히는 링크는 서버가
-// 파트너스 API/카탈로그에서 가져온 상품의 productUrl(추적 코드 포함) 입니다. MONETIZATION.md 참고.
-const generateCoupangSearchLink = (keyword: string): string => {
-  const partnerId = process.env.NEXT_PUBLIC_COUPANG_PARTNER_ID;
-  const encodedKeyword = encodeURIComponent(keyword);
+/** 등록 상품(파트너스 간편링크) 하나를 추천 카드로 */
+function curatedToGift(item: CuratedItem, id: string): GiftRecommendation {
+  const product = curatedToProduct(item);
+  const price = product.productPrice > 0 ? `${product.productPrice.toLocaleString('ko-KR')}원` : '';
+  return {
+    id,
+    title: item.name,
+    description: '조건에 맞춰 고른 추천 상품이에요. 쿠팡에서 자세히 확인해 보세요.',
+    price,
+    imageUrl: product.productImage || getStableImageUrl(item.category, item.name),
+    coupangUrl: product.productUrl,
+    category: item.category,
+    searchKeyword: item.category,
+    products: [product],
+    source: 'curated',
+  };
+}
 
-  // 기본 쿠팡 검색 URL
-  const baseSearchUrl = `https://www.coupang.com/np/search?component=&q=${encodedKeyword}&channel=user`;
+const DUMMY_COUNT = 4;
 
-  if (partnerId) {
-    return `${baseSearchUrl}&lptag=${partnerId}`;
-  }
-  return baseSearchUrl;
-};
-
-// 더미 데이터 생성 함수 (개발/테스트 및 폴백용) — 평점/리뷰 수는 실제 값이 아니므로 넣지 않는다
-export const getDummyRecommendations = async (_formData: GiftFormData): Promise<GPTResponse> => {
-  if (isDev) console.log('🎭 더미 데이터 생성 중...');
+/**
+ * 추천 API 가 실패했을 때 보여 줄 대체 추천 — 예산에 가장 가까운 등록 상품(파트너스 간편링크) 4개.
+ * 평점/리뷰 수는 실제 값이 아니므로 넣지 않는다.
+ */
+export const getDummyRecommendations = async (formData: GiftFormData): Promise<GPTResponse> => {
+  if (isDev) console.log('🎭 대체 추천(등록 상품) 생성 중...');
   await new Promise((resolve) => setTimeout(resolve, 1500));
 
-  const dummyItems: Array<{ id: string; title: string; description: string; price: string; category: string; searchKeyword: string }> = [
-    {
-      id: '1',
-      title: '커플 목걸이 세트',
-      description: '사랑스러운 하트 모양의 커플 목걸이로 특별한 기념일을 축하하세요',
-      price: '45,000원',
-      category: '액세서리',
-      searchKeyword: '커플 목걸이',
-    },
-    {
-      id: '2',
-      title: '프리미엄 향수 세트',
-      description: '고급스러운 향으로 특별한 순간을 더욱 기억에 남게 만드는 향수',
-      price: '89,000원',
-      category: '향수',
-      searchKeyword: '향수 세트',
-    },
-    {
-      id: '3',
-      title: '무선 블루투스 이어폰',
-      description: '고음질 사운드로 함께 음악을 즐길 수 있는 스타일리시한 이어폰',
-      price: '129,000원',
-      category: '전자제품',
-      searchKeyword: '무선 이어폰',
-    },
-    {
-      id: '4',
-      title: '로맨틱 꽃다발',
-      description: '신선한 장미와 계절 꽃으로 구성된 아름다운 꽃다발',
-      price: '35,000원',
-      category: '꽃',
-      searchKeyword: '꽃다발',
-    },
-  ];
-
-  const dummyRecommendations: GiftRecommendation[] = dummyItems.map((item) => ({
-    id: item.id,
-    title: item.title,
-    description: item.description,
-    price: item.price,
-    estimatedPrice: item.price,
-    imageUrl: getStableImageUrl(item.category, item.title),
-    coupangUrl: generateCoupangSearchLink(item.searchKeyword),
-    category: item.category,
-    searchKeyword: item.searchKeyword,
-    source: 'fallback',
-  }));
+  const used = new Set<string>();
+  const recommendations: GiftRecommendation[] = [];
+  for (let i = 0; i < DUMMY_COUNT; i += 1) {
+    const item = pickClosestCurated({
+      minBudget: Number(formData?.minBudget) || 0,
+      maxBudget: Number(formData?.maxBudget) || 0,
+      text: `${formData?.category ?? ''} ${formData?.personality ?? ''} ${formData?.occasionType ?? ''}`,
+      exclude: used,
+    });
+    if (!item || used.has(item.id)) break;
+    used.add(item.id);
+    recommendations.push(curatedToGift(item, String(i + 1)));
+  }
 
   return {
-    recommendations: dummyRecommendations,
-    success: true,
+    recommendations,
+    success: recommendations.length > 0,
+    ...(recommendations.length === 0 ? { error: '추천 결과가 비어 있습니다.' } : {}),
   };
 };

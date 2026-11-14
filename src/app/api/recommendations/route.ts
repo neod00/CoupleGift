@@ -5,8 +5,9 @@
  * 2) 각 추천의 searchKeyword 로 실제 쿠팡 상품을 붙인다 (병렬):
  *      빌드 타임 카탈로그(src/data/coupang/products.json) → 파트너스 API(키가 있을 때만) → 없음
  *    상품이 있으면 imageUrl / coupangUrl(추적 링크) / price(실제 판매가) 를 상품 값으로 덮어쓰고
- *    모델의 가격 문자열은 estimatedPrice 로 보존한다. 없으면 쿠팡 일반 검색 URL 로 폴백하고
- *    imageUrl 은 비워 클라이언트(gptService)가 대체 이미지를 고르게 한다.
+ *    모델의 가격 문자열은 estimatedPrice 로 보존한다. 어느 쪽에도 상품이 없으면 예산·내용에 가장 가까운
+ *    등록 상품(curated.json)으로 카드를 바꾼다 — 버튼은 항상 파트너스 추적 링크로 간다.
+ *    (쿠팡 일반 검색 URL 은 추적되지 않으므로 쓰지 않는다. 등록 상품이 0개일 때만 파트너스 검색 위젯으로)
  * 3) OPENAI 키가 없으면 더미 추천을 돌려주되, 같은 방식으로 상품을 붙여 로컬에서도 흐름을 볼 수 있게 한다.
  *
  * 응답: { recommendations: EnrichedRecommendation[] }  (기존 { recommendations: [...] } 형태와 호환)
@@ -14,13 +15,16 @@
  */
 import { NextResponse } from 'next/server';
 import type { CoupangProduct } from '@/lib/coupang/types';
-import {
-  isCoupangConfigured,
-  searchCoupangProducts,
-  buildCoupangSearchFallbackUrl,
-} from '@/lib/coupang/client';
+import { isCoupangConfigured, searchCoupangProducts } from '@/lib/coupang/client';
 import { getProductsForKeyword, getProductsForText } from '@/lib/coupang/catalog';
-import { buildCuratedPromptList, curatedToProduct, getCuratedById } from '@/lib/coupang/curated';
+import {
+  PARTNERS_SEARCH_WIDGET_URL,
+  buildCuratedPromptList,
+  curatedToProduct,
+  getCuratedById,
+  pickClosestCurated,
+  type CuratedItem,
+} from '@/lib/coupang/curated';
 
 // 요청 본문을 읽고 외부 API 를 호출하므로 항상 동적. sign.ts 가 Node crypto 를 쓰므로 nodejs 런타임.
 export const dynamic = 'force-dynamic';
@@ -158,43 +162,85 @@ function createProductResolver() {
   };
 }
 
-function toFallback(base: ReturnType<typeof normalizeRecommendation>): EnrichedRecommendation {
+type Base = ReturnType<typeof normalizeRecommendation>;
+
+interface Budget {
+  minBudget: number;
+  maxBudget: number;
+}
+
+/** 모델이 직접 고른 등록 상품 카드 (모델의 제목/설명 유지) */
+function fromCurated(base: Base, item: CuratedItem): EnrichedRecommendation {
+  const product = curatedToProduct(item);
+  return {
+    ...base,
+    curatedId: item.id,
+    price: product.productPrice > 0 ? formatKrw(product.productPrice) : base.estimatedPrice,
+    imageUrl: product.productImage,
+    coupangUrl: product.productUrl,
+    products: [product],
+    source: 'curated',
+  };
+}
+
+/**
+ * 모델의 추천에 맞는 상품을 못 찾았을 때: 예산·내용에 가장 가까운 등록 상품으로 카드를 통째로 바꾼다.
+ * 모델이 지어낸 선물 이름 아래 다른 상품 링크가 걸리지 않도록 제목·설명·카테고리도 상품 기준으로 쓴다.
+ * 등록 상품이 하나도 없을 때만 파트너스 검색 위젯(추적됨)으로 보낸다.
+ */
+function toSubstitute(base: Base, budget: Budget, usedCuratedIds: Set<string>): EnrichedRecommendation {
+  const item = pickClosestCurated({
+    ...budget,
+    text: `${base.title} ${base.searchKeyword} ${base.category}`,
+    exclude: usedCuratedIds,
+  });
+  if (item) {
+    usedCuratedIds.add(item.id);
+    return {
+      ...fromCurated(base, item),
+      title: item.name,
+      description: '조건에 가장 가까운 추천 상품이에요. 쿠팡에서 자세히 확인해 보세요.',
+      category: item.category,
+      searchKeyword: item.category,
+    };
+  }
   return {
     ...base,
     price: base.estimatedPrice,
     imageUrl: '', // 비워두면 클라이언트가 카테고리 기반 대체 이미지를 고른다
-    coupangUrl: buildCoupangSearchFallbackUrl(base.searchKeyword),
+    coupangUrl: PARTNERS_SEARCH_WIDGET_URL,
     products: [],
     source: 'fallback',
   };
 }
 
-async function enrichRecommendations(rawList: RawRecommendation[]): Promise<EnrichedRecommendation[]> {
+async function enrichRecommendations(
+  rawList: RawRecommendation[],
+  budget: Budget
+): Promise<EnrichedRecommendation[]> {
   const bases = rawList.map((raw, index) => normalizeRecommendation(raw, index));
   const resolve = createProductResolver();
   // 같은 등록 상품이 두 카드에 걸리지 않도록 먼저 고른 쪽에만 준다
   const usedCuratedIds = new Set<string>();
+  // 모델이 직접 고른 등록 상품을 먼저 예약해 두어야, 대체 상품을 고를 때 그 상품과 겹치지 않는다
+  bases.forEach((base) => {
+    const picked = getCuratedById(base.curatedId);
+    if (picked && !usedCuratedIds.has(picked.id)) usedCuratedIds.add(picked.id);
+  });
+  const claimed = new Set<string>();
 
   const settled = await Promise.allSettled(
     bases.map(async (base): Promise<EnrichedRecommendation> => {
       // 1순위: 직접 고른 파트너스 간편링크 상품 (모델이 목록에 없는 id 를 지어내도 getCuratedById 가 걸러낸다)
       const curated = getCuratedById(base.curatedId);
-      if (curated && !usedCuratedIds.has(curated.id)) {
-        usedCuratedIds.add(curated.id);
-        const product = curatedToProduct(curated);
-        return {
-          ...base,
-          price: product.productPrice > 0 ? formatKrw(product.productPrice) : base.estimatedPrice,
-          imageUrl: product.productImage,
-          coupangUrl: product.productUrl,
-          products: [product],
-          source: 'curated',
-        };
+      if (curated && !claimed.has(curated.id)) {
+        claimed.add(curated.id);
+        return fromCurated(base, curated);
       }
 
       const { products, source } = await resolve(base.searchKeyword);
       const top = products[0];
-      if (!top) return toFallback(base);
+      if (!top) return toSubstitute(base, budget, usedCuratedIds);
 
       return {
         ...base,
@@ -208,9 +254,9 @@ async function enrichRecommendations(rawList: RawRecommendation[]): Promise<Enri
     })
   );
 
-  // 개별 매칭 실패는 전체 응답을 깨지 않고 폴백으로 대체
+  // 개별 매칭 실패는 전체 응답을 깨지 않고 대체 등록 상품으로 바꾼다
   return settled.map((result, index) =>
-    result.status === 'fulfilled' ? result.value : toFallback(bases[index])
+    result.status === 'fulfilled' ? result.value : toSubstitute(bases[index], budget, usedCuratedIds)
   );
 }
 
@@ -263,19 +309,20 @@ export async function POST(request: Request) {
     }>;
 
     const API_KEY = process.env.OPENAI_API_KEY || process.env.REACT_APP_OPENAI_API_KEY;
+    const minBudget = asNumber(formData.minBudget, 0);
+    const maxBudget = asNumber(formData.maxBudget, 0);
+    const budget: Budget = { minBudget, maxBudget };
 
     if (!API_KEY) {
       console.warn('[api/recommendations] OPENAI_API_KEY 미설정 — 더미 추천 반환');
-      const recommendations = await enrichRecommendations(DUMMY_RECOMMENDATIONS);
+      const recommendations = await enrichRecommendations(DUMMY_RECOMMENDATIONS, budget);
       return NextResponse.json({ recommendations }, { status: 200 }); // 기존 동작과 동일하게 200
     }
 
     const gender = formData.gender === 'male' ? '남성' : '여성';
     const age = asNumber(formData.age, 0);
-    const minBudget = asNumber(formData.minBudget, 0);
-    const maxBudget = asNumber(formData.maxBudget, 0);
 
-    // 직접 고른 파트너스 상품 목록 — 예산에 맞는 후보가 있을 때만 프롬프트에 절을 추가한다
+    // 직접 고른 파트너스 상품 목록 — 예산 안 상품이 부족하면 가장 가까운 가격의 상품으로 채워진다
     const curatedList = buildCuratedPromptList(minBudget, maxBudget);
     const curatedSection = curatedList
       ? `
@@ -306,7 +353,7 @@ ${curatedSection}
       "price": "예상 가격 (예: 59,000원)",
       "category": "카테고리",
       "searchKeyword": "쿠팡 검색용 키워드 (구체적이고 간단하게)",
-      "curatedId": "등록 상품 목록에서 고른 id, 어울리는 상품이 없으면 null"
+      "curatedId": "${curatedList ? '등록 상품 목록에서 고른 id (필수)' : 'null'}"
     }
   ]
 }
@@ -316,7 +363,7 @@ ${curatedSection}
 - 성별, 나이, 성격을 고려한 맞춤형 추천
 - 기념일 특성에 맞는 의미있는 선물 제안
 - searchKeyword는 쿠팡에서 실제 검색 가능한 단순한 키워드로 작성 (예: "커플 목걸이", "무선 이어폰", "향수")
-${curatedList ? '- 등록 상품 목록에 상대방에게 어울리는 상품이 있으면 그 id 를 curatedId 에 넣고, 해당 상품 기준으로 title 과 description 을 쓰세요. 목록에 없는 id 를 지어내지 말고, 억지로 맞추지 말고 어울리는 것이 없으면 null 로 두세요\n' : ''}- JSON 형식을 정확히 지켜주세요
+${curatedList ? '- 모든 추천은 반드시 등록 상품 목록 안에서 고르고 그 id 를 curatedId 에 넣으세요. 목록에 없는 선물은 추천하지 마세요\n- 추천마다 서로 다른 상품을 고르고, title 과 description 은 고른 상품 기준으로 쓰세요. 목록에 없는 id 를 지어내지 마세요\n- 예산 안 상품이 부족하면 예산에 가장 가까운 가격의 상품을 고르세요\n' : ''}- JSON 형식을 정확히 지켜주세요
 `;
 
     const requestBody = {
@@ -367,7 +414,7 @@ ${curatedList ? '- 등록 상품 목록에 상대방에게 어울리는 상품�
       throw new Error('모델 응답에 recommendations 가 없음');
     }
 
-    const recommendations = await enrichRecommendations(rawList);
+    const recommendations = await enrichRecommendations(rawList, budget);
     return NextResponse.json({ recommendations });
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : String(error);
