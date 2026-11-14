@@ -88,6 +88,34 @@ export function curatedToProduct(item: CuratedItem): CoupangProduct {
   };
 }
 
+function hasKnownPrice(item: CuratedItem): item is CuratedItem & { price: number } {
+  return typeof item.price === 'number' && item.price > 0;
+}
+
+/**
+ * 후보가 상한을 넘으면 앞에서부터 자르지 않고 가격 순서에서 같은 간격으로 고르게 뽑는다.
+ * (앞에서 자르면 파일 뒤쪽에 추가한 상품이 예산을 넓게 잡은 요청에서 통째로 빠진다.)
+ * 가격을 모르는 상품은 먼저 담고, 결과는 원래 목록 순서로 돌려준다. 같은 입력이면 항상 같은 결과.
+ */
+export function selectForPrompt(
+  candidates: CuratedItem[],
+  max: number = PROMPT_MAX_ITEMS,
+): CuratedItem[] {
+  if (candidates.length <= max) return candidates;
+
+  const unknownPrice = candidates.filter((item) => !hasKnownPrice(item));
+  const known = candidates
+    .filter(hasKnownPrice)
+    .sort((a, b) => a.price - b.price); // 같은 가격이면 원래 순서 유지 (안정 정렬)
+
+  const keep = new Set<CuratedItem>(unknownPrice.slice(0, max));
+  const slots = max - keep.size;
+  for (let i = 0; i < slots && known.length > 0; i += 1) {
+    keep.add(known[Math.floor(((i + 0.5) * known.length) / slots)]);
+  }
+  return candidates.filter((item) => keep.has(item));
+}
+
 /**
  * 파트너스 검색 위젯 링크 (트래킹 코드가 붙은 쿠팡 검색창).
  * 등록 상품이 하나도 없을 때만 쓰는 최후의 링크 — 일반 쿠팡 검색 URL(추적 안 됨) 대신 쓴다.
@@ -129,10 +157,11 @@ function relevance(item: CuratedItem, text: string): number {
 /**
  * 모델에게 보여 줄 후보 상품. 예산 안(상한 20% 여유) 상품을 먼저 싣고, 그것이 MIN_CANDIDATES 보다 적으면
  * 예산에 가장 가까운 가격의 상품으로 채운다 — 예산이 등록 상품 가격대를 벗어나도 후보가 0개가 되지 않는다.
+ * 예산 안 상품이 PROMPT_MAX_ITEMS 를 넘으면 앞에서 자르지 않고 가격대가 고르게 남도록 줄인다 (selectForPrompt).
  */
 export function selectCuratedCandidates(minBudget: number, maxBudget: number): CuratedItem[] {
   const inBudget = items.filter((item) => budgetDistance(item, minBudget, maxBudget) === 0);
-  if (inBudget.length >= MIN_CANDIDATES) return inBudget.slice(0, PROMPT_MAX_ITEMS);
+  if (inBudget.length >= MIN_CANDIDATES) return selectForPrompt(inBudget);
   const nearest = items
     .filter((item) => !inBudget.includes(item))
     .sort((a, b) => budgetDistance(a, minBudget, maxBudget) - budgetDistance(b, minBudget, maxBudget))
