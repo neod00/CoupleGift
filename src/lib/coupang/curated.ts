@@ -88,18 +88,46 @@ export function curatedToProduct(item: CuratedItem): CoupangProduct {
   };
 }
 
+function hasKnownPrice(item: CuratedItem): item is CuratedItem & { price: number } {
+  return typeof item.price === 'number' && item.price > 0;
+}
+
 /**
- * 모델에게 보여 줄 후보 목록. 가격이 알려진 상품은 예산 범위(상한은 20% 여유) 안의 것만 싣는다.
+ * 후보가 상한을 넘으면 앞에서부터 자르지 않고 가격 순서에서 같은 간격으로 고르게 뽑는다.
+ * (앞에서 자르면 파일 뒤쪽에 추가한 상품이 예산을 넓게 잡은 요청에서 통째로 빠진다.)
+ * 가격을 모르는 상품은 먼저 담고, 결과는 원래 목록 순서로 돌려준다. 같은 입력이면 항상 같은 결과.
+ */
+export function selectForPrompt(
+  candidates: CuratedItem[],
+  max: number = PROMPT_MAX_ITEMS,
+): CuratedItem[] {
+  if (candidates.length <= max) return candidates;
+
+  const unknownPrice = candidates.filter((item) => !hasKnownPrice(item));
+  const known = candidates
+    .filter(hasKnownPrice)
+    .sort((a, b) => a.price - b.price); // 같은 가격이면 원래 순서 유지 (안정 정렬)
+
+  const keep = new Set<CuratedItem>(unknownPrice.slice(0, max));
+  const slots = max - keep.size;
+  for (let i = 0; i < slots && known.length > 0; i += 1) {
+    keep.add(known[Math.floor(((i + 0.5) * known.length) / slots)]);
+  }
+  return candidates.filter((item) => keep.has(item));
+}
+
+/**
+ * 모델에게 보여 줄 후보 목록. 가격이 알려진 상품은 예산 범위(상한은 20% 여유) 안의 것만 싣고,
+ * 그래도 PROMPT_MAX_ITEMS 를 넘으면 가격대가 고르게 남도록 줄인다 (selectForPrompt).
  * 빈 문자열이면 목록이 없거나 예산에 맞는 상품이 없다는 뜻 (호출 측은 프롬프트에 목록 절을 넣지 않는다).
  */
 export function buildCuratedPromptList(minBudget: number, maxBudget: number): string {
   const hasBudget = maxBudget > 0;
-  return items
-    .filter((item) => {
-      if (!hasBudget || typeof item.price !== 'number' || item.price <= 0) return true;
-      return item.price >= minBudget && item.price <= maxBudget * 1.2;
-    })
-    .slice(0, PROMPT_MAX_ITEMS)
+  const inBudget = items.filter((item) => {
+    if (!hasBudget || !hasKnownPrice(item)) return true;
+    return item.price >= minBudget && item.price <= maxBudget * 1.2;
+  });
+  return selectForPrompt(inBudget)
     .map((item) => {
       const price = item.price ? `${item.price.toLocaleString('ko-KR')}원` : '가격 미상';
       const note = item.note ? ` | ${item.note}` : '';
