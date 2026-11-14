@@ -8,6 +8,7 @@ import CoupangSearchWidget from '@/components/CoupangSearchWidget';
 import { ProductGrid } from '@/components/ProductCard';
 import RelatedPosts, { type RelatedPostItem } from '@/components/RelatedPosts';
 import { getProductsForKeyword, getProductsForText } from '@/lib/coupang/catalog';
+import { curatedToProduct, pickClosestCurated } from '@/lib/coupang/curated';
 import type { CoupangProduct } from '@/lib/coupang/types';
 import { GiftPageData, findRelatedPages, genders, ageGroups, occasions, budgets } from '@/data/giftPages';
 
@@ -42,6 +43,7 @@ export default function GiftPageClient({ page, locale, relatedPosts = [] }: Gift
       viewMore: '자세히 보기 →',
       coupangSearch: '쿠팡에서 검색',
       moreIdeas: '다른 추천 아이템',
+      curatedTitle: '이 예산에 맞춰 고른 상품',
     },
     en: {
       breadHome: 'Home',
@@ -56,6 +58,7 @@ export default function GiftPageClient({ page, locale, relatedPosts = [] }: Gift
       viewMore: 'View Details →',
       coupangSearch: 'Search on Amazon',
       moreIdeas: 'More gift ideas',
+      curatedTitle: 'Picked for this budget',
     },
     ja: {
       breadHome: 'ホーム',
@@ -70,16 +73,15 @@ export default function GiftPageClient({ page, locale, relatedPosts = [] }: Gift
       viewMore: '詳しく見る →',
       coupangSearch: 'Amazonで検索',
       moreIdeas: 'その他のおすすめ',
+      curatedTitle: 'この予算に合わせた商品',
     },
   };
 
   const l = labels[locale as keyof typeof labels] || labels.ko;
 
-  // 쿠팡/Amazon 검색 URL 생성
+  // Amazon 검색 URL 생성 (en/ja). ko 는 추적되지 않는 쿠팡 일반 검색 링크 대신 등록 상품 카드를 보여 준다
   const getSearchUrl = (item: string) => {
-    if (locale === 'ko') {
-      return `https://www.coupang.com/np/search?component=&q=${encodeURIComponent(item + ' 선물')}&channel=user`;
-    } else if (locale === 'ja') {
+    if (locale === 'ja') {
       return `https://www.amazon.co.jp/s?k=${encodeURIComponent(item + ' ギフト')}`;
     }
     return `https://www.amazon.com/s?k=${encodeURIComponent(item + ' gift')}`;
@@ -95,6 +97,23 @@ export default function GiftPageClient({ page, locale, relatedPosts = [] }: Gift
   });
   const withProducts = suggestionProducts.filter((s) => s.products.length > 0);
   const plainSuggestions = suggestionProducts.filter((s) => s.products.length === 0).map((s) => s.item);
+
+  // ko: 카탈로그에 없는 아이템마다 예산·내용에 가장 가까운 등록 상품(파트너스 간편링크)을 하나씩 (최대 6개, 중복 없음)
+  const curatedProducts: CoupangProduct[] = [];
+  if (locale === 'ko') {
+    const used = new Set<string>();
+    for (const item of plainSuggestions.slice(0, 6)) {
+      const picked = pickClosestCurated({
+        minBudget: budget?.minKrw ?? 0,
+        maxBudget: budget?.maxKrw ?? 0,
+        text: item,
+        exclude: used,
+      });
+      if (!picked || used.has(picked.id)) break;
+      used.add(picked.id);
+      curatedProducts.push(curatedToProduct(picked));
+    }
+  }
 
   return (
     <div className="max-w-4xl mx-auto fade-in">
@@ -155,14 +174,8 @@ export default function GiftPageClient({ page, locale, relatedPosts = [] }: Gift
                 </h3>
               )}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {plainSuggestions.map((item, idx) => (
-                  <a
-                    key={item}
-                    href={getSearchUrl(item)}
-                    target="_blank"
-                    rel="nofollow noopener"
-                    className="glass-card p-5 hover:scale-105 transition-all duration-300 cursor-pointer group block w-full"
-                  >
+                {plainSuggestions.map((item, idx) => {
+                  const inner = (
                     <div className="text-center">
                       <div className="text-4xl mb-3">
                         {['🎁', '💝', '✨', '🛍️', '💎', '🎀', '🌟'][idx % 7]}
@@ -170,14 +183,37 @@ export default function GiftPageClient({ page, locale, relatedPosts = [] }: Gift
                       <h3 className="text-lg font-semibold text-[var(--text-main)] mb-2 group-hover:text-purple-500 transition-colors">
                         {item}
                       </h3>
-                      <div className="text-xs text-[var(--text-main-70)] mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        {l.coupangSearch} →
-                      </div>
+                      {locale !== 'ko' && (
+                        <div className="text-xs text-[var(--text-main-70)] mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                          {l.coupangSearch} →
+                        </div>
+                      )}
                     </div>
-                  </a>
-                ))}
+                  );
+                  // ko: 아이디어만 보여 주고 링크는 아래 등록 상품 카드(파트너스 간편링크)로
+                  return locale === 'ko' ? (
+                    <div key={item} className="glass-card p-5 block w-full">
+                      {inner}
+                    </div>
+                  ) : (
+                    <a
+                      key={item}
+                      href={getSearchUrl(item)}
+                      target="_blank"
+                      rel="nofollow noopener"
+                      className="glass-card p-5 hover:scale-105 transition-all duration-300 cursor-pointer group block w-full"
+                    >
+                      {inner}
+                    </a>
+                  );
+                })}
               </div>
             </>
+          )}
+
+          {/* ko: 이 예산에 가장 가까운 등록 상품 (파트너스 간편링크) */}
+          {curatedProducts.length > 0 && (
+            <ProductGrid products={curatedProducts} title={l.curatedTitle} disclosure={false} />
           )}
           
           <div className="text-center mt-6 mb-2">
