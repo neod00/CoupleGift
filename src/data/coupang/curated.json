@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-28",
+  "updatedAt": "2026-11-14",
   "items": [
     {
       "id": "g001",
@@ -180,6 +180,339 @@
       "price": 12900,
       "image": "https://t3a.coupangcdn.com/thumbnails/remote/212x212ex/image/rs_quotation_api/usqcpcq6/7b63a2ac49f14befa3e2e830117a9d06.jpg",
       "note": "손편지 선물 포장, 감성 선물"
+    },
+    {
+      "id": "g021",
+      "name": "[백화점정품+선물포장] 닥스 지갑 여성 반지갑 블랙 DD로고 소가죽",
+      "category": "패션·잡화",
+      "link": "https://link.coupang.com/a/iFvm3d6kKG",
+      "price": 159000,
+      "image": "https://thumbnail9.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/890d/aa7aada7f74df1beed70d055d75d8ed3e0f27653910da4d21a27077f6b88.png",
+      "note": "여성용, 백화점 브랜드 소가죽 반지갑, 선물포장"
+    },
+    {
+      "id": "g022",
+      "name": "트루버추 클래식 RFID 슬림 남자 카드지갑",
+      "category": "패션·잡화",
+      "link": "https://link.coupang.com/a/iFvpGflC7o",
+      "price": 159000,
+      "image": "https://t4c.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/48bf/0dac81a3bb3dd1755953102ce2d757418d86ed577e594d1ac11aa2f54195.jpg",
+      "note": "남성용, 슬림 RFID 카드지갑, 실용적인 기념일 선물"
+    },
+    {
+      "id": "g023",
+      "name": "닥스 DAKS 선물세트 블랙 소가죽 자동벨트 & 핑크그린 체크 면 손수건 2종 세트",
+      "category": "패션·잡화",
+      "link": "https://link.coupang.com/a/iFvpNeKz6q",
+      "price": 157100,
+      "image": "https://t3a.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/ef3d/bc97953ca144bb8513721d12c9590ccf66dc0d26a917b17f4011c3be6d05.jpg",
+      "note": "남성용, 브랜드 벨트+손수건 선물세트"
+    },
+    {
+      "id": "g024",
+      "name": "조말론런던 코롱 블랙베리 앤 베이, 50ml, 1개",
+      "category": "향수·캔들",
+      "link": "https://link.coupang.com/a/iFvpUuWooK",
+      "price": 167200,
+      "image": "https://t1c.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/5ac8/97a2303d27610629247253cc3707049f36b1945ac68c665388a97e14d554.jpg",
+      "note": "남녀공용, 인기 브랜드 코롱 향수, 기념일 선물"
+    },
+    {
+      "id": "g025",
+      "name": "Apple 2026 에어팟 5 액티브 노이즈 캔슬링 블루투스 이어폰, MKFW4KH/A, 화이트",
+      "category": "전자기기",
+      "link": "https://link.coupang.com/a/iFvp1bSdk4",
+      "price": 199000,
+      "image": "https://thumbnail13.coupangcdn.com/thumbnails/remote/212x212ex/image/retail/images/2026/09/10/7/7/ce512298-9be6-447c-ab11-3cbcd8c346d2.jpg",
+      "note": "남녀공용, 노이즈캔슬링 무선 이어폰, 기념일 선물"
+    },
+    {
+      "id": "g026",
+      "name": "오로프 14K 골드 웨이브 서클 일체형 목걸이",
+      "category": "액세서리",
+      "link": "https://link.coupang.com/a/iFvp8fywwe",
+      "price": 170100,
+      "image": "https://thumbnail5.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/7600/8bd3af95565f3f7c14b506615e2628c54d9fe78a11a48245b319b6edd233.jpg",
+      "note": "여성용, 14K 골드 데일리 목걸이, 기념일 주얼리"
+    },
+    {
+      "id": "g027",
+      "name": "설화수 탄력 3종 세트, 1세트",
+      "category": "뷰티",
+      "link": "https://link.coupang.com/a/iFvqfEhr6O",
+      "price": 162540,
+      "image": "https://t1a.coupangcdn.com/thumbnails/remote/212x212ex/image/retail/images/599620146374208-0e5fb283-b4ac-495b-90fb-b5011a7338d2.jpg",
+      "note": "여성용, 프리미엄 스킨케어 세트, 기념일·부모님 선물"
+    },
+    {
+      "id": "g028",
+      "name": "보이스캐디 T9 골프 거리 측정기, 블랙",
+      "category": "스포츠·취미",
+      "link": "https://link.coupang.com/a/iFvqmdquuO",
+      "price": 199000,
+      "image": "https://thumbnail13.coupangcdn.com/thumbnails/remote/212x212ex/image/retail/images/2980571500985593-ca4a069d-6d4c-453e-b83e-d5f5aaeb4628.jpg",
+      "note": "골프 취미, 휴대용 거리측정기, 남성에게 인기"
+    },
+    {
+      "id": "g029",
+      "name": "헬리녹스 선셋 체어, 블랙, 1개",
+      "category": "스포츠·취미",
+      "link": "https://link.coupang.com/a/iFvqtH5Qqq",
+      "price": 162540,
+      "image": "https://thumbnail13.coupangcdn.com/thumbnails/remote/212x212ex/image/retail/images/2026/02/13/14/9/c8a77ad0-3cb6-4154-bf4f-0c47c0f14074.jpg",
+      "note": "캠핑 취미, 경량 접이식 의자, 남녀공용"
+    },
+    {
+      "id": "g030",
+      "name": "레이저 BlackShark V2 HyperSpeed, RZ04-0496, 화이트",
+      "category": "전자기기",
+      "link": "https://link.coupang.com/a/iFvqAfq2ay",
+      "price": 166500,
+      "image": "https://thumbnail14.coupangcdn.com/thumbnails/remote/212x212ex/image/retail/images/2024/07/30/13/6/ec7a81ef-f015-453d-8048-21bc7fea735c.jpg",
+      "note": "게임 취미, 무선 게이밍 헤드셋, 남녀공용"
+    },
+    {
+      "id": "g031",
+      "name": "펠리체골드 14K 이태리 컷팅 반지 (+선물포장)",
+      "category": "액세서리",
+      "link": "https://link.coupang.com/a/iFvqHfTu3w",
+      "price": 394700,
+      "image": "https://t4a.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/d49c/6f821924c784925443c8020adebb29a9b65b557328bb850f6f58e8b44e0c.jpg",
+      "note": "여성용, 14K 골드 반지, 커플링으로도 선물"
+    },
+    {
+      "id": "g032",
+      "name": "14k목걸이팬던트 꽃 플라워 트리플 큐빅목걸이 여자",
+      "category": "액세서리",
+      "link": "https://link.coupang.com/a/iFvqOmavbU",
+      "price": 391140,
+      "image": "https://t2a.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/c916/d63788b8eca47e1be0667633d0ad9f73a335c57e7008c569cdc528669dcd.jpg",
+      "note": "여성용, 14K 큐빅 꽃 목걸이, 기념일 주얼리"
+    },
+    {
+      "id": "g033",
+      "name": "소니 노이즈캔슬링 블루투스 헤드폰 WH-1000XM5 플래티넘실버 40시간",
+      "category": "전자기기",
+      "link": "https://link.coupang.com/a/iFvqVtPcbY",
+      "price": 382050,
+      "image": "https://thumbnail6.coupangcdn.com/thumbnails/remote/212x212ex/image/retail/images/381962302222648-3d448a7b-71a0-45f1-bf78-ed9d62e441af.png",
+      "note": "남녀공용, 노이즈캔슬링 헤드폰, 고급 선물"
+    },
+    {
+      "id": "g034",
+      "name": "네스프레소 시티즈 캡슐커피머신, D113, 블랙",
+      "category": "리빙",
+      "link": "https://link.coupang.com/a/iFvq2loMM0",
+      "price": 319800,
+      "image": "https://t4c.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/2a6f/e737850267daa4e7dcca362f9759951a1c4b022977c1923a38d3b86d1cc2.png",
+      "note": "남녀공용, 캡슐커피머신, 홈카페·신혼 선물"
+    },
+    {
+      "id": "g035",
+      "name": "메트로시티 천연소가죽 숄더백",
+      "category": "패션·잡화",
+      "link": "https://link.coupang.com/a/iFvq9A3VsG",
+      "price": 349000,
+      "image": "https://thumbnail5.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/c8a6/aa1c27a845163f197d7f540c587e461d04e714b65fa0517b5594a1bb8219.jpg",
+      "note": "여성용, 브랜드 소가죽 숄더백, 기념일 선물"
+    },
+    {
+      "id": "g036",
+      "name": "T118.410.36.277.01 헤리티지 비소데이트 남성 가죽 시계",
+      "category": "액세서리",
+      "link": "https://link.coupang.com/a/iFvrghV4nc",
+      "price": 400000,
+      "image": "https://thumbnail2.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/505b/1d4a1dc871f9f2cfe7d936f0db4df40e1e4643800f2b0320cff27c9e43d5.jpg",
+      "note": "남성용, 스위스 브랜드 가죽 시계, 기념일 선물"
+    },
+    {
+      "id": "g037",
+      "name": "부쉬넬 카네 최소형 A1-SLOPE 골프 거리측정기 파우치포함, 네이처베이지, A1",
+      "category": "스포츠·취미",
+      "link": "https://link.coupang.com/a/iFvrng66fY",
+      "price": 330000,
+      "image": "https://t1c.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/image_audit/prod/62b0d5c0-87ec-4c71-871b-aacd9a5cbe73_fixing_v2.png",
+      "note": "골프 취미, 휴대용 레이저 거리측정기, 남녀공용"
+    },
+    {
+      "id": "g038",
+      "name": "가민 포러너 265 러닝 스마트워치, 블랙, 46.1mm, GPS + 블루투스",
+      "category": "전자기기",
+      "link": "https://link.coupang.com/a/iFvrugTUey",
+      "price": 452000,
+      "image": "https://t5c.coupangcdn.com/thumbnails/remote/212x212ex/image/retail/images/2025/11/21/13/9/caf66c8c-bb29-40c1-b3dc-e7b597c2733e.jpg",
+      "note": "러닝·운동 취미, GPS 스마트워치, 남녀공용"
+    },
+    {
+      "id": "g039",
+      "name": "버버리 레더 2단 지갑",
+      "category": "패션·잡화",
+      "link": "https://link.coupang.com/a/iFvryVweia",
+      "price": 630000,
+      "image": "https://t5c.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/57c5/6ecd53b38ea123ce50e43cce6c9bcc6818a26d4a222f252197113a3447f1.jpg",
+      "note": "남녀공용, 명품 브랜드 가죽 2단 지갑, 고급 선물"
+    },
+    {
+      "id": "g040",
+      "name": "Apple 2025 아이패드 (A16 모델), 실버, 128GB, Wi-Fi",
+      "category": "전자기기",
+      "link": "https://link.coupang.com/a/iFvrFXv55g",
+      "price": 620000,
+      "image": "https://thumbnail4.coupangcdn.com/thumbnails/remote/212x212ex/image/retail/images/168727120238308-481eaba5-7cd3-49df-80ff-bcf1cbe9e7a3.jpg",
+      "note": "남녀공용, 태블릿, 영상·필기용 고급 선물"
+    },
+    {
+      "id": "g041",
+      "name": "골드앤 14K 제노 1캐럿 랩다이아몬드 목걸이",
+      "category": "액세서리",
+      "link": "https://link.coupang.com/a/iFvrNkNSDc",
+      "price": 943400,
+      "image": "https://t3c.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/d1cc/4dcc97690dc1f9db4b889041a5bfe939ef094ffc3343474d904780551ddf.jpg",
+      "note": "여성용, 14K 랩다이아 1캐럿 목걸이, 프러포즈·기념일"
+    },
+    {
+      "id": "g042",
+      "name": "닌텐도 스위치2 본체 BEE-001",
+      "category": "전자기기",
+      "link": "https://link.coupang.com/a/iFvrRDj4ns",
+      "price": 733670,
+      "image": "https://thumbnail6.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/5e80/8ece7f70f5dd9784902c981d5d30b8884099f5dd1604d2766c31bed57cbe.jpg",
+      "note": "게임 취미, 닌텐도 콘솔, 남녀공용"
+    },
+    {
+      "id": "g043",
+      "name": "혼마 남성 골프채풀세트 남자 s07 4스타 클럽, 10.5SR",
+      "category": "스포츠·취미",
+      "link": "https://link.coupang.com/a/iFvrYHn0Hk",
+      "price": 1025000,
+      "image": "https://t4a.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/464a/1173b7ce2b9d0866c690854df446ae16d09b88df72489f7f63823869dc7a.jpg",
+      "note": "남성용, 골프 취미, 클럽 풀세트, 고가 선물"
+    },
+    {
+      "id": "g044",
+      "name": "바디프랜드 팔콘i 안마의자 + 러그 세트 방문설치",
+      "category": "리빙",
+      "link": "https://link.coupang.com/a/iFvr5Gbpro",
+      "price": 2250000,
+      "image": "https://t5c.coupangcdn.com/thumbnails/remote/212x212ex/image/retail/images/2025/02/18/11/8/6e726fd6-bda5-4e8c-825c-80926b0384b5.jpg",
+      "note": "부모님·커플 고가 선물, 방문설치 안마의자"
+    },
+    {
+      "id": "g045",
+      "name": "페라가모 간치니 레더 벨트",
+      "category": "패션·잡화",
+      "link": "https://link.coupang.com/a/iFvsaogEhM",
+      "price": 667000,
+      "image": "https://thumbnail12.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/c935/1a1167b2de7723d93baa028e00c8caa4528bc5d41ff4eba0608bc0ad154e.jpg",
+      "note": "주로 남성용, 명품 브랜드 가죽 벨트, 고급 선물"
+    },
+    {
+      "id": "g046",
+      "name": "조말론런던 블랙베리 앤 베이 코롱, 100ml, 1개",
+      "category": "향수·캔들",
+      "link": "https://link.coupang.com/a/iFx8ZhOKYe",
+      "price": 232750,
+      "image": "https://thumbnail8.coupangcdn.com/thumbnails/remote/212x212ex/image/rs_quotation_api/ctureqvm/cfb952c7469a46ba94e4c5fe6ddf383a.jpg",
+      "note": "남녀공용, 100ml 대용량 브랜드 코롱 향수"
+    },
+    {
+      "id": "g047",
+      "name": "메트로시티 미듐 숄더백 M253MQ3500Z",
+      "category": "패션·잡화",
+      "link": "https://link.coupang.com/a/iFx87aV8IS",
+      "price": 208000,
+      "image": "https://thumbnail5.coupangcdn.com/thumbnails/remote/212x212ex/image/retail/images/2026/10/15/17/6/7a1174fb-a2c7-4eef-879c-24d856691911.jpg",
+      "note": "여성용, 브랜드 미듐 숄더백, 기념일 선물"
+    },
+    {
+      "id": "g048",
+      "name": "지샥시계 GM-6900G-9DR 하프메탈 전자 방수",
+      "category": "액세서리",
+      "link": "https://link.coupang.com/a/iFx9dmHOz6",
+      "price": 267750,
+      "image": "https://t4c.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/image_audit/stage/manual/4f42d2dd253e7fc15f41d0f54e22fc0f8a13883e6ea5da0e743f208789dc_1782724806414.jpg",
+      "note": "남성용, 지샥 하프메탈 전자 시계"
+    },
+    {
+      "id": "g049",
+      "name": "가죽벨트 닥스 [선물세트] 닥스ACC 지갑 벨트 선물세트 4종",
+      "category": "패션·잡화",
+      "link": "https://link.coupang.com/a/iFx9kjgMgu",
+      "price": 259000,
+      "image": "https://t2a.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/afd6/06f001860bb4e27ccc61fbb53b7cded61ea0c7c45c1d73bf97d0ad3c2c53.jpg",
+      "note": "남성용, 지갑+벨트 4종 선물세트"
+    },
+    {
+      "id": "g050",
+      "name": "닌텐도 스위치 OLED",
+      "category": "전자기기",
+      "link": "https://link.coupang.com/a/iFx9pmAcDI",
+      "price": 289000,
+      "image": "https://t3c.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/ce0c/92cb2e28637fe452da03220f4b34426f96cb8897942df82f22846898c7fc.jpg",
+      "note": "게임 취미, 닌텐도 콘솔, 남녀공용"
+    },
+    {
+      "id": "g051",
+      "name": "원스위크라이프 캠핑 IGT 접이식 테이블 P1 5.0 유닛, 카키",
+      "category": "스포츠·취미",
+      "link": "https://link.coupang.com/a/iFx9wfg2mG",
+      "price": 277900,
+      "image": "https://thumbnail12.coupangcdn.com/thumbnails/remote/212x212ex/image/retail/images/2026/08/28/16/9/8e76f535-ade0-446e-af08-6383e503022f.jpg",
+      "note": "캠핑 취미, 접이식 IGT 테이블, 남녀공용"
+    },
+    {
+      "id": "g052",
+      "name": "클래비드 [로맨스] 남+여 한쌍가격 14K커플링 18K커플링",
+      "category": "액세서리",
+      "link": "https://link.coupang.com/a/iFx9DpHZro",
+      "price": 796330,
+      "image": "https://t4c.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/9ec4/dd5234cd25668fb2dd306be8dec66229f4518be8bc529ca6c909a7a76a37.jpg",
+      "note": "커플링 남+여 한 쌍, 14K·18K, 기념일·프러포즈"
+    },
+    {
+      "id": "g053",
+      "name": "T156.210.11.041.00 발라드 34mm 여성 메탈 시계",
+      "category": "액세서리",
+      "link": "https://link.coupang.com/a/iFx9Kd46Zo",
+      "price": 707000,
+      "image": "https://thumbnail7.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/fea5/9055c90ae9d563e2d14e50d2933cc9930444b1ca9123b6c9e53869a39f9a.jpg",
+      "note": "여성용, 스위스 브랜드 메탈 시계, 기념일 선물"
+    },
+    {
+      "id": "g054",
+      "name": "다이슨 에어랩 코안다2x 멀티 스타일러 앤 드라이어, 492466-01, 세라믹 핑크 + 로즈 골드",
+      "category": "전자기기",
+      "link": "https://link.coupang.com/a/iFx9RfDbMa",
+      "price": 699000,
+      "image": "https://t3c.coupangcdn.com/thumbnails/remote/212x212ex/image/retail/images/2026/07/29/10/5/a21af902-5d93-4200-bb98-8d7ab6a0618e.jpg",
+      "note": "여성용, 헤어 스타일러, 고급 뷰티 가전"
+    },
+    {
+      "id": "g055",
+      "name": "T114.417.11.047.00 PRC 200 크로노그래프 남성 메탈시계",
+      "category": "액세서리",
+      "link": "https://link.coupang.com/a/iFx9YpRqk8",
+      "price": 1025000,
+      "image": "https://thumbnail14.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/5363/db1c8342f82ec81ab0ed364a62005e4f195b9528cbdac7b95c64915e054e.jpg",
+      "note": "남성용, 스위스 브랜드 크로노그래프 시계"
+    },
+    {
+      "id": "g056",
+      "name": "Apple 2026 아이패드 에어 11(M4 모델), 스페이스 그레이, 128GB, Wi-Fi",
+      "category": "전자기기",
+      "link": "https://link.coupang.com/a/iFx95Anf2a",
+      "price": 1117720,
+      "image": "https://thumbnail9.coupangcdn.com/thumbnails/remote/212x212ex/image/retail/images/2026/03/03/3/8/a8fced75-2a99-42f2-995f-0633f353a647.jpg",
+      "note": "남녀공용, 태블릿 상위 모델, 고급 선물"
+    },
+    {
+      "id": "g057",
+      "name": "펠리체골드 24K 순금 로랑 팔찌 (+선물포장)",
+      "category": "액세서리",
+      "link": "https://link.coupang.com/a/iFyactJKFw",
+      "price": 1669100,
+      "image": "https://t2a.coupangcdn.com/thumbnails/remote/212x212ex/image/vendor_inventory/image_audit/stage/manual/58507d0e52a36fb459ecf0157bcde9b3d92a1443423b16a6bced33e906fc_1765521364656.jpg",
+      "note": "여성용, 24K 순금 팔찌, 기념일·프러포즈"
     }
   ]
 }
