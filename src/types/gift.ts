@@ -16,7 +16,7 @@ export interface GiftFormData {
  * - 'curated'  : 직접 고른 파트너스 간편링크 상품 (src/data/coupang/curated.json)
  * - 'api'      : 요청 시점에 쿠팡 파트너스 API 로 검색한 실제 상품 (추적 링크)
  * - 'catalog'  : 빌드 타임 카탈로그(src/data/coupang/products.json)의 실제 상품 (추적 링크)
- * - 'fallback' : 매칭 상품 없음 → 쿠팡 일반 검색 URL + 대체 이미지
+ * - 'fallback' : 등록 상품이 하나도 없을 때만 → 파트너스 검색 위젯 링크(추적됨) + 대체 이미지
  */
 export type GiftLinkSource = 'curated' | 'api' | 'catalog' | 'fallback';
 

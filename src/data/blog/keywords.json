@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-27",
+  "updatedAt": "2026-11-13",
   "keywords": [
     {
       "keyword": "여자친구 생일선물 추천 20대",
@@ -105,7 +105,9 @@
         "무드등",
         "마스크팩 세트"
       ],
-      "status": "pending"
+      "status": "done",
+      "publishedSlug": "girlfriend-gift-30k",
+      "publishedAt": "2026-10-28"
     },
     {
       "keyword": "남편 생일선물 추천 40대",
@@ -147,7 +149,9 @@
         "남자 향수",
         "무선 청소기"
       ],
-      "status": "pending"
+      "status": "done",
+      "publishedSlug": "husband-birthday-gift-30s-practical",
+      "publishedAt": "2026-10-29"
     },
     {
       "keyword": "아내 생일선물 추천 40대",
@@ -189,7 +193,9 @@
         "목 어깨 마사지기",
         "핸드크림 세트"
       ],
-      "status": "pending"
+      "status": "done",
+      "publishedSlug": "wife-birthday-gift-30s",
+      "publishedAt": "2026-10-30"
     },
     {
       "keyword": "엄마 생일선물 추천 50대",
@@ -253,7 +259,9 @@
         "발 마사지기",
         "커플 시계"
       ],
-      "status": "pending"
+      "status": "done",
+      "publishedSlug": "parents-birthday-gift-100k",
+      "publishedAt": "2026-11-06"
     },
     {
       "keyword": "친구 생일선물 추천 20대 여자",
@@ -357,7 +365,9 @@
         "여성 지갑",
         "파우치"
       ],
-      "status": "pending"
+      "status": "done",
+      "publishedSlug": "birthday-gift-50k-women",
+      "publishedAt": "2026-11-09"
     },
     {
       "keyword": "생일선물 추천 5만원대 남자",
@@ -377,7 +387,9 @@
         "스마트 체중계",
         "마사지건"
       ],
-      "status": "pending"
+      "status": "done",
+      "publishedSlug": "birthday-gift-50k-men",
+      "publishedAt": "2026-11-10"
     },
     {
       "keyword": "직장동료 생일선물 추천",
@@ -419,7 +431,9 @@
         "명함지갑",
         "위스키"
       ],
-      "status": "pending"
+      "status": "done",
+      "publishedSlug": "boss-birthday-gift",
+      "publishedAt": "2026-11-11"
     },
     {
       "keyword": "할머니 생신선물 추천",
@@ -439,7 +453,9 @@
         "실내화",
         "무릎 보호대"
       ],
-      "status": "pending"
+      "status": "done",
+      "publishedSlug": "grandmother-birthday-gift",
+      "publishedAt": "2026-11-12"
     },
     {
       "keyword": "할아버지 생신선물 추천",
@@ -459,7 +475,9 @@
         "무릎 보호대",
         "홍삼 세트"
       ],
-      "status": "pending"
+      "status": "done",
+      "publishedSlug": "grandfather-birthday-gift",
+      "publishedAt": "2026-11-13"
     },
     {
       "keyword": "아이 생일선물 추천 5살",
@@ -1707,7 +1725,9 @@
         "견과류 선물세트",
         "종합비타민"
       ],
-      "status": "pending"
+      "status": "done",
+      "publishedSlug": "seollal-parents-gift-50k",
+      "publishedAt": "2026-11-02"
     },
     {
       "keyword": "설 선물세트 추천 10만원대",
@@ -1727,7 +1747,9 @@
         "와인 선물세트",
         "안마기"
       ],
-      "status": "pending"
+      "status": "done",
+      "publishedSlug": "seollal-gift-set-100k",
+      "publishedAt": "2026-11-03"
     },
     {
       "keyword": "설날 시댁 선물 추천",
@@ -1747,7 +1769,9 @@
         "실크 스카프",
         "백화점 상품권"
       ],
-      "status": "pending"
+      "status": "done",
+      "publishedSlug": "seollal-in-laws-gift",
+      "publishedAt": "2026-11-04"
     },
     {
       "keyword": "설날 조카 선물 추천",
@@ -1767,7 +1791,9 @@
         "용돈 박스",
         "어린이 한복"
       ],
-      "status": "pending"
+      "status": "done",
+      "publishedSlug": "seollal-nephew-gift",
+      "publishedAt": "2026-11-05"
     },
     {
       "keyword": "추석 선물세트 추천 3만원대 가성비",
