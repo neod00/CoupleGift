@@ -510,7 +510,9 @@ ${titlesBlock}
 
 ## 영어(en)·일본어(ja)
 - ko 와 같은 구조로 자연스럽게 번역합니다: title, excerpt, category, readTime, content, table, faq 모두. "${TABLE_MARKER}" 마커와 "## N." 번호, "**실용성:**" 3줄 형식을 유지하세요.
-- 가격은 원화 기준을 유지해 표기합니다 (en: "around 50,000 KRW", ja: "約5万ウォン").
+- 본문(content·table·faq)의 가격은 원화 기준을 유지해 표기합니다 (en: "around 50,000 KRW", ja: "約5万ウォン").
+- 단, en·ja 의 title 에는 가격·통화("KRW", "won", "ウォン")를 넣지 않습니다. 해외 검색자에게 원화 제목은 클릭되지 않습니다. 예산 의도는 "Affordable", "on a Budget", "手頃な", "プチギフト" 같은 표현으로 살립니다. en title 은 50자 안팎으로 짧게.
+- 서비스명은 en 은 "GiftGenie", ja 는 "ギフトジニー" 로만 씁니다. "Seonmul Genie", "Gift Genie", "ソンムルジニ", "プレゼントジニー", 한글 "선물지니" 병기 금지.
 - category 는 en 은 영어(예: Birthday, Anniversary, Housewarming, Workplace, Wedding & Baby, Holidays, Seasonal, Gift Tips), ja 는 일본어로.
 
 ## 출력 형식
