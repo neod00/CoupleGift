@@ -68,6 +68,8 @@ export interface MarketResult {
   trackingDays: number;
   weekly: number[];        // 최근 → 과거 순, 해당 국가 클릭
   otherCountryClicks: number;
+  /** 운영자 국가(KR) 클릭 — 판단에서는 빼지만 저장 확인용으로 보고 */
+  excludedClicks: number;
   recentWeeklyAvg: number;
   expectedClicks180: number;
   probConservative: number;
@@ -86,6 +88,7 @@ export function evaluateMarket(rows: ClickRow[], market: Market, today: string, 
   const target = new Set(CONFIG.targetCountries[market]);
   const excluded = new Set(CONFIG.excludedCountries);
   const mine = rows.filter(r => r.market === market && !excluded.has(r.country));
+  const excludedClicks = rows.filter(r => r.market === market && excluded.has(r.country)).reduce((s, r) => s + r.count, 0);
   const start = trackingStart || rows.map(r => r.date).sort()[0] || today;
   const trackingDays = Math.max(0, Math.round((Date.parse(`${today}T00:00:00Z`) - Date.parse(`${start}T00:00:00Z`)) / 86_400_000));
 
@@ -128,7 +131,7 @@ export function evaluateMarket(rows: ClickRow[], market: Market, today: string, 
       reasons.push(`클릭이 있었던 주 ${activeWeeks}/${weeksConsidered}주 — ${steadyNeeded}주 이상 필요`);
     }
   }
-  return { market, verdict, trackingDays, weekly, otherCountryClicks, recentWeeklyAvg, expectedClicks180, probConservative, probOptimistic, activeWeeks, weeksConsidered, neededWeekly, reasons };
+  return { market, verdict, trackingDays, weekly, otherCountryClicks, excludedClicks, recentWeeklyAvg, expectedClicks180, probConservative, probOptimistic, activeWeeks, weeksConsidered, neededWeekly, reasons };
 }
 
 const VERDICT_LABEL: Record<Verdict, string> = {
@@ -150,6 +153,7 @@ export function renderReport(results: MarketResult[], today: string): string {
     lines.push(`- 180일 안에 3건 이상 판매될 확률: 전환율 2% 가정 ${(r.probConservative * 100).toFixed(0)}% / 5% 가정 ${(r.probOptimistic * 100).toFixed(0)}%`);
     lines.push(`- 가입 기준: 주당 약 ${r.neededWeekly.toFixed(1)}회 이상, 최근 8주 중 6주 이상 클릭`);
     if (r.otherCountryClicks > 0) lines.push(`- 참고: 다른 국가 접속 클릭 ${r.otherCountryClicks}회 (판단에서 제외)`);
+    lines.push(`- 참고: 한국(운영자) 접속 클릭 ${r.excludedClicks}회 — 판단에서 제외, 저장 확인용`);
     for (const reason of r.reasons) lines.push(`- ${reason}`);
     lines.push('');
   }
@@ -175,7 +179,8 @@ function selfTest(): void {
   assert(evaluateMarket(Array.from({ length: 8 }, (_, w) => mk(w, 'jp', 'JP', 1)), 'jp', today, addDays(today, -70)).verdict === 'WAIT', '1/week → WAIT');
   // 한국(운영자)·다른 국가 클릭은 판단에서 제외
   const krOnly = Array.from({ length: 8 }, (_, w) => mk(w, 'us', 'KR', 50));
-  assert(evaluateMarket(krOnly, 'us', today, addDays(today, -70)).verdict === 'WAIT', 'KR clicks excluded');
+  const krRes = evaluateMarket(krOnly, 'us', today, addDays(today, -70));
+  assert(krRes.verdict === 'WAIT' && krRes.excludedClicks === 400, 'KR clicks excluded from verdict but counted');
   const other = Array.from({ length: 8 }, (_, w) => mk(w, 'us', 'CA', 50));
   const otherRes = evaluateMarket(other, 'us', today, addDays(today, -70));
   assert(otherRes.verdict === 'WAIT' && otherRes.otherCountryClicks === 400, 'other-country clicks reported but excluded');
