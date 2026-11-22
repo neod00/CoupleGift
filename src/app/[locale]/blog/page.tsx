@@ -28,7 +28,23 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
 export default async function BlogPage({ params }: any) {
     const { locale } = await params;
     setRequestLocale(locale);
-    const posts = getAllBlogPosts();
+    // 목록에는 카드에 필요한 필드만 넘긴다. 본문(content)·FAQ 를 통째로 넘기면
+    // 페이지 HTML 이 수 MB 로 커져(글 80여 개 × 3개 언어) 크롤링·로딩이 느려진다.
+    const posts = getAllBlogPosts().map((post) => {
+        const slim: Record<string, unknown> = { id: post.id, date: post.date, image: post.image };
+        for (const loc of ['ko', 'en', 'ja']) {
+            const data = post[loc];
+            if (data && typeof data === 'object') {
+                slim[loc] = {
+                    title: data.title,
+                    excerpt: data.excerpt,
+                    category: data.category,
+                    readTime: data.readTime,
+                };
+            }
+        }
+        return slim;
+    });
 
     return <BlogListClient locale={locale} posts={posts} />;
 }

@@ -169,7 +169,7 @@ export default function Privacy() {
         <div className="max-w-4xl mx-auto py-12 px-4">
             <div className="glass-card p-8 md:p-12 space-y-8 text-[var(--text-main-70)]">
                 <header className="text-center border-b border-gray-100 pb-8 mb-8">
-                    <h2 className="text-4xl font-bold gradient-text mb-4">{c.title}</h2>
+                    <h1 className="text-4xl font-bold gradient-text mb-4">{c.title}</h1>
                     <p className="text-sm text-[var(--text-main-70)]">{c.lastUpdated}: {lastUpdated}</p>
                 </header>
 

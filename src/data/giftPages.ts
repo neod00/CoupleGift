@@ -140,6 +140,31 @@ const occasionTipsJa: Record<string, string[]> = {
 };
 
 // ============================================================
+// 영어 검색 표현 (미국 검색어는 "women in their 20s", "teen girls" 형태 — "20s Women" 직역은 어색함)
+// ============================================================
+function enAudience(genderId: string, ageId: string): string {
+  const female = genderId === 'female';
+  if (ageId === '10s') return female ? 'Teen Girls' : 'Teen Boys';
+  if (ageId === '60s') return female ? 'Women Over 60' : 'Men Over 60';
+  const decade = ageGroups.find(a => a.id === ageId)?.en || ageId;
+  return `${female ? 'Women' : 'Men'} in Their ${decade}`;
+}
+
+const enOccasionTitle: Record<string, string> = {
+  '100days': '100-Day Anniversary',
+};
+
+/** 설명문용 예산 구절: "under $30" / "between $30 and $50" / "over $200" */
+function enBudgetPhrase(budgetId: string): string {
+  const b = budgets.find(x => x.id === budgetId);
+  if (!b) return '';
+  if (b.id === 'under-3') return 'under $30';
+  if (b.id === 'over-20') return 'over $200';
+  const [lo, hi] = b.en.split('-');
+  return `between ${lo} and ${hi}`;
+}
+
+// ============================================================
 // 선택된 조합의 페이지 생성 (주요 조합만 선별)
 // ============================================================
 export function generateAllPages(): GiftPageData[] {
@@ -151,7 +176,10 @@ export function generateAllPages(): GiftPageData[] {
         for (const budget of budgets) {
           const slug = `${gender.id}-${age.id}-${occasion.id}-${budget.id}`;
           const key = `${gender.id}-${age.id}`;
+          const audience = enAudience(gender.id, age.id);
+          const occasionEn = enOccasionTitle[occasion.id] || occasion.en;
 
+          // 브랜드 접미사("| 선물지니")는 layout 의 title.template 이 붙이므로 여기서는 넣지 않는다 (중복 방지)
           pages.push({
             slug,
             gender: gender.id,
@@ -159,18 +187,18 @@ export function generateAllPages(): GiftPageData[] {
             occasion: occasion.id,
             budget: budget.id,
             title: {
-              ko: `${age.ko} ${gender.ko} ${occasion.ko} 선물 추천 ${budget.ko} | 선물지니`,
-              en: `${occasion.en} Gift Ideas for ${age.en} ${gender.en} ${budget.en} | GiftGenie`,
-              ja: `${age.ja}${gender.ja}の${occasion.ja}ギフト推薦 ${budget.ja} | ギフトジニー`,
+              ko: `${age.ko} ${gender.ko} ${occasion.ko} 선물 추천 ${budget.ko}`,
+              en: `${occasionEn} Gift Ideas for ${audience} (${budget.en})`,
+              ja: `${age.ja}${gender.ja}の${occasion.ja}ギフト推薦 ${budget.ja}`,
             },
             description: {
               ko: `${age.ko} ${gender.ko}에게 딱 맞는 ${occasion.ko} 선물을 ${budget.ko} 예산으로 추천합니다. AI가 엄선한 맞춤형 선물 아이디어와 쿠팡 구매 링크.`,
-              en: `Find the perfect ${occasion.en} gift for ${age.en} ${gender.en.toLowerCase()} within ${budget.en} budget. AI-curated personalized gift ideas.`,
+              en: `Looking for a ${occasionEn.toLowerCase()} gift for ${audience.toLowerCase()} ${enBudgetPhrase(budget.id)}? 7 practical, well-loved gift ideas plus tips on choosing the right one.`,
               ja: `${age.ja}${gender.ja}にぴったりの${occasion.ja}ギフトを${budget.ja}の予算でおすすめ。AIが厳選したオーダーメイドギフトアイデア。`,
             },
             h1: {
               ko: `${age.ko} ${gender.ko} ${occasion.ko} 선물 추천 TOP 7`,
-              en: `Top 7 ${occasion.en} Gifts for ${age.en} ${gender.en}`,
+              en: `Top 7 ${occasionEn} Gifts for ${audience}`,
               ja: `${age.ja}${gender.ja}の${occasion.ja}ギフトTOP7`,
             },
             suggestions: {

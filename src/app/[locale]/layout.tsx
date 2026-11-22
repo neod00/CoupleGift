@@ -154,9 +154,10 @@ export default async function LocaleLayout({ children, params }: { children: Rea
                             <div className="container mx-auto px-4 py-8 relative z-10">
                                 <header className="text-center mb-12 fade-in">
                                     <div className="mb-6">
-                                        <h1 className="text-5xl md:text-6xl font-bold gradient-text mb-4">
+                                        {/* 사이트명은 h1 이 아님 — 페이지마다 본문 제목이 유일한 h1 이 되도록 한다 */}
+                                        <p className="text-5xl md:text-6xl font-bold gradient-text mb-4">
                                             ✨ {header?.title || 'GiftGenie'}
-                                        </h1>
+                                        </p>
                                         <div className="text-2xl md:text-3xl font-semibold text-[var(--text-main)] mb-2" style={{ textShadow: "0 2px 4px rgba(0,0,0,0.1)" }}>
                                             {header?.subtitle || 'GiftGenie'}
                                         </div>

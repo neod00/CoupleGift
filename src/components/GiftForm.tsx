@@ -466,9 +466,9 @@ const GiftForm: React.FC<GiftFormProps> = ({ onSubmit, isLoading }) => {
   return (
     <div className="card max-w-2xl mx-auto">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold gradient-text mb-4">
+        <h1 className="text-3xl font-bold gradient-text mb-4">
           {ui.title}
-        </h2>
+        </h1>
         <p className="text-gray-600 text-lg">
           {ui.subtitle}
         </p>

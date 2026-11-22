@@ -91,9 +91,9 @@ export default function Contact() {
         <div className="max-w-4xl mx-auto py-12 px-4">
             <div className="glass-card p-8 md:p-12">
                 <div className="text-center mb-12">
-                    <h2 className="text-4xl md:text-5xl font-bold gradient-text mb-4">
+                    <h1 className="text-4xl md:text-5xl font-bold gradient-text mb-4">
                         {c.title}
-                    </h2>
+                    </h1>
                     <p className="text-xl text-[var(--text-main-90)]">
                         {c.subtitle}
                     </p>

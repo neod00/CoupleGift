@@ -58,9 +58,9 @@ export default function About() {
             <div className="glass-card p-8 md:p-12 space-y-12">
                 {/* 헤더 섹션 */}
                 <section className="text-center space-y-4">
-                    <h2 className="text-4xl md:text-5xl font-bold gradient-text">
+                    <h1 className="text-4xl md:text-5xl font-bold gradient-text">
                         {c.title}
-                    </h2>
+                    </h1>
                     <p className="text-xl text-[var(--text-main-90)] font-medium">
                         {c.subtitle}
                     </p>

@@ -406,6 +406,20 @@ function alignProductKeywords(content: string[], queueKeywords: string[], modelK
     return aligned;
 }
 
+/**
+ * en/ja 가 한국어 글을 직역한 흔적(원화 가격, 브랜드 음역)을 찾는다.
+ * 2026-11 Search Console 에서 미국 노출 113회·클릭 0 — 영어 글에 "30,000 KRW" 가 100번씩 나온 것이 원인이었다.
+ */
+function findUnlocalized(data: LocaleData | null): string[] {
+    if (!data) return [];
+    const text = [data.title, data.excerpt, ...data.content, ...data.faq.flatMap(f => [f.q, f.a])].join("\n");
+    const issues: string[] = [];
+    if (/KRW|\d\s*won\b|ウォン|만원/i.test(text)) issues.push("원화 가격 표기");
+    if (/Seonmul/i.test(text)) issues.push("브랜드 음역(Seonmul)");
+    if (/[가-힣]{2,}/.test(text)) issues.push("한글 잔존");
+    return issues;
+}
+
 function countHangul(content: string[]): number {
     return content.reduce((sum, p) => sum + (p.match(/[가-힣]/g) || []).length, 0);
 }
@@ -508,9 +522,16 @@ ${titlesBlock}
 - 출처 없는 통계·설문 수치, 가짜 후기, 특정 인물·기업 비방 금지.
 - 소제목은 "## "로 시작, 강조는 **텍스트**. 마크다운 목록("- ", "1. ")과 HTML 태그는 본문에 넣지 마세요 (표는 table 필드로).
 
-## 영어(en)·일본어(ja)
-- ko 와 같은 구조로 자연스럽게 번역합니다: title, excerpt, category, readTime, content, table, faq 모두. "${TABLE_MARKER}" 마커와 "## N." 번호, "**실용성:**" 3줄 형식을 유지하세요.
-- 가격은 원화 기준을 유지해 표기합니다 (en: "around 50,000 KRW", ja: "約5万ウォン").
+## 영어(en)·일본어(ja) — 직역이 아니라 "현지화"
+en 은 미국 독자, ja 는 일본 독자가 자기 나라 검색엔진에서 찾아 읽는 글이어야 합니다. 한국어 글을 옮긴 티가 나면 클릭되지 않습니다.
+- 구조는 ko 와 같게 유지: title, excerpt, category, readTime, content, table, faq 모두 작성. "${TABLE_MARKER}" 마커, "## N." 번호와 개수(productKeywords 와 1:1), 섹션별 3줄 형식("**Why it works:**" / "**Best for:**" / "**Price range:**", ja 는 "**実用性:**" / "**こんな人に:**" / "**価格帯:**")을 지킵니다.
+- 가격: en 은 미국 달러("about $40–$80"), ja 는 엔("約5,000〜8,000円")으로 그 나라에서 실제로 살 때의 일반적인 가격대를 범위로 씁니다. 원화(KRW, ウォン) 표기와 환율 계산 금지.
+- title: 그 나라 사람이 실제로 검색하는 표현으로 다시 씁니다. 한국식 표현을 옮기지 마세요.
+  예) "40대 아내 생일선물" → en "40th Birthday Gift Ideas for Your Wife" (미국은 나이대보다 30th/40th/50th 같은 이정표 생일로 검색), ja "40代妻の誕生日プレゼント"
+  예) "100일 선물" → en "100-Day Anniversary Gift Ideas", ja "付き合って100日記念のプレゼント"
+- 본문: 한국에만 있는 것(한우·홍삼·상품권 문화, 추석·설날·어버이날·빼빼로데이, 쿠팡·카카오 선물하기, "만원대" 같은 표현)은 그 나라에서 통하는 대안으로 바꾸거나 빼세요. 한국 명절이 주제인 글이면 en/ja 에서는 "한국 명절을 챙기는 사람을 위한 글"이라는 맥락을 첫 문단에 밝힙니다.
+- 사이트명은 en "GiftGenie", ja "ギフトジニー" 로만 씁니다 ("Seonmul Genie" 같은 음역 금지).
+- faq 는 그 나라 사람이 실제로 묻는 질문으로 (예: en "How much should I spend on a 40th birthday gift for my wife?").
 - category 는 en 은 영어(예: Birthday, Anniversary, Housewarming, Workplace, Wedding & Baby, Holidays, Seasonal, Gift Tips), ja 는 일본어로.
 
 ## 출력 형식
@@ -668,6 +689,18 @@ async function generatePost(plan: TopicPlan, dateStr: string, existingTitles: st
             if (!en) console.warn("[Warn] en 번역이 없습니다 — 페이지는 ko 로 폴백됩니다");
             if (!ja) console.warn("[Warn] ja 번역이 없습니다 — 페이지는 ko 로 폴백됩니다");
 
+            // 현지화 실패(원화 가격 등)는 재생성 대상. 마지막 시도면 경고만 남기고 발행한다.
+            const unlocalized = [
+                ...findUnlocalized(en).map(i => `en: ${i}`),
+                ...findUnlocalized(ja).map(i => `ja: ${i}`),
+            ];
+            if (unlocalized.length > 0) {
+                if (attempt < MAX_GENERATION_ATTEMPTS) {
+                    throw new Error(`en/ja 현지화 규칙 위반 (${unlocalized.join(", ")}) — 가격은 en 달러, ja 엔으로, 한국 전용 표현은 빼세요`);
+                }
+                console.warn(`[Warn] 현지화 규칙 위반 상태로 발행: ${unlocalized.join(", ")}`);
+            }
+
             return { ko, en, ja, productKeywords };
         } catch (err) {
             lastError = err;
@@ -722,6 +755,14 @@ function selfTest(): void {
     const noMarker = buildContent(["인트로", "## 1. A", "설명"], table);
     assert(noMarker[1].startsWith("<div"), "table inserted before first heading when marker missing");
     assert(countHangul(["가나다 abc", "라"]) === 4, "countHangul");
+
+    // 현지화 검사
+    const loc = (content: string[]): LocaleData => ({ title: "t", excerpt: "", category: "", readTime: "", content, faq: [] });
+    assert(findUnlocalized(loc(["Around 30,000 KRW ~ 100,000 KRW"])).includes("원화 가격 표기"), "KRW detected");
+    assert(findUnlocalized(loc(["Seonmul Genie recommends"])).includes("브랜드 음역(Seonmul)"), "Seonmul detected");
+    assert(findUnlocalized(loc(["約5万ウォン"])).length > 0, "ja won detected");
+    assert(findUnlocalized(loc(["About $40–$80, a wonderful gift"])).length === 0, "USD + 'wonderful' passes");
+    assert(findUnlocalized(null).length === 0, "null passes");
 
     console.log("self-test: all assertions passed");
 }
