@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
-import { getAllBlogPosts } from '@/data/blog';
+import { getAllBlogPosts, hasLocale } from '@/data/blog';
 import { pageAlternates } from '@/lib/seo';
 import BlogListClient from './BlogListClient';
 
@@ -30,7 +30,7 @@ export default async function BlogPage({ params }: any) {
     setRequestLocale(locale);
     // 목록에는 카드에 필요한 필드만 넘긴다. 본문(content)·FAQ 를 통째로 넘기면
     // 페이지 HTML 이 수 MB 로 커져(글 80여 개 × 3개 언어) 크롤링·로딩이 느려진다.
-    const posts = getAllBlogPosts().map((post) => {
+    const posts = getAllBlogPosts().filter((post) => hasLocale(post, locale)).map((post) => {
         const slim: Record<string, unknown> = { id: post.id, date: post.date, image: post.image };
         for (const loc of ['ko', 'en', 'ja']) {
             const data = post[loc];

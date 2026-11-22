@@ -2,6 +2,7 @@
  * 프로그래매틱 SEO 데이터 모듈
  * 성별 × 나이대 × 기념일 × 예산대 조합으로 수백 개의 고유 선물 추천 페이지를 자동 생성
  */
+import { giftIdeas, type BudgetId, type GiftIdea, type OccasionId } from './giftIdeas';
 
 // ============================================================
 // 타입 정의
@@ -17,6 +18,8 @@ export interface GiftPageData {
   h1: Record<string, string>;
   suggestions: Record<string, string[]>;
   tips: Record<string, string[]>;
+  /** 페이지에 보이는 FAQ (FAQPage 구조화 데이터와 동일 내용) */
+  faq: Record<string, { q: string; a: string }[]>;
 }
 
 // ============================================================
@@ -165,6 +168,116 @@ function enBudgetPhrase(budgetId: string): string {
 }
 
 // ============================================================
+// 예산·기념일별 추천 선택 + 페이지별 FAQ
+// (예산만 다른 페이지 5개가 같은 목록을 보여 주면 Google 이 중복 페이지로 본다 → 예산/기념일마다 실제로 다른 추천)
+// ============================================================
+const MAX_SUGGESTIONS = 7;
+const MIN_SUGGESTIONS = 4;
+const BUDGET_ORDER = ['under-3', '3-5', '5-10', '10-20', 'over-20'];
+
+function pickIdeas(key: string, occasionId: string, budgetId: string): GiftIdea[] {
+  const pool = giftIdeas[key] || [];
+  const fits = (idea: GiftIdea, budget: string) =>
+    idea.budgets.includes(budget as BudgetId) && (!idea.occasions || idea.occasions.includes(occasionId as OccasionId));
+  // 기념일 전용 아이템을 앞에, 그다음 범용 아이템
+  const rank = (idea: GiftIdea) => (idea.occasions ? 0 : 1);
+  const picked = pool.filter(i => fits(i, budgetId)).sort((a, b) => rank(a) - rank(b));
+  if (picked.length < MIN_SUGGESTIONS) {
+    // 부족하면 인접 예산 구간에서 보충
+    const at = BUDGET_ORDER.indexOf(budgetId);
+    for (const near of [BUDGET_ORDER[at - 1], BUDGET_ORDER[at + 1]].filter(Boolean)) {
+      for (const idea of pool.filter(i => fits(i, near))) {
+        if (picked.length >= MIN_SUGGESTIONS) break;
+        if (!picked.includes(idea)) picked.push(idea);
+      }
+    }
+  }
+  return picked.slice(0, MAX_SUGGESTIONS);
+}
+
+const budgetNote: Record<string, Record<string, string>> = {
+  'under-3': {
+    ko: '부담 없는 가격대라 매일 쓰는 소모품이나 작은 소품이 잘 맞고, 손편지를 더하면 가격보다 정성이 먼저 전해집니다.',
+    en: 'At this price point, everyday treats and small upgrades work best - add a handwritten card and the thought outweighs the price.',
+    ja: '気軽な価格帯なので、毎日使える消耗品や小物が向いています。手書きのメッセージを添えると気持ちがしっかり伝わります。',
+  },
+  '3-5': {
+    ko: '가성비와 센스를 모두 보여 줄 수 있는 구간이라, 평소 쓰던 물건의 한 단계 좋은 버전을 고르면 실패가 적습니다.',
+    en: 'This range lets you upgrade something they already use every day - a safe way to look thoughtful without overspending.',
+    ja: '普段使いのものをワンランク上のものに替えると、失敗が少なくセンスも伝わる価格帯です。',
+  },
+  '5-10': {
+    ko: '선물다운 선물을 고를 수 있는 가장 무난한 구간입니다. 브랜드 소품이나 취향이 확실한 아이템을 고르기 좋습니다.',
+    en: 'The sweet spot for a proper gift: well-made brand accessories or something that matches a clear personal taste.',
+    ja: 'ブランド小物や好みがはっきりしたアイテムを選びやすい、最も選択肢の多い価格帯です。',
+  },
+  '10-20': {
+    ko: '오래 쓰는 물건을 고를 수 있는 구간입니다. 사이즈·색상 교환이 가능한지와 보증 여부를 꼭 확인하세요.',
+    en: 'Enough for something they will use for years - check size or color exchanges and warranty before you buy.',
+    ja: '長く使えるものを選べる価格帯です。サイズ・色の交換や保証の有無を必ず確認しましょう。',
+  },
+  'over-20': {
+    ko: '기억에 남는 프리미엄 선물을 고를 수 있는 구간입니다. 각인이나 포장 같은 마무리까지 챙기면 가치가 더 커집니다.',
+    en: 'Premium territory - a keepsake-level gift. Engraving or presentation details make it feel even more special.',
+    ja: '記憶に残るプレミアムギフトを選べる価格帯です。刻印やラッピングまで気を配ると特別感が増します。',
+  },
+};
+
+const occasionTiming: Record<string, Record<string, string>> = {
+  birthday: { ko: '생일 1~2주 전에는 주문해 두세요. 각인·주문 제작 상품은 더 오래 걸립니다.', en: 'Order 1-2 weeks before the birthday; engraved or custom items take longer.', ja: '誕生日の1〜2週間前には注文しておきましょう。刻印・オーダー品はさらに時間がかかります。' },
+  anniversary: { ko: '기념일 2주 전쯤 준비를 시작하면 각인·포장까지 여유 있게 챙길 수 있습니다.', en: 'Start about two weeks ahead so engraving and wrapping are not a last-minute rush.', ja: '記念日の2週間前から準備すると、刻印やラッピングまで余裕を持って用意できます。' },
+  '100days': { ko: '사귄 날을 1일로 세는지 0일로 세는지 먼저 확인하고, 1~2주 전에 준비하세요.', en: 'Count the days carefully (some couples count day one as the first date) and prepare 1-2 weeks ahead.', ja: '付き合った日を1日目と数えるかを確認し、1〜2週間前には準備しましょう。' },
+  christmas: { ko: '12월 중순 이후에는 배송이 몰리니 12월 초까지 주문하는 것이 안전합니다.', en: 'Shipping backs up from mid-December, so order by early December to be safe.', ja: '12月中旬以降は配送が混み合うため、12月初旬までの注文が安心です。' },
+  valentines: { ko: '2월 첫째 주 안에 주문하면 배송 지연 걱정이 없습니다.', en: 'Order by the first week of February to avoid shipping delays.', ja: '2月の第1週までに注文すれば配送遅延の心配がありません。' },
+  whiteday: { ko: '3월 첫째 주 안에 준비하고, 받은 선물보다 조금 더 신경 쓴 답례가 좋습니다.', en: 'Prepare by early March, and aim for a return gift a little more thoughtful than what you received.', ja: '3月の第1週までに準備し、いただいたものより少し気持ちを込めたお返しを選びましょう。' },
+  graduation: { ko: '졸업식 1~2주 전에 준비하고, 새 출발에 바로 쓸 수 있는 물건이면 더 좋습니다.', en: 'Have it ready 1-2 weeks before the ceremony; something useful for the next chapter lands best.', ja: '卒業式の1〜2週間前に準備し、新生活ですぐ使えるものを選ぶと喜ばれます。' },
+  parents: { ko: '기념일 1~2주 전에 주문하고, 건강 제품은 복용 중인 약이나 체질을 먼저 확인하세요.', en: 'Order 1-2 weeks ahead, and for health products check any medications or sensitivities first.', ja: '1〜2週間前には注文し、健康関連の品は服用中の薬や体質を先に確認しましょう。' },
+};
+
+const occasionAvoid: Record<string, Record<string, string>> = {
+  birthday: { ko: '취향을 모르는 옷·향이 강한 제품, 이미 가진 물건과 겹치는 선물은 피하는 것이 좋습니다.', en: 'Skip clothes or strong scents when you are unsure of their taste, and anything they already own.', ja: '好みがわからない服や香りの強いもの、すでに持っているものと重なるギフトは避けましょう。' },
+  anniversary: { ko: '집안일을 떠올리게 하는 생활가전이나 너무 실용적인 소모품은 기념일 분위기와 맞지 않습니다.', en: 'Household appliances and purely practical supplies rarely feel romantic on an anniversary.', ja: '家事を連想させる家電や実用一辺倒の消耗品は、記念日の雰囲気に合いにくいです。' },
+  '100days': { ko: '너무 비싼 선물은 상대에게 부담이 될 수 있으니 의미 있는 커플 아이템이나 편지가 더 좋습니다.', en: 'Overly expensive gifts can feel like pressure this early - a meaningful couple item or a letter goes further.', ja: '高すぎるギフトは負担になることも。意味のあるペアアイテムや手紙のほうが喜ばれます。' },
+  christmas: { ko: '시즌이 지나면 쓰기 어려운 한정 디자인 제품은 실용성이 떨어질 수 있습니다.', en: 'Holiday-only designs can be hard to use after the season, so lean toward year-round items.', ja: 'シーズンが過ぎると使いにくい限定デザインは避け、通年使えるものを選びましょう。' },
+  valentines: { ko: '초콜릿만 주기보다는 작은 소품을 곁들이면 더 기억에 남습니다.', en: 'Chocolate alone is easy to forget - pair it with a small keepsake.', ja: 'チョコだけでなく小さな小物を添えると、より記憶に残ります。' },
+  whiteday: { ko: '받은 선물과 가격 차이가 너무 크면 서로 부담스러울 수 있습니다.', en: 'A return gift far pricier than what you received can feel awkward for both of you.', ja: 'いただいたものと価格差が大きすぎると、お互いに気を遣わせてしまいます。' },
+  graduation: { ko: '진로나 취향을 모르는 상태에서 고르는 전공·취미 용품은 피하는 것이 안전합니다.', en: 'Avoid hobby- or career-specific gear unless you know their plans.', ja: '進路や趣味がわからない場合は、専門的な道具は避けるのが無難です。' },
+  parents: { ko: '효능을 단정하는 건강식품이나 사용법이 복잡한 기기는 피하고, 쉽게 쓸 수 있는 제품을 고르세요.', en: 'Skip supplements with big health claims or gadgets that are complicated to use.', ja: '効果をうたいすぎる健康食品や操作が複雑な機器は避け、使いやすいものを選びましょう。' },
+};
+
+/** 영어 문장 안 기념일 표기: 일반명사는 소문자, 고유명사(Christmas, Valentine's Day 등)는 그대로 */
+function enOccasionInline(occasionEn: string): string {
+  return /^(Birthday|Anniversary|Graduation|100-Day Anniversary)$/.test(occasionEn) ? occasionEn.toLowerCase() : occasionEn;
+}
+
+function buildFaq(
+  labels: { audience: Record<string, string>; occasion: Record<string, string>; budget: Record<string, string> },
+  occasionId: string,
+  budgetId: string,
+  ideas: Record<string, string[]>
+): Record<string, { q: string; a: string }[]> {
+  const list = (loc: string) => ideas[loc].slice(0, 3).join(loc === 'ko' ? ', ' : loc === 'ja' ? '、' : ', ');
+  const faq: Record<string, { q: string; a: string }[]> = {};
+  for (const loc of ['ko', 'en', 'ja']) {
+    const a = labels.audience[loc], o = labels.occasion[loc], b = labels.budget[loc];
+    const q1 = loc === 'ko' ? `${b} 예산으로 ${a} ${o} 선물은 뭐가 좋을까요?`
+      : loc === 'ja' ? `${b}の予算で${a}への${o}ギフトは何がいい？`
+      : `What is a good ${enOccasionInline(o)} gift for ${a.toLowerCase()} at ${b}?`;
+    const a1 = loc === 'ko' ? `${list(loc)} 같은 선물이 이 예산에서 무난합니다. ${budgetNote[budgetId]?.[loc] || ''}`
+      : loc === 'ja' ? `${list(loc)}などがこの予算で選びやすいギフトです。${budgetNote[budgetId]?.[loc] || ''}`
+      : `${list(loc)} are reliable picks in this range. ${budgetNote[budgetId]?.[loc] || ''}`;
+    const q2 = loc === 'ko' ? `${o} 선물은 언제 준비하면 좋을까요?` : loc === 'ja' ? `${o}のギフトはいつ準備すればいい？` : `When should I buy ${/^[aeiou]/i.test(enOccasionInline(o)) ? 'an' : 'a'} ${enOccasionInline(o)} gift?`;
+    const q3 = loc === 'ko' ? `${o} 선물로 피해야 할 것이 있나요?` : loc === 'ja' ? `${o}のギフトで避けたほうがいいものは？` : `What should I avoid giving for ${/^[a-z0-9]/.test(enOccasionInline(o)) ? (/^[aeiou]/.test(enOccasionInline(o)) ? "an " : "a ") + enOccasionInline(o) : o}?`;
+    faq[loc] = [
+      { q: q1, a: a1.trim() },
+      { q: q2, a: occasionTiming[occasionId]?.[loc] || occasionTiming.birthday[loc] },
+      { q: q3, a: occasionAvoid[occasionId]?.[loc] || occasionAvoid.birthday[loc] },
+    ];
+  }
+  return faq;
+}
+
+// ============================================================
 // 선택된 조합의 페이지 생성 (주요 조합만 선별)
 // ============================================================
 export function generateAllPages(): GiftPageData[] {
@@ -179,6 +292,18 @@ export function generateAllPages(): GiftPageData[] {
           const audience = enAudience(gender.id, age.id);
           const occasionEn = enOccasionTitle[occasion.id] || occasion.en;
 
+          // 예산·기념일별 추천 (데이터가 없으면 기존 성별·나이대 목록으로 폴백)
+          const ideas = pickIdeas(key, occasion.id, budget.id);
+          const suggestions = ideas.length > 0
+            ? { ko: ideas.map(i => i.ko), en: ideas.map(i => i.en), ja: ideas.map(i => i.ja) }
+            : {
+              ko: giftSuggestionsKo[key] || giftSuggestionsKo['female-20s'],
+              en: giftSuggestionsEn[key] || giftSuggestionsEn['female-20s'],
+              ja: giftSuggestionsJa[key] || giftSuggestionsJa['female-20s'],
+            };
+          const n = Math.min(suggestions.ko.length, suggestions.en.length, suggestions.ja.length);
+          const examples = (loc: 'ko' | 'en' | 'ja') => suggestions[loc].slice(0, 3).join(loc === 'ja' ? '、' : ', ');
+
           // 브랜드 접미사("| 선물지니")는 layout 의 title.template 이 붙이므로 여기서는 넣지 않는다 (중복 방지)
           pages.push({
             slug,
@@ -192,20 +317,26 @@ export function generateAllPages(): GiftPageData[] {
               ja: `${age.ja}${gender.ja}の${occasion.ja}ギフト推薦 ${budget.ja}`,
             },
             description: {
-              ko: `${age.ko} ${gender.ko}에게 딱 맞는 ${occasion.ko} 선물을 ${budget.ko} 예산으로 추천합니다. AI가 엄선한 맞춤형 선물 아이디어와 쿠팡 구매 링크.`,
-              en: `Looking for a ${occasionEn.toLowerCase()} gift for ${audience.toLowerCase()} ${enBudgetPhrase(budget.id)}? 7 practical, well-loved gift ideas plus tips on choosing the right one.`,
-              ja: `${age.ja}${gender.ja}にぴったりの${occasion.ja}ギフトを${budget.ja}の予算でおすすめ。AIが厳選したオーダーメイドギフトアイデア。`,
+              ko: `${budget.ko} 예산으로 고르는 ${age.ko} ${gender.ko} ${occasion.ko} 선물 ${n}가지: ${examples('ko')} 등. 고르는 팁과 준비 시기까지 정리했습니다.`,
+              en: `${n} ${enOccasionInline(occasionEn)} gift ideas for ${audience.toLowerCase()} ${enBudgetPhrase(budget.id)} - ${examples('en')} and more, plus when to buy and what to avoid.`,
+              ja: `${budget.ja}で選ぶ${age.ja}${gender.ja}への${occasion.ja}ギフト${n}選。${examples('ja')}など、選び方と準備のタイミングも紹介。`,
             },
             h1: {
-              ko: `${age.ko} ${gender.ko} ${occasion.ko} 선물 추천 TOP 7`,
-              en: `Top 7 ${occasionEn} Gifts for ${audience}`,
-              ja: `${age.ja}${gender.ja}の${occasion.ja}ギフトTOP7`,
+              ko: `${age.ko} ${gender.ko} ${occasion.ko} 선물 추천 ${budget.ko} TOP ${n}`,
+              en: `${n} ${occasionEn} Gifts for ${audience} (${budget.en})`,
+              ja: `${age.ja}${gender.ja}の${occasion.ja}ギフト ${budget.ja} TOP${n}`,
             },
-            suggestions: {
-              ko: giftSuggestionsKo[key] || giftSuggestionsKo['female-20s'],
-              en: giftSuggestionsEn[key] || giftSuggestionsEn['female-20s'],
-              ja: giftSuggestionsJa[key] || giftSuggestionsJa['female-20s'],
-            },
+            suggestions,
+            faq: buildFaq(
+              {
+                audience: { ko: `${age.ko} ${gender.ko}`, en: audience, ja: `${age.ja}${gender.ja}` },
+                occasion: { ko: occasion.ko, en: occasionEn, ja: occasion.ja },
+                budget: { ko: budget.ko, en: budget.en, ja: budget.ja },
+              },
+              occasion.id,
+              budget.id,
+              suggestions
+            ),
             tips: {
               ko: occasionTipsKo[occasion.id] || occasionTipsKo.birthday,
               en: occasionTipsEn[occasion.id] || occasionTipsEn.birthday,
@@ -253,9 +384,15 @@ export function findPageBySlug(slug: string): GiftPageData | undefined {
   return allPages.find(p => p.slug === slug);
 }
 
+/** 사이트맵·정적 생성 대상(인기 조합)인지. 나머지 조합은 접속은 되지만 noindex */
+export function isPopularPage(slug: string): boolean {
+  return generatePopularPages().some(p => p.slug === slug);
+}
+
 // 관련 페이지 찾기 (같은 성별+나이대의 다른 기념일)
+// 인기 조합 안에서만 링크한다 — noindex 페이지로 크롤링 예산이 새지 않게
 export function findRelatedPages(page: GiftPageData, limit: number = 6): GiftPageData[] {
-  const allPages = generateAllPages();
+  const allPages = generatePopularPages();
   return allPages
     .filter(p => p.slug !== page.slug && (
       (p.gender === page.gender && p.ageGroup === page.ageGroup) ||

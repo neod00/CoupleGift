@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
-import { findPageBySlug, generatePopularPages, genders, ageGroups, occasions, budgets } from '@/data/giftPages';
+import { findPageBySlug, generatePopularPages, isPopularPage, genders, ageGroups, occasions, budgets } from '@/data/giftPages';
 import { getPostsForGiftPage } from '@/data/blog';
 import type { RelatedPostItem } from '@/components/RelatedPosts';
 import GiftPageClient from './GiftPageClient';
@@ -36,6 +36,8 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
   return {
     title,
     description,
+    // 인기 조합(사이트맵에 있는 페이지)만 색인. 나머지 조합은 얇은 중복 페이지가 되기 쉬워 noindex
+    ...(isPopularPage(slug) ? {} : { robots: { index: false, follow: true } }),
     openGraph: {
       title,
       description,
@@ -69,7 +71,7 @@ export default async function GiftPage({ params }: any) {
   }
 
   // 내부 링크: 이 조합(성별/기념일/나이대)에 어울리는 블로그 글 (서버에서 계산)
-  const relatedPosts: RelatedPostItem[] = getPostsForGiftPage(page, 4).map((post) => {
+  const relatedPosts: RelatedPostItem[] = getPostsForGiftPage(page, 4, locale).map((post) => {
     const data = typeof post[locale] === 'object' && post[locale] !== null ? post[locale] : post.ko;
     return {
       id: post.id,
@@ -86,19 +88,16 @@ export default async function GiftPage({ params }: any) {
   const occasion = occasions.find(o => o.id === page.occasion);
   const budget = budgets.find(b => b.id === page.budget);
 
+  // 페이지에 실제로 보이는 FAQ 와 같은 내용 (예전의 "선물 팁 1" 같은 가짜 질문 대신 실제 질문)
   const faqData = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    'mainEntity': (page.tips[locale] || page.tips.ko).map((tip, i) => ({
+    'mainEntity': (page.faq[locale] || page.faq.ko).map((item) => ({
       '@type': 'Question',
-      'name': locale === 'ko'
-        ? `${age?.ko} ${gender?.ko} ${occasion?.ko} 선물 팁 ${i + 1}`
-        : locale === 'ja'
-          ? `${age?.ja}${gender?.ja}の${occasion?.ja}ギフトヒント ${i + 1}`
-          : `${occasion?.en} Gift Tip ${i + 1} for ${age?.en} ${gender?.en}`,
+      'name': item.q,
       'acceptedAnswer': {
         '@type': 'Answer',
-        'text': tip,
+        'text': item.a,
       },
     })),
   };

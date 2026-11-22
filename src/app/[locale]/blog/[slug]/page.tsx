@@ -1,18 +1,21 @@
 import type { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
-import { getAllBlogSlugs, getBlogPostBySlug, getRelatedPosts, getRelatedGiftPages } from '@/data/blog';
+import { notFound } from 'next/navigation';
+import { getAllBlogPosts, getBlogPostBySlug, getPostLocales, getRelatedPosts, getRelatedGiftPages, hasLocale } from '@/data/blog';
 import { localeUrl, pageAlternates, SITE_URL } from '@/lib/seo';
 import type { RelatedPostItem } from '@/components/RelatedPosts';
 import BlogPostClient from './BlogPostClient';
 
 export function generateStaticParams() {
-    const slugs = getAllBlogSlugs();
     const params: { locale: string; slug: string }[] = [];
 
-    for (const locale of routing.locales) {
-        for (const slug of slugs) {
-            params.push({ locale, slug });
+    // 글마다 실제로 존재하는 언어 버전만 생성 (시장 전용 글은 일부 언어만 있음)
+    for (const post of getAllBlogPosts()) {
+        for (const locale of getPostLocales(post)) {
+            if ((routing.locales as readonly string[]).includes(locale)) {
+                params.push({ locale, slug: post.id });
+            }
         }
     }
 
@@ -24,11 +27,11 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
     const { locale, slug } = await params;
     const post = getBlogPostBySlug(slug);
 
-    if (!post) {
+    if (!post || !hasLocale(post, locale)) {
         return { title: 'Post Not Found', robots: { index: false } };
     }
 
-    const localData = typeof post[locale] === 'object' && post[locale] !== null ? post[locale] : post.ko;
+    const localData = post[locale];
     const title: string = localData?.title || slug;
     const description: string = localData?.excerpt || '';
     const image: string | undefined = typeof post.image === 'string' && post.image.startsWith('http') ? post.image : undefined;
@@ -36,13 +39,14 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
     return {
         title,
         description,
-        alternates: pageAlternates(locale, `/blog/${slug}`),
+        alternates: pageAlternates(locale, `/blog/${slug}`, getPostLocales(post)),
         openGraph: {
             type: 'article',
             url: localeUrl(locale, `/blog/${slug}`),
             title,
             description,
             publishedTime: post.date,
+            ...(post.updated ? { modifiedTime: post.updated } : {}),
             ...(image ? { images: [{ url: image }] } : {}),
         },
         twitter: {
@@ -68,8 +72,12 @@ export default async function BlogPostPage({ params }: any) {
     if (!post) {
         return <BlogPostClient locale={locale} post={null} />;
     }
+    // 이 언어 버전이 없는 글 (시장 전용 글) → 다른 언어로 폴백하지 않고 404
+    if (!hasLocale(post, locale)) {
+        notFound();
+    }
 
-    const localData = typeof post[locale] === 'object' && post[locale] !== null ? post[locale] : post.ko;
+    const localData = post[locale];
     const image = typeof post.image === 'string' && post.image.startsWith('http') ? post.image : undefined;
 
     // 내부 링크: 관련 글 + 관련 /gift 가이드 (서버에서 계산해 직렬화 가능한 형태로 전달)
@@ -92,7 +100,7 @@ export default async function BlogPostPage({ params }: any) {
         headline: localData?.title || slug,
         description: localData?.excerpt || '',
         datePublished: post.date,
-        dateModified: post.date,
+        dateModified: post.updated || post.date,
         inLanguage: locale,
         mainEntityOfPage: localeUrl(locale, `/blog/${slug}`),
         ...(image ? { image } : {}),

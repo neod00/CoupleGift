@@ -24,6 +24,15 @@
 import { GoogleGenAI } from "@google/genai";
 import fs from "fs";
 import path from "path";
+import {
+  TABLE_MARKER,
+  buildContent,
+  countHangul,
+  findUnlocalized,
+  normalizeLocale,
+  normalizeTable,
+  type LocaleData,
+} from "./lib/blog-content";
 
 const argv = process.argv.slice(2);
 const SELECT_ONLY = argv.includes("--select-only") || argv.includes("--dry-run");
@@ -54,8 +63,17 @@ const genAI = API_KEY ? new GoogleGenAI({ apiKey: API_KEY }) : null;
 // ---------------------------------------------------------------------------
 
 type KeywordStatus = "pending" | "done";
+type BlogLocale = "ko" | "en" | "ja";
+const ALL_LOCALES: BlogLocale[] = ["ko", "en", "ja"];
 
 interface KeywordEntry {
+  /**
+   * 이 글을 낼 언어(시장). 생략하면 ko+en+ja.
+   * - ["ko"]        : 한국 전용 주제 (추석, 어버이날, 전역 …) — en/ja 를 만들지 않는다
+   * - ["ko","ja"]   : 한국·일본 공통 (화이트데이, 어린이날/こどもの日, 입학 …)
+   * - ["en"] / ["ja"]: 미국·일본 전용 주제. keyword 도 그 언어로 쓰고 그 언어로 바로 작성한다
+   */
+  locales?: BlogLocale[];
   keyword: string;
   slug: string;
   receiver: string;
@@ -84,25 +102,6 @@ interface TopicPlan {
   entry?: KeywordEntry;
 }
 
-interface ComparisonTable {
-  caption?: string;
-  headers: string[];
-  rows: string[][];
-}
-
-interface FaqItem {
-  q: string;
-  a: string;
-}
-
-interface LocaleData {
-  title: string;
-  excerpt: string;
-  category: string;
-  readTime: string;
-  content: string[];
-  faq: FaqItem[];
-}
 
 // ---------------------------------------------------------------------------
 // Pexels 썸네일 (기존 헬퍼 유지)
@@ -131,18 +130,48 @@ async function fetchThumbnailFromPexels(query: string): Promise<string> {
 // 기존 글 / 키워드 큐 읽기
 // ---------------------------------------------------------------------------
 
-function getExistingPosts(): { slug: string; title: string }[] {
+interface ExistingPost {
+    slug: string;
+    /** ko 제목 (없으면 빈 문자열) */
+    title: string;
+    titles?: Partial<Record<BlogLocale, string>>;
+}
+
+function getExistingPosts(): ExistingPost[] {
     if (!fs.existsSync(POSTS_DIR)) return [];
     return fs.readdirSync(POSTS_DIR)
         .filter(f => f.endsWith(".json"))
         .map(f => {
             try {
                 const data = JSON.parse(fs.readFileSync(path.join(POSTS_DIR, f), "utf8"));
-                return { slug: f.replace(".json", ""), title: data?.ko?.title || "" };
+                const titles: Partial<Record<BlogLocale, string>> = {};
+                for (const loc of ALL_LOCALES) {
+                    if (typeof data?.[loc]?.title === "string") titles[loc] = data[loc].title;
+                }
+                return { slug: f.replace(".json", ""), title: titles.ko || "", titles };
             } catch {
                 return { slug: f.replace(".json", ""), title: "" };
             }
         });
+}
+
+/** 항목의 발행 언어 (생략 시 ko+en+ja). 잘못된 값은 버린다 */
+function entryLocales(entry?: KeywordEntry): BlogLocale[] {
+    const raw = Array.isArray(entry?.locales) ? entry!.locales : [];
+    const valid = ALL_LOCALES.filter(loc => raw.includes(loc));
+    return valid.length > 0 ? valid : [...ALL_LOCALES];
+}
+
+/** 원문을 쓰는 언어: ko 가 포함되면 ko, 아니면 유일한(첫) 시장 언어 */
+function primaryLocale(entry?: KeywordEntry): BlogLocale {
+    const locales = entryLocales(entry);
+    return locales.includes("ko") ? "ko" : locales[0];
+}
+
+function existingTitlesFor(existing: ExistingPost[], locale: BlogLocale): string[] {
+    return existing
+        .map(p => (locale === "ko" ? p.title : p.titles?.[locale]) || "")
+        .filter(Boolean);
 }
 
 function readKeywordFile(): KeywordFile | null {
@@ -228,10 +257,9 @@ interface SelectionResult {
 function selectKeyword(
     file: KeywordFile,
     currentMonth: number,
-    existing: { slug: string; title: string }[]
+    existing: ExistingPost[]
 ): SelectionResult {
     const existingSlugs = new Set(existing.map(p => p.slug));
-    const existingTitles = existing.map(p => p.title).filter(Boolean);
 
     const pending = file.keywords
         .map((entry, index) => ({ entry, index }))
@@ -249,7 +277,8 @@ function selectKeyword(
             skipped.push({ entry, reason: `slug 파일이 이미 존재: ${entry.slug}.json` });
             continue;
         }
-        if (isCoveredByExistingTitle(entry.keyword, existingTitles)) {
+        // 같은 언어의 기존 제목과 비교 (en 전용 키워드는 en 제목과)
+        if (isCoveredByExistingTitle(entry.keyword, existingTitlesFor(existing, primaryLocale(entry)))) {
             skipped.push({ entry, reason: "기존 글 제목이 키워드를 이미 포함" });
             continue;
         }
@@ -262,111 +291,8 @@ function selectKeyword(
 // 콘텐츠 후처리 (순수 함수)
 // ---------------------------------------------------------------------------
 
-const TABLE_MARKER = "[[TABLE]]";
 const NUMBERED_HEADING = /^##\s*\d+[.)]/;
 
-function escapeHtml(text: string): string {
-    return String(text ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;");
-}
-
-/** 쿠팡/쇼핑 링크와 스크립트를 제거 (본문은 dangerouslySetInnerHTML 로 렌더링됨) */
-function sanitizeText(text: string): string {
-    return String(text ?? "")
-        .replace(/<script[\s\S]*?<\/script>/gi, "")
-        .replace(/<a\b[^>]*(coupang\.com|coupa\.ng)[^>]*>([\s\S]*?)<\/a>/gi, "$2")
-        .replace(/https?:\/\/(?:[\w.-]*\.)?(?:coupang\.com|coupa\.ng)[^\s<)]*/gi, "")
-        .replace(/\son\w+\s*=\s*("[^"]*"|'[^']*')/gi, "")
-        .trim();
-}
-
-function normalizeTable(raw: unknown): ComparisonTable | null {
-    if (!raw || typeof raw !== "object") return null;
-    const table = raw as { caption?: unknown; headers?: unknown; rows?: unknown };
-    const headers = Array.isArray(table.headers)
-        ? table.headers.filter((h): h is string => typeof h === "string").map(h => h.trim())
-        : [];
-    const rows = Array.isArray(table.rows)
-        ? table.rows
-            .filter((row): row is unknown[] => Array.isArray(row))
-            .map(row => row.map(cell => (typeof cell === "string" ? cell.trim() : String(cell ?? ""))))
-            .filter(row => row.some(cell => cell.length > 0))
-        : [];
-    if (headers.length < 2 || rows.length === 0) return null;
-    return {
-        caption: typeof table.caption === "string" && table.caption.trim() ? table.caption.trim() : undefined,
-        headers,
-        rows,
-    };
-}
-
-/**
- * 비교표를 HTML 문자열로 만든다. BlogPostClient 는 '<div' 로 시작하는 문단을 HTML 로 렌더링한다.
- * Tailwind 는 JSON 안의 클래스를 스캔하지 않으므로 인라인 스타일을 함께 넣는다.
- */
-function renderTableHtml(table: ComparisonTable): string {
-    const cell = "padding:0.6rem 0.75rem;border:1px solid rgba(128,128,128,0.35);text-align:left;vertical-align:top";
-    const head = `${cell};font-weight:600;background:rgba(128,128,128,0.12);white-space:nowrap`;
-    const caption = table.caption
-        ? `<caption style="caption-side:top;text-align:left;font-weight:600;margin-bottom:0.5rem">${escapeHtml(table.caption)}</caption>`
-        : "";
-    const thead = `<thead><tr>${table.headers.map(h => `<th scope="col" style="${head}">${escapeHtml(h)}</th>`).join("")}</tr></thead>`;
-    const tbody = `<tbody>${table.rows
-        .map(row => `<tr>${table.headers.map((_, i) => `<td style="${cell}">${escapeHtml(row[i] ?? "")}</td>`).join("")}</tr>`)
-        .join("")}</tbody>`;
-    return `<div class="overflow-x-auto" style="overflow-x:auto;margin:1.5rem 0"><table style="width:100%;min-width:480px;border-collapse:collapse;font-size:0.95rem">${caption}${thead}${tbody}</table></div>`;
-}
-
-/** 본문 배열 정리: 문자열만, 공백 제거, 링크 제거, [[TABLE]] 마커 자리에 표 삽입 (표는 하나만) */
-function buildContent(rawContent: unknown, table: ComparisonTable | null): string[] {
-    const content = (Array.isArray(rawContent) ? rawContent : [])
-        .filter((p): p is string => typeof p === "string")
-        .map(sanitizeText)
-        .filter(p => p.length > 0);
-
-    const alreadyHasTable = content.some(p => /<table\b/i.test(p));
-    const tableHtml = table && !alreadyHasTable ? renderTableHtml(table) : null;
-
-    const result: string[] = [];
-    let inserted = false;
-    for (const paragraph of content) {
-        if (paragraph.includes(TABLE_MARKER)) {
-            const rest = paragraph.replace(TABLE_MARKER, "").trim();
-            if (tableHtml && !inserted) {
-                result.push(tableHtml);
-                inserted = true;
-            }
-            if (rest) result.push(rest);
-            continue;
-        }
-        if (/<table\b/i.test(paragraph) && !/^<div/i.test(paragraph)) {
-            // 모델이 표를 직접 넣었으면 가로 스크롤 래퍼만 씌운다
-            result.push(`<div class="overflow-x-auto" style="overflow-x:auto;margin:1.5rem 0">${paragraph}</div>`);
-            continue;
-        }
-        result.push(paragraph);
-    }
-
-    if (tableHtml && !inserted) {
-        // 마커가 없으면 첫 소제목 앞(인트로 뒤)에 넣는다
-        const firstHeading = result.findIndex(p => p.startsWith("## "));
-        const at = firstHeading > 0 ? firstHeading : Math.min(1, result.length);
-        result.splice(at, 0, tableHtml);
-    }
-    return result;
-}
-
-function buildFaq(raw: unknown, max = 5): FaqItem[] {
-    if (!Array.isArray(raw)) return [];
-    return raw
-        .filter((item): item is { q: unknown; a: unknown } => !!item && typeof item === "object")
-        .map(item => ({ q: sanitizeText(String(item.q ?? "")), a: sanitizeText(String(item.a ?? "")) }))
-        .filter(item => item.q.length > 0 && item.a.length > 0)
-        .slice(0, max);
-}
 
 function cleanHeading(heading: string): string {
     return heading
@@ -406,39 +332,7 @@ function alignProductKeywords(content: string[], queueKeywords: string[], modelK
     return aligned;
 }
 
-/**
- * en/ja 가 한국어 글을 직역한 흔적(원화 가격, 브랜드 음역)을 찾는다.
- * 2026-11 Search Console 에서 미국 노출 113회·클릭 0 — 영어 글에 "30,000 KRW" 가 100번씩 나온 것이 원인이었다.
- */
-function findUnlocalized(data: LocaleData | null): string[] {
-    if (!data) return [];
-    const text = [data.title, data.excerpt, ...data.content, ...data.faq.flatMap(f => [f.q, f.a])].join("\n");
-    const issues: string[] = [];
-    if (/KRW|\d\s*won\b|ウォン|만원/i.test(text)) issues.push("원화 가격 표기");
-    if (/Seonmul/i.test(text)) issues.push("브랜드 음역(Seonmul)");
-    if (/[가-힣]{2,}/.test(text)) issues.push("한글 잔존");
-    return issues;
-}
 
-function countHangul(content: string[]): number {
-    return content.reduce((sum, p) => sum + (p.match(/[가-힣]/g) || []).length, 0);
-}
-
-function normalizeLocale(raw: unknown, fallbackCategory: string): LocaleData | null {
-    if (!raw || typeof raw !== "object") return null;
-    const data = raw as Record<string, unknown>;
-    const title = typeof data.title === "string" ? sanitizeText(data.title) : "";
-    const content = buildContent(data.content, normalizeTable(data.table));
-    if (!title || content.length === 0) return null;
-    return {
-        title,
-        excerpt: typeof data.excerpt === "string" ? sanitizeText(data.excerpt) : "",
-        category: typeof data.category === "string" && data.category.trim() ? data.category.trim() : fallbackCategory,
-        readTime: typeof data.readTime === "string" ? data.readTime.trim() : "",
-        content,
-        faq: buildFaq(data.faq),
-    };
-}
 
 /** 모델 출력에서 JSON 을 꺼낸다 (백틱 펜스 제거 → 실패 시 첫 '{' ~ 마지막 '}' 구간 재시도) */
 function parseModelJson(text: string): unknown {
@@ -470,6 +364,9 @@ function buildBlogPrompt({ topic, dateStr, entry, existingTitles }: PromptInput)
     const queueKeywords = (entry?.productKeywords || []).map(k => k.trim()).filter(Boolean);
     const sectionCount = Math.min(7, Math.max(5, queueKeywords.length || 6));
     const category = entry?.category || "선물 팁";
+    // ko 와 함께 낼 현지화 언어 (한국 전용 주제면 비어 있음)
+    const extraLocales = entryLocales(entry).filter(loc => loc !== "ko");
+    const localeNames: Record<BlogLocale, string> = { ko: "한국어(ko)", en: "영어(en)", ja: "일본어(ja)" };
 
     const targetBlock = entry
         ? `- 타깃 검색 키워드: "${entry.keyword}" (이 키워드로 검색한 사람이 만족해야 합니다)
@@ -522,8 +419,11 @@ ${titlesBlock}
 - 출처 없는 통계·설문 수치, 가짜 후기, 특정 인물·기업 비방 금지.
 - 소제목은 "## "로 시작, 강조는 **텍스트**. 마크다운 목록("- ", "1. ")과 HTML 태그는 본문에 넣지 마세요 (표는 table 필드로).
 
-## 영어(en)·일본어(ja) — 직역이 아니라 "현지화"
-en 은 미국 독자, ja 는 일본 독자가 자기 나라 검색엔진에서 찾아 읽는 글이어야 합니다. 한국어 글을 옮긴 티가 나면 클릭되지 않습니다.
+${extraLocales.length === 0 ? `## 언어
+이 글은 한국 독자 전용입니다. ko 만 작성하고 en/ja 는 출력하지 마세요.
+` : `## ${extraLocales.map(l => localeNames[l]).join("·")} — 직역이 아니라 "현지화"
+이 글은 ko 와 함께 ${extraLocales.join(", ")} 버전만 작성합니다 (그 외 언어는 출력하지 마세요).
+en 은 미국 독자, ja 는 일본 독자가 자기 나라 검색엔진에서 찾아 읽는 글이어야 합니다. 한국어 글을 옮긴 티가 나면 클릭되지 않습니다.`}${extraLocales.length === 0 ? "" : `
 - 구조는 ko 와 같게 유지: title, excerpt, category, readTime, content, table, faq 모두 작성. "${TABLE_MARKER}" 마커, "## N." 번호와 개수(productKeywords 와 1:1), 섹션별 3줄 형식("**Why it works:**" / "**Best for:**" / "**Price range:**", ja 는 "**実用性:**" / "**こんな人に:**" / "**価格帯:**")을 지킵니다.
 - 가격: en 은 미국 달러("about $40–$80"), ja 는 엔("約5,000〜8,000円")으로 그 나라에서 실제로 살 때의 일반적인 가격대를 범위로 씁니다. 원화(KRW, ウォン) 표기와 환율 계산 금지.
 - title: 그 나라 사람이 실제로 검색하는 표현으로 다시 씁니다. 한국식 표현을 옮기지 마세요.
@@ -532,16 +432,63 @@ en 은 미국 독자, ja 는 일본 독자가 자기 나라 검색엔진에서 �
 - 본문: 한국에만 있는 것(한우·홍삼·상품권 문화, 추석·설날·어버이날·빼빼로데이, 쿠팡·카카오 선물하기, "만원대" 같은 표현)은 그 나라에서 통하는 대안으로 바꾸거나 빼세요. 한국 명절이 주제인 글이면 en/ja 에서는 "한국 명절을 챙기는 사람을 위한 글"이라는 맥락을 첫 문단에 밝힙니다.
 - 사이트명은 en "GiftGenie", ja "ギフトジニー" 로만 씁니다 ("Seonmul Genie" 같은 음역 금지).
 - faq 는 그 나라 사람이 실제로 묻는 질문으로 (예: en "How much should I spend on a 40th birthday gift for my wife?").
-- category 는 en 은 영어(예: Birthday, Anniversary, Housewarming, Workplace, Wedding & Baby, Holidays, Seasonal, Gift Tips), ja 는 일본어로.
+- category 는 en 은 영어(예: Birthday, Anniversary, Housewarming, Workplace, Wedding & Baby, Holidays, Seasonal, Gift Tips), ja 는 일본어로.`}
 
 ## 출력 형식
 설명이나 마크다운 펜스 없이 아래 형태의 JSON 객체 하나만 출력하세요. 반드시 파싱 가능해야 합니다.
 {
   "ko": { "title": "", "excerpt": "", "category": "", "readTime": "", "content": ["..."], "table": { "caption": "", "headers": [], "rows": [[]] }, "faq": [{ "q": "", "a": "" }] },
-  "en": { ...같은 구조... },
-  "ja": { ...같은 구조... },
-  "productKeywords": ["..."]
+${extraLocales.map(l => `  "${l}": { ...같은 구조... },`).join("\n")}${extraLocales.length ? "\n" : ""}  "productKeywords": ["..."]
 }`;
+}
+
+/**
+ * 미국(en) / 일본(ja) 전용 주제 프롬프트. 한국어 원문 없이 그 언어로 바로 쓴다.
+ * 출력: { "<loc>": { title, excerpt, category, readTime, content, table, faq } }
+ */
+function buildNativePrompt(entry: KeywordEntry, locale: "en" | "ja", dateStr: string, existingTitles: string[]): string {
+    const titlesBlock = existingTitles.length > 0 ? existingTitles.map(t => `- ${t}`).join("\n") : "- (none)";
+    const isEn = locale === "en";
+    const market = isEn ? "United States" : "Japan";
+    const labels = isEn
+        ? `"**Why it works:** …" / "**Best for:** …" / "**Price range:** about $40–$80"`
+        : `"**実用性:** …" / "**こんな人に:** …" / "**価格帯:** 約5,000〜8,000円"`;
+    const tipsHeading = isEn ? "## 💡 How to Choose" : "## 💡 選び方のポイント";
+    const tableHeaders = isEn ? `["Gift", "Price range", "Best for", "Why it works"]` : `["ギフト", "価格帯", "こんな人に", "ポイント"]`;
+    const categories = isEn
+        ? "Birthday, Anniversary, Housewarming, Workplace, Wedding & Baby, Holidays, Seasonal, Gift Tips"
+        : "誕生日, 記念日, 引っ越し祝い, 職場, 結婚・出産, 季節のイベント, ギフトのヒント";
+    const length = isEn ? "900–1,400 English words" : "日本語で3,000〜4,500文字";
+
+    return `You are the SEO content editor of "${isEn ? "GiftGenie" : "ギフトジニー"}", a gift recommendation site. Write one gift guide for readers in the ${market}, entirely in ${isEn ? "natural American English" : "natural Japanese (です・ます調)"}. This is original content for that market, not a translation.
+
+## Target
+- Search keyword: "${entry.keyword}" (someone who searched this must be satisfied)
+- Recipient: ${entry.receiver} / Occasion: ${entry.occasion}
+- Search intent notes: ${entry.intent}
+- Publish date: ${dateStr}
+
+## Already published titles in this language (do not overlap; take a different angle)
+${titlesBlock}
+
+## Rules
+1. title: contains the core of the search keyword, reads like a human headline. ${isEn ? "Max ~65 characters." : "30〜40文字程度。"}
+2. Length: ${length} across content.
+3. content array (strings only, in this order):
+   - 1–2 intro paragraphs saying who this is for and the price range covered.
+   - the string "${TABLE_MARKER}" once (comparison table placeholder).
+   - 6–7 sections "## N. Gift type — short hook" (N from 1). Each: 1–2 paragraphs, then three separate strings: ${labels}
+   - "${tipsHeading}" with 2–3 tip paragraphs (timing, wrapping/card, what to avoid).
+   - one short closing paragraph. No other "## " headings.
+4. table: { "caption": "...", "headers": ${tableHeaders}, "rows": [...] } — one row per "## N." section, same order.
+5. faq: 3 questions people in the ${market} actually type into search, 2–4 sentence answers.
+6. Prices: ${isEn ? "US dollars" : "日本円"} as typical ${market} retail ranges ("about", "〜"), never exact. No Korean won.
+7. category: one of ${categories}. readTime: ${isEn ? '"6 min"' : '"6分"'}. excerpt: ${isEn ? "120–160 characters" : "60〜100文字"}, includes the keyword.
+8. Do not mention store links/URLs, unsourced statistics, fake reviews, absolute claims ("best ever", "guaranteed"), or medical claims. Use **bold** only; no markdown lists or HTML in content.
+
+## Output
+Only one JSON object, no code fences:
+{ "${locale}": { "title": "", "excerpt": "", "category": "", "readTime": "", "content": ["..."], "table": { "caption": "", "headers": [], "rows": [[]] }, "faq": [{ "q": "", "a": "" }] } }`;
 }
 
 // ---------------------------------------------------------------------------
@@ -638,13 +585,62 @@ async function resolveTopic(
 // ---------------------------------------------------------------------------
 
 interface GeneratedPost {
-    ko: LocaleData;
+    ko: LocaleData | null;
     en: LocaleData | null;
     ja: LocaleData | null;
     productKeywords: string[];
 }
 
-async function generatePost(plan: TopicPlan, dateStr: string, existingTitles: string[]): Promise<GeneratedPost> {
+/** 원문이 en/ja 인 시장 전용 글 최소 분량 (en 단어 수 / ja 문자 수) */
+const MIN_NATIVE_LENGTH = { en: 600, ja: 2000 };
+
+function nativeLength(locale: "en" | "ja", data: LocaleData): number {
+    const text = data.content.join(" ").replace(/<[^>]+>/g, " ");
+    return locale === "en" ? text.split(/\s+/).filter(Boolean).length : text.replace(/\s/g, "").length;
+}
+
+/** 미국·일본 전용 주제: 그 언어로 바로 작성 (ko 없음, 상품 카드 없음) */
+async function generateNativePost(plan: TopicPlan, locale: "en" | "ja", dateStr: string, existingTitles: string[]): Promise<GeneratedPost> {
+    const basePrompt = buildNativePrompt(plan.entry!, locale, dateStr, existingTitles);
+    let lastRaw = "";
+    let lastError: unknown = null;
+    for (let attempt = 1; attempt <= MAX_GENERATION_ATTEMPTS; attempt++) {
+        const prompt = attempt === 1
+            ? basePrompt
+            : `${basePrompt}\n\n(The previous output was invalid: ${String(lastError)}. Re-check the rules and output pure JSON only.)`;
+        console.log(`Generating ${locale}-only blog post (attempt ${attempt}/${MAX_GENERATION_ATTEMPTS})...`);
+        const res = await genAI!.models.generateContent({ model: MODEL, contents: prompt, config: { responseMimeType: "application/json" } });
+        lastRaw = res.text || "{}";
+        try {
+            const data = parseModelJson(lastRaw) as Record<string, unknown>;
+            const local = normalizeLocale(data[locale], locale === "en" ? "Gift Tips" : "ギフトのヒント");
+            if (!local) throw new Error(`${locale}.title / ${locale}.content missing`);
+            const length = nativeLength(locale, local);
+            if (length < MIN_NATIVE_LENGTH[locale]) throw new Error(`${locale} content too short (${length} < ${MIN_NATIVE_LENGTH[locale]})`);
+            const issues = findUnlocalized(local);
+            if (issues.length > 0) {
+                if (attempt < MAX_GENERATION_ATTEMPTS) throw new Error(`localization rule violated: ${issues.join(", ")}`);
+                console.warn(`[Warn] 현지화 규칙 위반 상태로 발행: ${issues.join(", ")}`);
+            }
+            console.log(`[Length] ${locale} ${length}${locale === "en" ? " words" : "자"}`);
+            return { ko: null, en: locale === "en" ? local : null, ja: locale === "ja" ? local : null, productKeywords: [] };
+        } catch (err) {
+            lastError = err;
+            console.error(`Attempt ${attempt} failed:`, (err as Error).message || err);
+        }
+    }
+    console.error("Failed to parse AI output as JSON:", lastError);
+    console.error("Raw Output:", lastRaw);
+    process.exit(1);
+}
+
+async function generatePost(plan: TopicPlan, dateStr: string, existingPosts: ExistingPost[]): Promise<GeneratedPost> {
+    const primary = primaryLocale(plan.entry);
+    if (primary !== "ko") {
+        return generateNativePost(plan, primary, dateStr, existingTitlesFor(existingPosts, primary));
+    }
+    const wanted = entryLocales(plan.entry);
+    const existingTitles = existingTitlesFor(existingPosts, "ko");
     const basePrompt = buildBlogPrompt({ topic: plan.topic, dateStr, entry: plan.entry, existingTitles });
     const queueKeywords = plan.entry?.productKeywords || [];
     let lastRaw = "";
@@ -684,10 +680,11 @@ async function generatePost(plan: TopicPlan, dateStr: string, existingTitles: st
             const productKeywords = alignProductKeywords(ko.content, queueKeywords, data.productKeywords);
             if (productKeywords.length === 0) console.warn("[Warn] 번호 섹션(## N.)이 없어 상품 키워드를 정렬하지 못했습니다");
 
-            const en = normalizeLocale(data.en, "Gift Tips");
-            const ja = normalizeLocale(data.ja, "ギフトのヒント");
-            if (!en) console.warn("[Warn] en 번역이 없습니다 — 페이지는 ko 로 폴백됩니다");
-            if (!ja) console.warn("[Warn] ja 번역이 없습니다 — 페이지는 ko 로 폴백됩니다");
+            // 이 항목이 요청한 언어만 남긴다 (한국 전용 주제면 en/ja 를 버림)
+            const en = wanted.includes("en") ? normalizeLocale(data.en, "Gift Tips") : null;
+            const ja = wanted.includes("ja") ? normalizeLocale(data.ja, "ギフトのヒント") : null;
+            if (wanted.includes("en") && !en) console.warn("[Warn] en 버전이 없습니다 — en 페이지는 만들어지지 않습니다");
+            if (wanted.includes("ja") && !ja) console.warn("[Warn] ja 버전이 없습니다 — ja 페이지는 만들어지지 않습니다");
 
             // 현지화 실패(원화 가격 등)는 재생성 대상. 마지막 시도면 경고만 남기고 발행한다.
             const unlocalized = [
@@ -755,6 +752,21 @@ function selfTest(): void {
     const noMarker = buildContent(["인트로", "## 1. A", "설명"], table);
     assert(noMarker[1].startsWith("<div"), "table inserted before first heading when marker missing");
     assert(countHangul(["가나다 abc", "라"]) === 4, "countHangul");
+
+    // 시장(언어)별 큐
+    const koOnly: KeywordEntry = { ...mk("chuseok-x", "9", 1), locales: ["ko"] };
+    const enOnly: KeywordEntry = { ...mk("thanksgiving-hostess", "11", 1), keyword: "thanksgiving hostess gifts", locales: ["en"] };
+    assert(entryLocales(mk("a", "evergreen", 1)).join() === "ko,en,ja", "default locales");
+    assert(entryLocales({ ...mk("a", "evergreen", 1), locales: ["ja", "ko"] }).join() === "ko,ja", "locales normalized to order");
+    assert(primaryLocale(enOnly) === "en" && primaryLocale(koOnly) === "ko", "primary locale");
+    const koPrompt = buildBlogPrompt({ topic: "추석", dateStr: "2026-08-01", entry: koOnly, existingTitles: [] });
+    assert(!koPrompt.includes('"en":') && !koPrompt.includes('"ja":') && koPrompt.includes("ko 만 작성"), "ko-only prompt has no en/ja output");
+    const allPrompt = buildBlogPrompt({ topic: "x", dateStr: "2026-08-01", entry: mk("x", "evergreen", 1), existingTitles: [] });
+    assert(allPrompt.includes('"en":') && allPrompt.includes('"ja":'), "default prompt has en/ja");
+    const nativePrompt = buildNativePrompt(enOnly, "en", "2026-10-01", ["Old Title"]);
+    assert(nativePrompt.includes("thanksgiving hostess gifts") && nativePrompt.includes('{ "en":') && nativePrompt.includes("Old Title"), "native prompt");
+    const existingMixed: ExistingPost[] = [{ slug: "s", title: "", titles: { en: "Thanksgiving Hostess Gifts Under $30" } }];
+    assert(selectKeyword({ updatedAt: "", keywords: [enOnly] }, 10, existingMixed).chosen === null, "en keyword deduped against en titles");
 
     // 현지화 검사
     const loc = (content: string[]): LocaleData => ({ title: "t", excerpt: "", category: "", readTime: "", content, faq: [] });
@@ -828,17 +840,15 @@ async function main() {
     const bannerImage = await fetchThumbnailFromPexels(pexelsQuery);
 
     // 4. 본문 생성 (ko + en/ja + 표 + FAQ + 상품 키워드)
-    const existingTitles = existingPosts.map(p => p.title).filter(Boolean);
-    const generated = await generatePost(plan, dateStr, existingTitles);
+    const generated = await generatePost(plan, dateStr, existingPosts);
 
     // 5. 포스트 JSON 저장 (기존 스키마 + 최상위 faq / productKeywords)
     const finalJson = {
         id: plan.slug,
         date: dateStr,
         image: bannerImage,
-        productKeywords: generated.productKeywords,
-        faq: generated.ko.faq,
-        ko: generated.ko,
+        // 상품 카드·최상위 faq 는 ko 글에만 (시장 전용 en/ja 글은 해당 언어 키만 가진다)
+        ...(generated.ko ? { productKeywords: generated.productKeywords, faq: generated.ko.faq, ko: generated.ko } : {}),
         ...(generated.en ? { en: generated.en } : {}),
         ...(generated.ja ? { ja: generated.ja } : {}),
     };

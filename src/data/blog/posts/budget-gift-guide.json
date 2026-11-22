@@ -23,39 +23,46 @@
     ]
   },
   "en": {
-    "title": "Budget Gift Guide: Thoughtful Recommendations from $10 to $100",
-    "excerpt": "You can choose thoughtful gifts even with a limited budget. Gift ideas and tips by price range.",
+    "title": "Gift Ideas by Budget: Thoughtful Picks from $10 to $80",
+    "excerpt": "Gift ideas by budget, from under $10 to about $80. Find thoughtful picks at every price point, plus tips for choosing a present that feels personal without overspending.",
     "category": "Gift Tips",
     "readTime": "7 min",
     "content": [
-      "The value of a gift lies not in its price, but in the thought behind it. Let's explore how to choose thoughtful gifts within your budget.",
-      "## 💸 Under $10: Small but Meaningful Gifts",
-      "**Recommended Items:** Hand cream, candles, sock sets, face mask sets, stationery, snack gift sets",
-      "Even with a small budget, thoughtful packaging can make a wonderful gift.",
-      "## 💳 $10-$30: Practical and Thoughtful Gifts",
-      "**Recommended Items:** Tumblers, eco bags, mini perfume sets, books, diffusers",
-      "## 💎 $30-$50: Special Gifts",
-      "**Recommended Items:** Cosmetics sets, wallets, wireless chargers, wine",
-      "## 🎁 $50-$100: Premium Gifts",
-      "**Recommended Items:** Premium perfume, AirPods cases, brand accessories, luxury stationery sets",
-      "If your budget allows, gifting something your partner has been wanting but hesitating to buy is the most touching gesture."
-    ]
+      "The value of a gift is not in the price, but in the thought. Here is how to choose something thoughtful, whatever your budget. We have grouped gift ideas by price so you can jump to the range that fits.",
+      "## 💸 Under $10: Small Gifts With Heart",
+      "**Gift ideas:** Hand cream, a candle, a set of cozy socks, face mask sets, stationery, a treat box",
+      "Even a small budget can make a great gift when it is wrapped with care. Another smart move is to give a nicer version of something the person already uses every day, such as a favorite snack or hand cream.",
+      "## 💳 $10 to $25: Useful and Stylish",
+      "**Gift ideas:** A tumbler, a tote bag, a set of mini perfumes, a book, a diffuser, a case for wireless earbuds",
+      "In this range, you can find items that are both practical and nicely designed.",
+      "## 💎 $25 to $40: A Special Gift",
+      "**Gift ideas:** A skincare set, a wallet, a wireless charger, a collectible figure, a bottle of wine",
+      "## 🎁 $40 to $80: A Premium Gift",
+      "**Gift ideas:** Premium perfume, a case or accessory from a favorite brand, a high-quality stationery set",
+      "If your budget allows, giving something they have been wanting but hesitated to buy is often the most touching choice. Ask a friend or family member about it if you are unsure."
+    ],
+    "faq": []
   },
   "ja": {
-    "title": "予算別ギフトガイド：1,000円から10,000円までのセンスあるギフト推薦",
-    "excerpt": "限られた予算でもセンスのあるギフトを選べます。価格帯別に厳選したギフトアイデア。",
+    "title": "予算別ギフトガイド 1,000円から1万円までのセンスのよい贈り物",
+    "excerpt": "予算別のプレゼントアイデアを、約1,000円以下から約1万円まで紹介。価格帯ごとに選べる贈り物と、気持ちが伝わる選び方のコツがわかります。",
     "category": "ギフトのヒント",
     "readTime": "7分",
     "content": [
-      "ギフトの価値は価格ではなく気持ちにあります。予算に合わせてセンスあるギフトを選ぶ方法をご紹介します。",
-      "## 💸 1,000円以下：気持ちを込めたちょっとしたギフト",
-      "**おすすめアイテム：** ハンドクリーム、キャンドル、靴下セット、フェイスマスクセット、文房具",
-      "## 💳 1,000〜3,000円：実用的でセンスあるギフト",
-      "**おすすめアイテム：** タンブラー、エコバッグ、ミニ香水セット、本、ディフューザー",
-      "## 💎 3,000〜5,000円：特別なギフト",
-      "**おすすめアイテム：** 化粧品セット、財布、ワイヤレス充電器、ワイン",
-      "## 🎁 5,000〜10,000円：プレミアムギフト",
-      "**おすすめアイテム：** プレミアム香水、AirPodsケース、ブランドアクセサリー"
-    ]
-  }
+      "贈り物の価値は、値段ではなく気持ちで決まります。予算に合わせて、センスよく選ぶ方法をご紹介します。価格帯ごとにまとめているので、自分の予算に近いところから見てみてください。",
+      "## 💸 1,000円以下：気持ちが伝わるささやかな贈り物",
+      "**おすすめギフト:** ハンドクリーム、キャンドル、靴下セット、フェイスマスクセット、文房具、お菓子の詰め合わせ",
+      "予算が小さくても、丁寧にラッピングすれば、立派な贈り物になります。相手がふだんよく使う消耗品を、ワンランク上のブランドで贈るのもおすすめです。",
+      "## 💳 1,000〜3,000円：実用的でセンスのよい贈り物",
+      "**おすすめギフト:** タンブラー、エコバッグ、ミニ香水セット、本、ディフューザー、ワイヤレスイヤホンケース",
+      "この価格帯では、実用性とデザイン性を兼ね備えたアイテムが見つかります。",
+      "## 💎 3,000〜5,000円：ちょっと特別な贈り物",
+      "**おすすめギフト:** スキンケアセット、財布、ワイヤレス充電器、キャラクターフィギュア、ワイン",
+      "## 🎁 5,000〜1万円：プレミアムな贈り物",
+      "**おすすめギフト:** 上質な香水、お気に入りブランドのケースやアクセサリー、高品質な文房具セット",
+      "予算に余裕があるなら、相手がほしいと思いながらも買うのをためらっていたものを贈るのが、いちばん感動してもらえます。わからないときは、周りの人にそれとなく聞いてみましょう。"
+    ],
+    "faq": []
+  },
+  "updated": "2026-11-22"
 }

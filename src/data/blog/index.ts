@@ -24,6 +24,25 @@ export function getAllBlogPosts(): BlogPostData[] {
     });
 }
 
+export const BLOG_LOCALES = ['ko', 'en', 'ja'] as const;
+
+/**
+ * 글이 실제로 존재하는 로케일 목록.
+ * 대부분의 글은 ko/en/ja 를 모두 갖지만, 시장 전용 글(예: 추석은 ko 만, 미국 Thanksgiving 은 en 만)은 일부만 갖는다.
+ * 없는 로케일은 페이지·사이트맵·hreflang·목록에서 모두 빠진다 (ko 로 폴백해서 중복 페이지를 만들지 않는다).
+ */
+export function getPostLocales(post: BlogPostData | null | undefined): string[] {
+    if (!post) return [];
+    return BLOG_LOCALES.filter((loc) => {
+        const data = post[loc];
+        return typeof data === 'object' && data !== null && typeof data.title === 'string' && data.title.length > 0;
+    });
+}
+
+export function hasLocale(post: BlogPostData | null | undefined, locale: string): boolean {
+    return getPostLocales(post).includes(locale);
+}
+
 /**
  * slug로 특정 블로그 포스트를 찾습니다.
  */
@@ -112,7 +131,8 @@ function sortByDateDesc(a: BlogPostData, b: BlogPostData): number {
 export function getRelatedPosts(postId: string, locale: string = 'ko', limit: number = 4): BlogPostData[] {
     const all = getAllBlogPosts();
     const self = all.find((p) => p.id === postId);
-    const others = all.filter((p) => p.id !== postId);
+    // 현재 언어 버전이 있는 글만 링크한다
+    const others = all.filter((p) => p.id !== postId && hasLocale(p, locale));
 
     if (!self) {
         return others.sort(sortByDateDesc).slice(0, limit);
@@ -286,9 +306,10 @@ export function getRelatedGiftPages(
  */
 export function getPostsForGiftPage(
     page: { gender: string; occasion: string; ageGroup?: string },
-    limit: number = 4
+    limit: number = 4,
+    locale: string = 'ko'
 ): BlogPostData[] {
-    const all = getAllBlogPosts();
+    const all = getAllBlogPosts().filter((post) => hasLocale(post, locale));
 
     const scored = all.map((post) => {
         const ko = post?.ko || {};

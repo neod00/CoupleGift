@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next';
 import { generatePopularPages } from '@/data/giftPages';
-import { getAllBlogPosts } from '@/data/blog';
+import { getAllBlogPosts, getPostLocales } from '@/data/blog';
 import { localeUrl } from '@/lib/seo';
 
 // next.config.mjs 의 trailingSlash: true 와 일치하도록 모든 URL은 슬래시로 끝나야 한다.
@@ -35,10 +35,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 블로그 상세 페이지 (실제 발행일을 lastModified로 사용)
   const posts = getAllBlogPosts();
   for (const post of posts) {
-    for (const locale of locales) {
+    // 글이 실제로 존재하는 언어 버전만 (시장 전용 글은 일부 언어만 있음)
+    for (const locale of getPostLocales(post)) {
       entries.push({
         url: localeUrl(locale, `/blog/${post.id}`),
-        lastModified: post.date || now,
+        lastModified: post.updated || post.date || now,
         changeFrequency: 'weekly' as const,
         priority: 0.7,
       });

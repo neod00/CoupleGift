@@ -245,6 +245,26 @@ export default function GiftPageClient({ page, locale, relatedPosts = [] }: Gift
           </div>
         </section>
 
+        {/* 자주 묻는 질문 (FAQPage 구조화 데이터와 같은 내용) */}
+        {(page.faq?.[locale] || page.faq?.ko || []).length > 0 && (
+          <section className="mb-10" aria-labelledby="gift-faq-heading">
+            <h2 id="gift-faq-heading" className="text-2xl font-bold text-[var(--text-main)] mb-6 text-center">
+              ❓ {locale === 'ko' ? '자주 묻는 질문' : locale === 'ja' ? 'よくある質問' : 'FAQ'}
+            </h2>
+            <div className="space-y-3">
+              {(page.faq[locale] || page.faq.ko).map((item, idx) => (
+                <details key={idx} className="group bg-white/10 rounded-xl px-5 py-4" open={idx === 0}>
+                  <summary className="cursor-pointer font-semibold text-[var(--text-main)] list-none flex items-start justify-between gap-3">
+                    <span>{item.q}</span>
+                    <span className="text-[var(--text-main-70)] transition-transform group-open:rotate-180" aria-hidden="true">▾</span>
+                  </summary>
+                  <p className="mt-3 text-[var(--text-main-90)] leading-relaxed">{item.a}</p>
+                </details>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* CTA 섹션 */}
         <section className="text-center bg-gradient-to-br from-pink-50/50 to-purple-50/50 p-8 rounded-2xl border border-pink-100/30">
           <h2 className="text-2xl font-bold text-[var(--text-main)] mb-4">

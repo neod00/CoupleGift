@@ -1169,7 +1169,10 @@
         "남성 시계",
         "휴대폰 케이스"
       ],
-      "status": "pending"
+      "status": "pending",
+      "locales": [
+        "ko"
+      ]
     },
     {
       "keyword": "환갑 선물 추천 아버지",
@@ -1273,7 +1276,11 @@
         "화장품 세트",
         "꿀 선물세트"
       ],
-      "status": "pending"
+      "status": "pending",
+      "locales": [
+        "ko",
+        "ja"
+      ]
     },
     {
       "keyword": "장인어른 선물 추천",
@@ -1453,7 +1460,11 @@
         "디퓨저",
         "핸드크림 세트"
       ],
-      "status": "pending"
+      "status": "pending",
+      "locales": [
+        "ko",
+        "ja"
+      ]
     },
     {
       "keyword": "화이트데이 선물 추천 아내",
@@ -1473,7 +1484,11 @@
         "실크 스카프",
         "캔들"
       ],
-      "status": "pending"
+      "status": "pending",
+      "locales": [
+        "ko",
+        "ja"
+      ]
     },
     {
       "keyword": "빼빼로데이 선물 추천 남자친구",
@@ -1823,7 +1838,10 @@
         "커피 선물세트",
         "과일 선물세트"
       ],
-      "status": "pending"
+      "status": "pending",
+      "locales": [
+        "ko"
+      ]
     },
     {
       "keyword": "추석 시댁 처가 선물 추천",
@@ -1843,7 +1861,10 @@
         "참기름 선물세트",
         "백화점 상품권"
       ],
-      "status": "pending"
+      "status": "pending",
+      "locales": [
+        "ko"
+      ]
     },
     {
       "keyword": "어버이날 선물 추천 할머니 할아버지",
@@ -1863,7 +1884,10 @@
         "카디건",
         "혈압계"
       ],
-      "status": "pending"
+      "status": "pending",
+      "locales": [
+        "ko"
+      ]
     },
     {
       "keyword": "어버이날 선물 추천 시부모님",
@@ -1883,7 +1907,10 @@
         "카네이션 화분",
         "백화점 상품권"
       ],
-      "status": "pending"
+      "status": "pending",
+      "locales": [
+        "ko"
+      ]
     },
     {
       "keyword": "스승의날 선물 추천 학원 선생님",
@@ -1903,7 +1930,10 @@
         "고급 볼펜",
         "간식 선물세트"
       ],
-      "status": "pending"
+      "status": "pending",
+      "locales": [
+        "ko"
+      ]
     },
     {
       "keyword": "수능 선물 추천 조카 실용적인",
@@ -1967,7 +1997,11 @@
         "무선 이어폰",
         "지갑"
       ],
-      "status": "pending"
+      "status": "pending",
+      "locales": [
+        "ko",
+        "ja"
+      ]
     },
     {
       "keyword": "초등학교 졸업선물 추천",
@@ -1987,7 +2021,11 @@
         "보드게임",
         "폴라로이드 카메라"
       ],
-      "status": "pending"
+      "status": "pending",
+      "locales": [
+        "ko",
+        "ja"
+      ]
     },
     {
       "keyword": "초등학교 입학선물 추천",
@@ -2007,7 +2045,11 @@
         "어린이 보온 물통",
         "네임 스티커"
       ],
-      "status": "pending"
+      "status": "pending",
+      "locales": [
+        "ko",
+        "ja"
+      ]
     },
     {
       "keyword": "중학교 입학선물 추천",
@@ -2027,7 +2069,11 @@
         "운동화",
         "태블릿 펜"
       ],
-      "status": "pending"
+      "status": "pending",
+      "locales": [
+        "ko",
+        "ja"
+      ]
     },
     {
       "keyword": "대학교 입학선물 추천",
@@ -2047,7 +2093,11 @@
         "텀블러",
         "화장품 세트"
       ],
-      "status": "pending"
+      "status": "pending",
+      "locales": [
+        "ko",
+        "ja"
+      ]
     },
     {
       "keyword": "어린이날 선물 추천 5살",
@@ -2067,7 +2117,11 @@
         "역할놀이 세트",
         "어린이 자전거"
       ],
-      "status": "pending"
+      "status": "pending",
+      "locales": [
+        "ko",
+        "ja"
+      ]
     },
     {
       "keyword": "어린이날 선물 추천 초등학생 남자아이",
@@ -2087,7 +2141,11 @@
         "보드게임",
         "과학 실험 키트"
       ],
-      "status": "pending"
+      "status": "pending",
+      "locales": [
+        "ko",
+        "ja"
+      ]
     },
     {
       "keyword": "어린이날 선물 추천 초등학생 여자아이",
@@ -2107,7 +2165,428 @@
         "폴라로이드 카메라",
         "팔찌 만들기 키트"
       ],
+      "status": "pending",
+      "locales": [
+        "ko",
+        "ja"
+      ]
+    },
+    {
+      "locales": [
+        "en"
+      ],
+      "keyword": "white elephant gift ideas under $25",
+      "slug": "white-elephant-gift-ideas",
+      "receiver": "party guests",
+      "occasion": "White elephant exchange",
+      "category": "Holidays",
+      "season": "12",
+      "priority": 1,
+      "intent": "US holiday party staple. Searchers want funny-but-useful picks that work for anyone, grouped by vibe (useful, funny, cozy) and firmly under $25.",
+      "productKeywords": [],
       "status": "pending"
+    },
+    {
+      "locales": [
+        "en"
+      ],
+      "keyword": "secret santa gift ideas for coworkers under $20",
+      "slug": "secret-santa-gifts-coworkers",
+      "receiver": "coworkers",
+      "occasion": "Office Secret Santa",
+      "category": "Workplace",
+      "season": "12",
+      "priority": 1,
+      "intent": "Office-safe, gender-neutral, desk-friendly gifts under $20. Nothing too personal; include consumables and desk upgrades.",
+      "productKeywords": [],
+      "status": "pending"
+    },
+    {
+      "locales": [
+        "en"
+      ],
+      "keyword": "stocking stuffers for adults",
+      "slug": "stocking-stuffers-for-adults",
+      "receiver": "adults",
+      "occasion": "Christmas",
+      "category": "Holidays",
+      "season": "12",
+      "priority": 2,
+      "intent": "Small gifts ($5-$30) for grown-ups, split for him / for her / for anyone. Practical and treat-yourself items.",
+      "productKeywords": [],
+      "status": "pending"
+    },
+    {
+      "locales": [
+        "en"
+      ],
+      "keyword": "30th birthday gift ideas for her",
+      "slug": "30th-birthday-gift-ideas-for-her",
+      "receiver": "wife, girlfriend, friend",
+      "occasion": "30th birthday",
+      "category": "Birthday",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "Milestone framing (a new decade). Mix of keepsakes, experiences and upgrades; include budget tiers.",
+      "productKeywords": [],
+      "status": "pending"
+    },
+    {
+      "locales": [
+        "en"
+      ],
+      "keyword": "50th birthday gift ideas for women",
+      "slug": "50th-birthday-gift-ideas-for-women",
+      "receiver": "mom, wife, friend",
+      "occasion": "50th birthday",
+      "category": "Birthday",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "Milestone gifts: personalized keepsakes, jewelry, experiences, self-care. Note who the giver is (spouse vs. kids vs. friends).",
+      "productKeywords": [],
+      "status": "pending"
+    },
+    {
+      "locales": [
+        "en"
+      ],
+      "keyword": "50th birthday gift ideas for men",
+      "slug": "50th-birthday-gift-ideas-for-men",
+      "receiver": "husband, dad, friend",
+      "occasion": "50th birthday",
+      "category": "Birthday",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "Milestone gifts for men turning 50: hobbies (golf, grilling, whiskey), keepsakes, experiences.",
+      "productKeywords": [],
+      "status": "pending"
+    },
+    {
+      "locales": [
+        "en"
+      ],
+      "keyword": "baby shower gift ideas",
+      "slug": "baby-shower-gift-ideas",
+      "receiver": "expecting parents",
+      "occasion": "Baby shower",
+      "category": "Wedding & Baby",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "US-specific occasion. Off-registry practical picks plus gifts for the parents themselves; typical $30-$75 guest budget.",
+      "productKeywords": [],
+      "status": "pending"
+    },
+    {
+      "locales": [
+        "en"
+      ],
+      "keyword": "bridal shower gift ideas",
+      "slug": "bridal-shower-gift-ideas",
+      "receiver": "bride-to-be",
+      "occasion": "Bridal shower",
+      "category": "Wedding & Baby",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "US-specific occasion. Personal (not registry-only) gifts for the bride; distinguish from wedding gifts; typical $50-$100.",
+      "productKeywords": [],
+      "status": "pending"
+    },
+    {
+      "locales": [
+        "en"
+      ],
+      "keyword": "retirement gift ideas for women",
+      "slug": "retirement-gift-ideas-for-women",
+      "receiver": "coworker, mom, boss",
+      "occasion": "Retirement",
+      "category": "Workplace",
+      "season": "evergreen",
+      "priority": 2,
+      "intent": "Gifts that celebrate the next chapter: hobbies, travel, relaxation, keepsakes. Group gift vs individual gift budgets.",
+      "productKeywords": [],
+      "status": "pending"
+    },
+    {
+      "locales": [
+        "en"
+      ],
+      "keyword": "thanksgiving hostess gifts",
+      "slug": "thanksgiving-hostess-gifts",
+      "receiver": "host",
+      "occasion": "Thanksgiving",
+      "category": "Holidays",
+      "season": "11",
+      "priority": 2,
+      "intent": "What to bring to Thanksgiving dinner besides wine: $15-$50 hostess gifts, etiquette tips.",
+      "productKeywords": [],
+      "status": "pending"
+    },
+    {
+      "locales": [
+        "en"
+      ],
+      "keyword": "mother's day gift ideas for mom",
+      "slug": "mothers-day-gift-ideas-for-mom",
+      "receiver": "mom",
+      "occasion": "Mother's Day",
+      "category": "Holidays",
+      "season": "5",
+      "priority": 1,
+      "intent": "US Mother's Day (2nd Sunday of May). Gifts from adult kids; sentimental + pampering + practical; budget tiers.",
+      "productKeywords": [],
+      "status": "pending"
+    },
+    {
+      "locales": [
+        "en"
+      ],
+      "keyword": "father's day gift ideas for dad",
+      "slug": "fathers-day-gift-ideas-for-dad",
+      "receiver": "dad",
+      "occasion": "Father's Day",
+      "category": "Holidays",
+      "season": "6",
+      "priority": 1,
+      "intent": "US Father's Day (3rd Sunday of June). Hobby-based picks (grill, golf, tools, coffee), experiences, budget tiers.",
+      "productKeywords": [],
+      "status": "pending"
+    },
+    {
+      "locales": [
+        "en"
+      ],
+      "keyword": "college graduation gift ideas",
+      "slug": "college-graduation-gift-ideas",
+      "receiver": "graduate",
+      "occasion": "College graduation",
+      "category": "Seasonal",
+      "season": "5",
+      "priority": 2,
+      "intent": "US commencement season (May-June). Practical first-job/apartment gifts, keepsakes, cash-alternative ideas.",
+      "productKeywords": [],
+      "status": "pending"
+    },
+    {
+      "locales": [
+        "en"
+      ],
+      "keyword": "teacher appreciation week gift ideas",
+      "slug": "teacher-appreciation-gift-ideas",
+      "receiver": "teacher",
+      "occasion": "Teacher Appreciation Week",
+      "category": "Seasonal",
+      "season": "5",
+      "priority": 2,
+      "intent": "US Teacher Appreciation Week (early May). Gift-card etiquette, classroom-useful items, group gifts from the class.",
+      "productKeywords": [],
+      "status": "pending"
+    },
+    {
+      "locales": [
+        "ja"
+      ],
+      "keyword": "お歳暮 人気 ギフト 3000円",
+      "slug": "oseibo-gift-ideas",
+      "receiver": "お世話になった人・取引先",
+      "occasion": "お歳暮",
+      "category": "季節のイベント",
+      "season": "12",
+      "priority": 1,
+      "intent": "お歳暮の時期・相場・のしのマナーと、3,000〜5,000円で外さない定番(食品・飲料・日用品)を紹介。",
+      "productKeywords": [],
+      "status": "pending"
+    },
+    {
+      "locales": [
+        "ja"
+      ],
+      "keyword": "お年賀 手土産 おしゃれ",
+      "slug": "new-year-visit-gifts-japan",
+      "receiver": "親戚・義実家",
+      "occasion": "お年賀",
+      "category": "季節のイベント",
+      "season": "1",
+      "priority": 2,
+      "intent": "お年賀を持参する時期(松の内)とのし、1,000〜3,000円台のおしゃれで日持ちする手土産。",
+      "productKeywords": [],
+      "status": "pending"
+    },
+    {
+      "locales": [
+        "ja"
+      ],
+      "keyword": "成人式 プレゼント 女性 友達",
+      "slug": "coming-of-age-gift-women-japan",
+      "receiver": "友達・娘",
+      "occasion": "成人式",
+      "category": "季節のイベント",
+      "season": "1",
+      "priority": 2,
+      "intent": "成人式(1月第2月曜)のお祝い。大人の第一歩に使えるコスメ・アクセサリー・名入れギフトを予算別に。",
+      "productKeywords": [],
+      "status": "pending"
+    },
+    {
+      "locales": [
+        "ja"
+      ],
+      "keyword": "手土産 おしゃれ 1000円",
+      "slug": "souvenir-gifts-under-1000-yen",
+      "receiver": "訪問先・職場",
+      "occasion": "手土産",
+      "category": "ギフトのヒント",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "1,000円前後で気が利く手土産。日持ち・個包装・分けやすさを重視し、シーン別(職場/友人宅/実家)に。",
+      "productKeywords": [],
+      "status": "pending"
+    },
+    {
+      "locales": [
+        "ja"
+      ],
+      "keyword": "出産内祝い 人気",
+      "slug": "baby-gift-return-uchiiwai",
+      "receiver": "出産祝いをくれた人",
+      "occasion": "出産内祝い",
+      "category": "結婚・出産",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "内祝いの相場(半返し)・時期・のし・名入れ。カタログギフト以外の選択肢も。",
+      "productKeywords": [],
+      "status": "pending"
+    },
+    {
+      "locales": [
+        "ja"
+      ],
+      "keyword": "結婚祝い 友達 1万円",
+      "slug": "wedding-gift-friend-10000-yen",
+      "receiver": "友達",
+      "occasion": "結婚祝い",
+      "category": "結婚・出産",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "ご祝儀とは別に贈る1万円前後の結婚祝い。ペアアイテム・家電・キッチン用品と避けたいもの。",
+      "productKeywords": [],
+      "status": "pending"
+    },
+    {
+      "locales": [
+        "ja"
+      ],
+      "keyword": "退職祝い 女性 プチギフト",
+      "slug": "farewell-gifts-women-coworkers-japan",
+      "receiver": "職場の同僚・上司",
+      "occasion": "退職祝い",
+      "category": "職場",
+      "season": "3",
+      "priority": 2,
+      "intent": "3月の異動・退職シーズン向け。配りやすいプチギフト(500〜1,500円)と個人向け(3,000〜1万円)を分けて。",
+      "productKeywords": [],
+      "status": "pending"
+    },
+    {
+      "locales": [
+        "ja"
+      ],
+      "keyword": "敬老の日 プレゼント 祖母",
+      "slug": "respect-for-aged-day-gifts",
+      "receiver": "祖母・祖父",
+      "occasion": "敬老の日",
+      "category": "季節のイベント",
+      "season": "9",
+      "priority": 1,
+      "intent": "敬老の日(9月第3月曜)。孫から贈るプレゼント、花・グルメ・実用品・体験ギフトを予算別に。",
+      "productKeywords": [],
+      "status": "pending"
+    },
+    {
+      "locales": [
+        "ja"
+      ],
+      "keyword": "母の日 プレゼント 50代 母",
+      "slug": "mothers-day-gifts-50s-mom-japan",
+      "receiver": "母",
+      "occasion": "母の日",
+      "category": "季節のイベント",
+      "season": "5",
+      "priority": 1,
+      "intent": "母の日(5月第2日曜)。50代の母に喜ばれる花以外のプレゼントと花とのセット、予算別。",
+      "productKeywords": [],
+      "status": "pending"
+    },
+    {
+      "locales": [
+        "ja"
+      ],
+      "keyword": "父の日 プレゼント 60代",
+      "slug": "fathers-day-gifts-60s-dad-japan",
+      "receiver": "父",
+      "occasion": "父の日",
+      "category": "季節のイベント",
+      "season": "6",
+      "priority": 1,
+      "intent": "父の日(6月第3日曜)。60代の父向けにお酒・グルメ・健康・趣味のギフトを予算別に。",
+      "productKeywords": [],
+      "status": "pending"
+    },
+    {
+      "locales": [
+        "ja"
+      ],
+      "keyword": "バレンタイン 本命 彼氏 プレゼント 社会人",
+      "slug": "valentines-gift-boyfriend-japan",
+      "receiver": "彼氏",
+      "occasion": "バレンタイン",
+      "category": "季節のイベント",
+      "season": "2",
+      "priority": 2,
+      "intent": "日本では女性から男性へ贈る文化。本命チョコ＋小物(名入れ・革小物・時計)の組み合わせ、社会人彼氏向け。",
+      "productKeywords": [],
+      "status": "pending"
+    },
+    {
+      "locales": [
+        "ja"
+      ],
+      "keyword": "ホワイトデー お返し 職場 大量",
+      "slug": "white-day-return-gifts-office",
+      "receiver": "職場の同僚",
+      "occasion": "ホワイトデー",
+      "category": "季節のイベント",
+      "season": "3",
+      "priority": 1,
+      "intent": "職場でまとめて配るホワイトデーのお返し。個包装・1人300〜500円・日持ちを重視。",
+      "productKeywords": [],
+      "status": "pending"
+    },
+    {
+      "locales": [
+        "ko",
+        "en",
+        "ja"
+      ],
+      "keyword": "승진 축하 선물 추천 여자 주얼리",
+      "slug": "promotion-gift-jewelry-women",
+      "receiver": "언니·여동생·친구·아내",
+      "occasion": "승진",
+      "category": "직장",
+      "season": "evergreen",
+      "priority": 1,
+      "intent": "Search Console 노출 1위 검색어(승진한 언니에게 줄 오래 쓰는 명품 주얼리)에 대응. 가족·지인이 주는 승진 선물, 주얼리 중심.",
+      "productKeywords": [
+        "골드 목걸이",
+        "진주 귀걸이",
+        "여성 팔찌",
+        "여성 시계",
+        "골드 반지",
+        "명함지갑",
+        "주얼리 케이스"
+      ],
+      "status": "done",
+      "publishedSlug": "promotion-gift-jewelry-women",
+      "publishedAt": "2026-11-22"
     }
   ]
 }
