@@ -1,0 +1,60 @@
+name: Amazon Associates Readiness
+# 매주 월요일 09:30 KST — 미국/일본 Amazon 클릭 집계로 어소시에이트 가입 시점 판단
+# 필요: 리포지토리 Secret AMAZON_CLICK_STATS_TOKEN (Netlify 환경변수와 같은 값). 없으면 건너뜀.
+# 판정이 GO(가입 권장)인 마켓이 있으면 이슈를 하나 연다 (같은 제목의 열린 이슈가 있으면 다시 열지 않음).
+on:
+  schedule:
+    - cron: '30 0 * * 1'
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Evaluate click data
+        id: eval
+        env:
+          AMAZON_CLICK_STATS_TOKEN: ${{ secrets.AMAZON_CLICK_STATS_TOKEN }}
+          # 클릭 측정을 배포한 날. 클릭이 0인 주도 측정 기간에 포함되도록 고정한다.
+          AMAZON_TRACKING_START: '2026-11-22'
+        run: |
+          if [ -z "$AMAZON_CLICK_STATS_TOKEN" ]; then
+            echo "AMAZON_CLICK_STATS_TOKEN secret not configured — skipping" | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          npx tsx scripts/check-amazon-readiness.ts --json-out result.json
+          echo "go_markets=$(node -e 'const r=require("./result.json");console.log(r.results.filter(x=>x.verdict==="GO").map(x=>x.market).join(","))')" >> "$GITHUB_OUTPUT"
+
+      - name: Open issue when a market is ready
+        if: ${{ steps.eval.outputs.go_markets != '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GO_MARKETS: ${{ steps.eval.outputs.go_markets }}
+        run: |
+          for m in ${GO_MARKETS//,/ }; do
+            if [ "$m" = "us" ]; then name="미국 amazon.com"; else name="일본 amazon.co.jp"; fi
+            title="Amazon 어소시에이트 가입 권장: $name"
+            if gh issue list --state open --search "in:title \"$title\"" --json number --jq 'length' | grep -qv '^0$'; then
+              echo "Issue already open: $title"
+              continue
+            fi
+            node -e 'const r=require("./result.json");console.log(r.report)' > body.md
+            printf '\n\n---\n가입 후: Netlify 환경변수 NEXT_PUBLIC_AMAZON_TAG_%s 에 발급받은 태그를 넣고 재배포하면 모든 Amazon 링크에 태그가 붙고 고지 문구가 바뀝니다.\n' "$( [ "$m" = "us" ] && echo US || echo JP )" >> body.md
+            gh issue create --title "$title" --body-file body.md
+          done

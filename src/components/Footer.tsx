@@ -4,6 +4,7 @@ import React from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import AdSense from './AdSense';
+import { amazonDisclosure } from '@/lib/amazon';
 
 const Footer: React.FC = () => {
     const t = useTranslations('footer');
@@ -53,7 +54,8 @@ const Footer: React.FC = () => {
 
             <p className="mb-2">{t('copyright')}</p>
             <p className="text-sm opacity-70 mb-4">
-                {t('affiliate')}
+                {/* ko: 쿠팡 파트너스 고지 / en·ja: Amazon 태그 설정 여부에 따라 사실대로 */}
+                {locale === 'ko' ? t('affiliate') : amazonDisclosure(locale)}
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-xs text-[var(--text-main-70)]">
                 <Link href="/privacy" className="hover:text-[var(--text-main-90)] transition-colors">

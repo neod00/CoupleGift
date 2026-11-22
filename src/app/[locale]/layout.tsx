@@ -7,6 +7,7 @@ import '../globals.css';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import VisitorCounter from '@/components/VisitorCounter';
+import AmazonClickTracker from '@/components/AmazonClickTracker';
 import { ThemeProvider } from '@/context/ThemeContext';
 import ThemeWrapper from '@/components/ThemeWrapper';
 import ThemeSwitcher from '@/components/ThemeSwitcher';
@@ -151,6 +152,8 @@ export default async function LocaleLayout({ children, params }: { children: Rea
                     <ThemeProvider>
                         <ThemeWrapper>
                             <VisitorCounter />
+                            {/* Amazon 링크 클릭 집계 (Amazon 어소시에이트 가입 시점 판단: scripts/check-amazon-readiness.ts) */}
+                            {locale !== 'ko' && <AmazonClickTracker />}
                             <div className="container mx-auto px-4 py-8 relative z-10">
                                 <header className="text-center mb-12 fade-in">
                                     <div className="mb-6">

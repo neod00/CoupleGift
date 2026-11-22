@@ -227,9 +227,12 @@ export default function BlogPostClient({ locale, post: rawPost, relatedPosts = [
                 <RelatedPosts locale={locale} posts={relatedPosts} giftPages={relatedGiftPages} />
 
                 <div className="mt-12 pt-8 border-t border-white/10 text-center">
-                    <p className="text-xs text-[var(--text-main-70)] bg-[var(--surface-mixed)] inline-block px-4 py-2 rounded-full mb-6">
-                      💡 {locale === 'ko' ? '이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.' : 'As an affiliate associate, we earn from qualifying purchases.'}
-                    </p>
+                    {/* 상품 카드(쿠팡)는 ko 에만 있으므로 제휴 고지도 ko 에만. en/ja 블로그에는 제휴 링크가 없다 */}
+                    {locale === 'ko' && (
+                      <p className="text-xs text-[var(--text-main-70)] bg-[var(--surface-mixed)] inline-block px-4 py-2 rounded-full mb-6">
+                        💡 이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.
+                      </p>
+                    )}
                     {locale === 'ko' && <CoupangDynamicBanner />}
                     
                     <div className="my-8">

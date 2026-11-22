@@ -10,6 +10,7 @@ import RelatedPosts, { type RelatedPostItem } from '@/components/RelatedPosts';
 import { getProductsForKeyword, getProductsForText } from '@/lib/coupang/catalog';
 import { curatedToProduct, pickClosestCurated } from '@/lib/coupang/curated';
 import type { CoupangProduct } from '@/lib/coupang/types';
+import { amazonDisclosure, amazonSearchUrl } from '@/lib/amazon';
 import { GiftPageData, findRelatedPages, genders, ageGroups, occasions, budgets } from '@/data/giftPages';
 
 interface GiftPageClientProps {
@@ -79,13 +80,8 @@ export default function GiftPageClient({ page, locale, relatedPosts = [] }: Gift
 
   const l = labels[locale as keyof typeof labels] || labels.ko;
 
-  // Amazon 검색 URL 생성 (en/ja). ko 는 추적되지 않는 쿠팡 일반 검색 링크 대신 등록 상품 카드를 보여 준다
-  const getSearchUrl = (item: string) => {
-    if (locale === 'ja') {
-      return `https://www.amazon.co.jp/s?k=${encodeURIComponent(item + ' ギフト')}`;
-    }
-    return `https://www.amazon.com/s?k=${encodeURIComponent(item + ' gift')}`;
-  };
+  // Amazon 검색 URL (en → amazon.com, ja → amazon.co.jp). 제휴 태그는 src/lib/amazon.ts 에서 환경변수로
+  const getSearchUrl = (item: string) => amazonSearchUrl(locale, item);
 
   // 추천 아이템별 쿠팡 파트너스 카탈로그 매칭 (한국어 전용). 매칭되면 추적 링크가 담긴 상품 그리드,
   // 아니면 쿠팡/Amazon 검색으로 바로 가는 일반 링크로 렌더링한다.
@@ -218,7 +214,7 @@ export default function GiftPageClient({ page, locale, relatedPosts = [] }: Gift
           
           <div className="text-center mt-6 mb-2">
             <p className="text-xs text-[var(--text-main-70)] bg-[var(--surface-mixed)] inline-block px-4 py-2 rounded-full">
-              💡 {locale === 'ko' ? '이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.' : 'As a Coupang/Amazon associate, we earn from qualifying purchases.'}
+              💡 {locale === 'ko' ? '이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.' : amazonDisclosure(locale)}
             </p>
           </div>
           

@@ -7,6 +7,7 @@ import { ProductGrid } from '@/components/ProductCard';
 import AdSense from './AdSense';
 import CoupangDynamicBanner from './CoupangDynamicBanner';
 import CoupangSearchWidget from './CoupangSearchWidget';
+import { amazonDisclosure, amazonSearchUrl } from '@/lib/amazon';
 
 interface GiftRecommendationsProps {
   recommendations: GiftRecommendation[];
@@ -16,7 +17,6 @@ interface GiftRecommendationsProps {
 
 /** 쿠팡 파트너스 정책상 상품 링크 근처에 반드시 노출해야 하는 문구 (결과 섹션 전체에 한 번만) */
 const COUPANG_DISCLOSURE_KO = '이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.';
-const AFFILIATE_DISCLOSURE_EN = 'As a Coupang/Amazon associate, we earn from qualifying purchases.';
 
 /** 실제 상품이 매칭된 추천인지 (링크가 파트너스 추적 상품 URL 인지) */
 function hasRealProduct(gift: GiftRecommendation): boolean {
@@ -39,13 +39,6 @@ function categoryEmoji(category: string): string {
   return '🎁';
 }
 
-/** en/ja 에서는 라벨이 Amazon 이므로 링크도 Amazon 검색으로 보낸다 (라벨과 링크 일치) */
-function buildAmazonSearchUrl(locale: string, keyword: string): string {
-  if (locale === 'ja') {
-    return `https://www.amazon.co.jp/s?k=${encodeURIComponent(`${keyword} ギフト`)}`;
-  }
-  return `https://www.amazon.com/s?k=${encodeURIComponent(`${keyword} gift`)}`;
-}
 
 /** 실제 상품 이미지 → 로드 실패/없음 시 카테고리 이모지 그라디언트 박스 */
 function GiftImage({ gift }: { gift: GiftRecommendation }) {
@@ -99,7 +92,7 @@ const GiftRecommendations: React.FC<GiftRecommendationsProps> = ({
   // en/ja: 라벨이 Amazon 이므로 Amazon 검색으로 (모델 키워드 기준).
   const shopHref = (gift: GiftRecommendation): string => {
     if (isKo) return gift.coupangUrl;
-    return buildAmazonSearchUrl(locale, gift.searchKeyword || gift.title);
+    return amazonSearchUrl(locale, gift.searchKeyword || gift.title);
   };
 
   const priceNote = (gift: GiftRecommendation): string => {
@@ -231,7 +224,7 @@ const GiftRecommendations: React.FC<GiftRecommendationsProps> = ({
       {/* 결과 섹션 전체에 대한 파트너스 고지 (상품 링크 바로 아래, 한 번만) */}
       <div className="text-center mt-6 mb-2">
         <p className="text-xs text-[var(--text-main-70)] bg-[var(--surface-mixed)] inline-block px-4 py-2 rounded-full">
-          💡 {isKo ? COUPANG_DISCLOSURE_KO : AFFILIATE_DISCLOSURE_EN}
+          💡 {isKo ? COUPANG_DISCLOSURE_KO : amazonDisclosure(locale)}
         </p>
       </div>
 

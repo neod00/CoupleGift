@@ -90,7 +90,7 @@ export default function Privacy() {
                     content: "The Company does not provide users' personal information to third parties in principle. However, caution is needed in the following cases:",
                     items: [
                         "OpenAI API: Anonymized gift condition information entered by users may be transmitted to OpenAI's servers for generating recommendations.",
-                        "Amazon Associates: Amazon's payment and service policies apply when clicking product purchase links."
+                        "Amazon: Amazon's payment and service policies apply when you follow product links to Amazon."
                     ]
                 },
                 {
@@ -141,7 +141,7 @@ export default function Privacy() {
                     content: "当社は、ユーザーの個人情報を原則として外部に提供しません。ただし、以下の場合は注意が必要です。",
                     items: [
                         "OpenAI API：推薦結果生成のために、ユーザーが入力した匿名化されたギフト条件情報がOpenAIのサーバーに送信される場合があります。",
-                        "Amazonアソシエイト：商品購入リンククリック時にAmazonの決済およびサービスポリシーが適用されます。"
+                        "Amazon：商品リンクからAmazonへ移動した場合、Amazonの決済およびサービスポリシーが適用されます。"
                     ]
                 },
                 {

@@ -30,7 +30,7 @@ export default function About() {
                 { icon: "🧠", title: "Sophisticated AI Analysis", desc: "Our AI, trained on tens of thousands of gift data, selects items perfectly suited to your situation." },
                 { icon: "💰", title: "Budget-Conscious Picks", desc: "We provide options that consider both value and premium within your set budget range." },
                 { icon: "⚡", title: "Fast and Simple", desc: "Get results in 3 seconds with just a few inputs - no complex sign-up required." },
-                { icon: "🛍️", title: "One-Click Purchase", desc: "View and purchase recommended products directly through Amazon affiliate links." }
+                { icon: "🛍️", title: "One-Click Purchase", desc: "Jump straight to recommended products on Amazon." }
             ],
             goalTitle: "Our Mission",
             goal: "GiftGenie's goal is not just to list products, but to find the connection point between the giver's thoughtfulness and the receiver's joy. We aim to be the best assistant in making special occasions even more special."
@@ -44,7 +44,7 @@ export default function About() {
                 { icon: "🧠", title: "精巧なAI分析", desc: "数万種類のギフトデータを学習したAIが、状況にぴったりのアイテムを選びます。" },
                 { icon: "💰", title: "予算に密着した推薦", desc: "設定した予算範囲内で、コスパとプレミアムの両方を考慮した選択肢を提供します。" },
                 { icon: "⚡", title: "速くて簡単", desc: "複雑な会員登録なしで、いくつかの情報を入力するだけで3秒で結果を確認できます。" },
-                { icon: "🛍️", title: "購入まで一度に", desc: "おすすめ商品をAmazonアフィリエイトリンクから直接確認して購入できます。" }
+                { icon: "🛍️", title: "購入まで一度に", desc: "おすすめ商品をAmazonでそのまま確認できます。" }
             ],
             goalTitle: "私たちの目標",
             goal: "単なる商品の羅列ではなく、贈る人の心遣いと受け取る人の喜びが繋がるポイントを見つけることがギフトジニーの目標です。特別な記念日をより特別にする最高のサポーターになります。"
