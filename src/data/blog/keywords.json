@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-20",
+  "updatedAt": "2026-11-23",
   "keywords": [
     {
       "keyword": "여자친구 생일선물 추천 20대",
@@ -2184,7 +2184,9 @@
       "priority": 1,
       "intent": "US holiday party staple. Searchers want funny-but-useful picks that work for anyone, grouped by vibe (useful, funny, cozy) and firmly under $25.",
       "productKeywords": [],
-      "status": "pending"
+      "status": "done",
+      "publishedSlug": "white-elephant-gift-ideas",
+      "publishedAt": "2026-11-23"
     },
     {
       "locales": [
