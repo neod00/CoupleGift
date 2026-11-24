@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-23",
+  "updatedAt": "2026-11-24",
   "keywords": [
     {
       "keyword": "여자친구 생일선물 추천 20대",
@@ -2201,7 +2201,9 @@
       "priority": 1,
       "intent": "Office-safe, gender-neutral, desk-friendly gifts under $20. Nothing too personal; include consumables and desk upgrades.",
       "productKeywords": [],
-      "status": "pending"
+      "status": "done",
+      "publishedSlug": "secret-santa-gifts-coworkers",
+      "publishedAt": "2026-11-24"
     },
     {
       "locales": [
