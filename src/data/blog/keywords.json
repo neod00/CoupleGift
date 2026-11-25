@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-24",
+  "updatedAt": "2026-11-25",
   "keywords": [
     {
       "keyword": "여자친구 생일선물 추천 20대",
@@ -2398,7 +2398,9 @@
       "priority": 1,
       "intent": "お歳暮の時期・相場・のしのマナーと、3,000〜5,000円で外さない定番(食品・飲料・日用品)を紹介。",
       "productKeywords": [],
-      "status": "pending"
+      "status": "done",
+      "publishedSlug": "oseibo-gift-ideas",
+      "publishedAt": "2026-11-25"
     },
     {
       "locales": [
