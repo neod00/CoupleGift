@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-25",
+  "updatedAt": "2026-11-26",
   "keywords": [
     {
       "keyword": "여자친구 생일선물 추천 20대",
@@ -2218,7 +2218,9 @@
       "priority": 2,
       "intent": "Small gifts ($5-$30) for grown-ups, split for him / for her / for anyone. Practical and treat-yourself items.",
       "productKeywords": [],
-      "status": "pending"
+      "status": "done",
+      "publishedSlug": "stocking-stuffers-for-adults",
+      "publishedAt": "2026-11-26"
     },
     {
       "locales": [
