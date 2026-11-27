@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-26",
+  "updatedAt": "2026-11-27",
   "keywords": [
     {
       "keyword": "여자친구 생일선물 추천 20대",
@@ -2417,7 +2417,9 @@
       "priority": 2,
       "intent": "お年賀を持参する時期(松の内)とのし、1,000〜3,000円台のおしゃれで日持ちする手土産。",
       "productKeywords": [],
-      "status": "pending"
+      "status": "done",
+      "publishedSlug": "new-year-visit-gifts-japan",
+      "publishedAt": "2026-11-27"
     },
     {
       "locales": [
